@@ -24,6 +24,7 @@ container_number = 10
 contentInstance_number = 2
 #This is the number how many contentInstance you want to add in each container
 for container_count in xrange(0,container_number):
+    #This for loop will create container in AE
     temp1 = str(container_count)
     container_name = 'container' + temp1
     #Create container
@@ -32,6 +33,7 @@ for container_count in xrange(0,container_number):
     container_output = requests.post(AE_url, params= Parameter, headers = Header, data= Data_container)
     print_container_Stats()
     for contentInstance_count in xrange(0,contentInstance_number):
+    #This for loop will create contentInstance in each container
         temp2 = str(contentInstance_count)
         contentInstance_name = 'contentInstance' + temp2
         #Create contentInstance
