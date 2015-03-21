@@ -1,5 +1,6 @@
 #This tree builder will let you choose how many container you want to add in an AE 
 #and how many contentInstance you want to add in each container 
+#You should have already created the AE in the tree and change the AE_url of your AE name
 import json
 import requests
 
