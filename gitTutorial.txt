@@ -1,0 +1,25 @@
+Here is how to upload files to github
+
+ADD
+git add <filename>
+
+To add a new file to the git repository you need to add it first.
+You only need to do this once for each file.
+
+COMMIT
+git commit -m <message>
+
+This command will commit any changes made in any files to your local repository (NOT ONLINE git repository)
+The message should be about what changes you have made in the files.
+
+PUSH
+git push
+This will push your changes to the online git repository. You do this after you have committed them on your local repository first. If your local repository is not up-to-date with the latest changes from the online repository (missing or outdates files) then github will not let you push new changes until you've done a git PULL (see below).
+
+PULL
+git pull
+This will update your local repository with all the newest updates from the online git repository.
+
+
+
+
