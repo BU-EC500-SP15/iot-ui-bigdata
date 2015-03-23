@@ -8,6 +8,7 @@ output = '{"output":{"responseStatusCode":2002,"ResourceOutput":[{"resourceType"
 # I don't know if it works for other outputs or even for contentInstance
 # I believe only minor changes will be made for getting a list of contentInstance
 def GetChildList():
+	jOutput = json.loads(output)["output"]
 	if (jOutput["responseStatusCode"]==2002):
 		for index1,item in enumerate(jOutput["ResourceOutput"]):
 			if (jOutput["ResourceOutput"][index1]["Attributes"]):
