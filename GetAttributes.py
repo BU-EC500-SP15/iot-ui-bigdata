@@ -7,7 +7,7 @@ def printStats():
     print r.url
     print r.status_code
     print r.text
-AE_url = 'http://localhost:8282/InCSE1/Team2AEx'
+AE_url = 'http://54.68.184.172:8282/InCSE1/Team2AEx'
 
 Parameter1 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent' : '1'}
 Parameter2 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent' : '2'}

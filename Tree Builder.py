@@ -14,7 +14,7 @@ def print_contentInstance_Stats():
     print contentInstance_output.status_code
     print contentInstance_output.text
 
-AE_url = 'http://52.10.62.166:8282/InCSE1/Team2AEx'
+AE_url = 'http://54.68.184.172:8282/InCSE1/Team2AEx'
 
 Parameter = {'from': 'http:localhost:10000', 'requestIdentifier': '12345'}
 Header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
