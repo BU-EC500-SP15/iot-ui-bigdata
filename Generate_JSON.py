@@ -37,6 +37,22 @@ s = requests.get(AE_url,params=Parameter1,headers = Header)
 output_AE_1 = s.text
 attributes_output_list.append(output_AE_1)
 
+#attribute_output_list is where all JSON stored from GET returns before passing to generateJSONString at end
+
+def GetWholeTree(root_node):
+	#PSUEDO
+	#Get ATTR of container
+	
+        #If exists attribute container_list
+	     #for container in container_list
+	          #GET ATTR of container and append to attributes_output_list
+	          #recurse GetWholeTree(container)
+	#If exists attribute child_contentInstance_list
+	     #for contentInstance in child_contentInstance_list
+                  #GET ATTR of contextInstance and append to attributes_output_list
+	return
+
+
 def GetChildList(output, attribute_name):
 	temp_List = list()
 	jOutput = json.loads(output)["output"]
