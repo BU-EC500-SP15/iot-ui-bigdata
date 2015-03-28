@@ -9,11 +9,20 @@ ci_name_list = list()
 attributes_output_list = list()
 node_string_list = list()
 edge_string_list = list()
+container_id_list = list()
+container_name_list = list()
 container_count = 0
 all_node_string = ''
 all_edge_string = ''
 json_string = ''
 AE_url = 'http://54.68.184.172:8282/InCSE1/Team2AEx'
+edge_id = 0
+x_AE = 0
+y_AE = 0
+x_container= -1000
+y_container = 200
+x_CI = -2000
+y_CI = 600
 
 Parameter1 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent' : '1'}
 Parameter2 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent' : '2'}
@@ -55,8 +64,9 @@ def GetCIAttributes():
 			CI_URL = Container_URL + '/%s' %(CI_Name)
 			r = requests.get(CI_URL, params = Parameter1,headers = Header)
 			output_for_CI = r.text
-			print output_for_CI
-			print'-------------------------------'
+			#print output_for_CI
+			#print'-------------------------------'
+			attributes_output_list.append(output_for_CI)
 
 def GetContainerAttributes():
 	container_name_list = GetChildList(output_AE_2, 'child-container List')
@@ -67,69 +77,110 @@ def GetContainerAttributes():
 		attributes_output_list.append(output_for_container)
 
 def StripoffAttribute(input_json_string):
+	global x_AE, y_AE, x_container, y_container, x_CI, y_CI
 	input_json_string = json.loads(input_json_string)["output"]
 	if (input_json_string["responseStatusCode"]==2002):
 		resourceType = input_json_string["ResourceOutput"][0]["resourceType"]
 		if resourceType == 'AE':
-			print 'resourceType is...'
-			print resourceType
+			#print 'resourceType is...'
+			#print resourceType
 			attributes=input_json_string["ResourceOutput"][0]["Attributes"]
 			for item in attributes:
 				if (item["attributeName"] == "resourceID"):
 					global AE_id
 					AE_id = item["attributeValue"]
-					print 'AE_id is...'
-					print AE_id
+					#print 'AE_id is...'
+					#print AE_id
 				if (item["attributeName"] == "resourceName"):
 					global AE_name
 					AE_name = item["attributeValue"]
-					print 'AE_name is...'
-					print AE_name
+					#print 'AE_name is...'
+					#print AE_name
 				if (item["attributeName"] == "parentID"):
 					AE_parent = item["attributeValue"]
-					print 'AE_parent is...'
-					print AE_parent
-				x = round(random.uniform(-100,100),3)
-				y = round(random.uniform(-100,100),3)
-			node_string = '{\"id\":\"%s\",\"label\":\"%s\",\"resourceType\":\"%s\",\"x\":%s,\"y\":%s,\"color\":\"rgb(255,204,102)\",\"size\":8.5},' %(AE_id, AE_name, resourceType,x ,y)
+					#print 'AE_parent is...'
+					#print AE_parent
+			
+			node_string = '{\"id\":\"%s\",\"label\":\"%s\",\"resourceType\":\"%s\",\"x\":%s,\"y\":%s,\"color\":\"rgb(255,204,102)\",\"size\":8.5},' %(AE_id, AE_name, resourceType, x_AE, y_AE)
 			node_string_list.append(node_string)
 		if resourceType == 'container':
-			print 'resourceType is...'
-			print resourceType
-			attributes=input_json_string["ResourceOutput"][0]["Attributes"]
+			#print 'resourceType is...'
+			#print resourceType
+			attributes = input_json_string["ResourceOutput"][0]["Attributes"]
 			for item in attributes:
 				if (item["attributeName"] == "resourceID"):
+					global container_id
 					container_id = item["attributeValue"]
-					print 'container_id is...'
-					print container_id #number
+					container_id_list.append(container_id)
+					#print 'container_id_list is...'
+					#print container_id_list
+					#print 'container_id is...'
+					#print container_id #number
 				if (item["attributeName"] == "resourceName"):
+					global container_name
 					container_name = item["attributeValue"]
-					print 'container_name is...'
-					print container_name #container0
+					container_name_list.append(container_name)
+					#print 'container_name_list is...'
+					#print container_name_list
+					
+					#print 'container_name is...'
+					#print container_name #container0
 				if (item["attributeName"] == "parentID"):
 					a = len(item["attributeValue"].split('/'))
 					container_parent = item["attributeValue"].split('/')[a-1]
-					print 'container_parent is...'
-					print container_parent #Team2AEx
-					print AE_name
+					#print 'container_parent is...'
+					#print container_parent #Team2AEx
 					if container_parent == AE_name:
 						source_id = AE_id
 						target_id = container_id
-						print 'source_id is...'
-						print source_id
-						print 'target_id is...'
-						print target_id
-				x = round(random.uniform(-100,100),3)
-				y = round(random.uniform(-100,100),3)
-				edge_id = random.randint(0,100)
+						#print 'source_id is...'
+						#print source_id
+						#print 'target_id is...'
+						#print target_id
+			x_container = x_container + round(random.uniform(500,600),3)
+			global edge_id
+			edge_id += 1
 			edge_string = '{\"source\":\"%s\",\"target\":\"%s\",\"id\":\"%s\"},' %(source_id, target_id, edge_id)
 			edge_string_list.append(edge_string)		
-			node_string = '{\"id\":\"%s\",\"label\":\"%s\",\"resourceType\":\"%s\",\"x\":%s,\"y\":%s,\"color\":\"rgb(255,204,102)\",\"size\":8.5},' %(container_id, container_name, resourceType,x ,y)
+			node_string = '{\"id\":\"%s\",\"label\":\"%s\",\"resourceType\":\"%s\",\"x\":%s,\"y\":%s,\"color\":\"rgb(255,204,102)\",\"size\":8.5},' %(container_id, container_name, resourceType,x_container ,y_container)
+			node_string_list.append(node_string)
+		if resourceType == 'contentInstance(latest-allAttributes)':
+			##print 'resourceType is...'
+			##print resourceType
+			attributes = input_json_string["ResourceOutput"][0]["Attributes"]
+			for item in attributes:
+				if (item["attributeName"] == "resourceID"):
+					CI_id = item["attributeValue"]
+					##print 'CI_id is...'
+					##print CI_id #number
+				if (item["attributeName"] == "resourceName"):
+					CI_name = item["attributeValue"]
+					##print 'CI_name is...'
+					##print CI_name #container0
+				if (item["attributeName"] == "parentID"):
+					a = len(item["attributeValue"].split('/'))
+					CI_parent = item["attributeValue"].split('/')[a-1]
+					print 'CI_parent is...'
+					print CI_parent #Team2AEx
+					for index, containername in enumerate(container_name_list):
+						if CI_parent == containername:
+							source_id = container_id_list[index]
+							target_id = CI_id
+					print 'this is CI_id'
+					print target_id
+					print 'this is container_id'
+					print source_id
+			x_CI = x_CI + round(random.uniform(500,600),3)
+			edge_id += 1
+			edge_string = '{\"source\":\"%s\",\"target\":\"%s\",\"id\":\"%s\"},' %(source_id, target_id, edge_id)
+			edge_string_list.append(edge_string)
+			node_string = '{\"id\":\"%s\",\"label\":\"%s\",\"resourceType\":\"%s\",\"x\":%s,\"y\":%s,\"color\":\"rgb(255,204,102)\",\"size\":8.5},' %(CI_id, CI_name, resourceType,x_CI ,y_CI)
 			node_string_list.append(node_string)
 				
 
 GetContainerAttributes()
-print attributes_output_list
+GetCIAttributes()
+#print attributes_output_list
 for string in attributes_output_list:
 	StripoffAttribute(string)
 for string in node_string_list:
@@ -156,7 +207,7 @@ print '----------------------------'
 print all_edge_string
 print '----------------------------'
 json_string = all_edge_string + all_node_string
-text_file = open("generated.json", "w")
+text_file = open("test.json", "w")
 text_file.write(json_string)
 text_file.close()
 print 'Json has been successfully created'
