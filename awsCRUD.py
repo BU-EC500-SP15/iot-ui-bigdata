@@ -1,10 +1,10 @@
 import json
 import requests
 
-root_url = 'http://54.68.184.172:8282/InCSE1/Team2AE/cn1/cn9'
-delete_url = 'http://54.68.184.172:8282/InCSE1/Team2AE/cn1/cn10'
+root_url = 'http://54.68.184.172:8282/InCSE1'
+delete_url = 'http://54.68.184.172:8282/InCSE1'
 
-headers = {'from' : 'http:localhost:10000', 'requestIdentifier' : '12345', 'resultContent' : '2', 'Content-Type' : 'application/json', 'Accept' : 'application/json'}
+headers = {'from' : 'http:localhost:10000', 'requestIdentifier' : '12345', 'resultContent' : '1', 'Content-Type' : 'application/json', 'Accept' : 'application/json'}
 
 Data = {
     "from": "http:localhost: 10000",
