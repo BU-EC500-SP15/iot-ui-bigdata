@@ -1,0 +1,55 @@
+{
+    "type": "network",
+	"data":"data/iot.json",
+    "version": "1.0",
+    "logo": {
+        "file": "images/iot_logo.png",
+        "link": "",
+        "text": "IoT Big Data"
+    },
+    "text": {
+		"title":"IoT Resource Tree Representation for Massive Data Set",
+		"intro":"",
+		"more":"<h3>Description</h3><p>IoT(Internet of things) is a promising new technology. It may link all the embedded computing devices using traditional internet infrastructure. The IoT RTR UI is a user-friendly platform to collect, manage and visualize mass quantities of data. <p>"
+	},
+
+    "legend": {
+		"nodeLabel":"Nodes",
+		"edgeLabel":"Link between two nodes",
+		"colorLabel":"Color is an automated grouping of nodes"
+    },
+    "features": {
+        "search": true,
+        "hoverBehavior": "default",
+        "groupSelectorAttribute": true
+    },
+    "informationPanel": {
+        "groupByEdgeDirection": true
+    },
+	"sigma": {
+    	"drawingProperties":{    
+			"defaultLabelColor": "#000",
+			"defaultLabelSize": 10,
+			"defaultLabelBGColor": "#ddd",
+			"defaultHoverLabelBGColor": "#002147",
+			"defaultLabelHoverColor": "#fff",
+			"labelThreshold": 1,
+			"defaultEdgeType": "straight",
+			"hoverFontStyle": "bold",
+			"fontStyle": "bold",
+			"activeFontStyle": "bold"
+		},
+		"graphProperties":{
+			"minNodeSize": 2,
+			"maxNodeSize": 10,
+			"minEdgeSize": 2.0,
+			"maxEdgeSize": 2.0
+		},		
+		"mouseProperties":{
+			"minRatio": 0.5, 
+			"maxRatio": 32,
+			"zoomDelta":0.1,
+			"zoomMultiply":5
+		}
+    }
+}

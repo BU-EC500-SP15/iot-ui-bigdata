@@ -1,0 +1,225 @@
+{
+    "edges": [
+        {
+            "id": "1", 
+            "source": "1415208429", 
+            "target": "1452585269"
+        }, 
+        {
+            "id": "2", 
+            "source": "1415208429", 
+            "target": "1452585268"
+        }, 
+        {
+            "id": "3", 
+            "source": "1415208429", 
+            "target": "1452585267"
+        }, 
+        {
+            "id": "4", 
+            "source": "1415208429", 
+            "target": "1452585266"
+        }, 
+        {
+            "id": "5", 
+            "source": "1415208429", 
+            "target": "1452585265"
+        }, 
+        {
+            "id": "6", 
+            "source": "1452585269", 
+            "target": "45015901"
+        }, 
+        {
+            "id": "7", 
+            "source": "1452585269", 
+            "target": "45015900"
+        }, 
+        {
+            "id": "8", 
+            "source": "1452585268", 
+            "target": "1042088254"
+        }, 
+        {
+            "id": "9", 
+            "source": "1452585268", 
+            "target": "1042088253"
+        }, 
+        {
+            "id": "10", 
+            "source": "1452585267", 
+            "target": "2039160607"
+        }, 
+        {
+            "id": "11", 
+            "source": "1452585267", 
+            "target": "2039160606"
+        }, 
+        {
+            "id": "12", 
+            "source": "1452585266", 
+            "target": "1258734337"
+        }, 
+        {
+            "id": "13", 
+            "source": "1452585266", 
+            "target": "1258734336"
+        }, 
+        {
+            "id": "14", 
+            "source": "1452585265", 
+            "target": "261661984"
+        }, 
+        {
+            "id": "15", 
+            "source": "1452585265", 
+            "target": "261661983"
+        }
+    ], 
+    "nodes": [
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "1415208429", 
+            "label": "Team2AEx", 
+            "resourceType": "AE", 
+            "size": 8.5, 
+            "x": 0, 
+            "y": 0
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "1452585269", 
+            "label": "container4", 
+            "resourceType": "container", 
+            "size": 8.5, 
+            "x": -440.69, 
+            "y": 200
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "1452585268", 
+            "label": "container3", 
+            "resourceType": "container", 
+            "size": 8.5, 
+            "x": 98.419, 
+            "y": 200
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "1452585267", 
+            "label": "container2", 
+            "resourceType": "container", 
+            "size": 8.5, 
+            "x": 599.844, 
+            "y": 200
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "1452585266", 
+            "label": "container1", 
+            "resourceType": "container", 
+            "size": 8.5, 
+            "x": 1167.387, 
+            "y": 200
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "1452585265", 
+            "label": "container0", 
+            "resourceType": "container", 
+            "size": 8.5, 
+            "x": 1671.779, 
+            "y": 200
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "45015901", 
+            "label": "contentInstance1", 
+            "resourceType": "contentInstance(latest-allAttributes)", 
+            "size": 8.5, 
+            "x": -1403.512, 
+            "y": 600
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "45015900", 
+            "label": "contentInstance0", 
+            "resourceType": "contentInstance(latest-allAttributes)", 
+            "size": 8.5, 
+            "x": -810.004, 
+            "y": 600
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "1042088254", 
+            "label": "contentInstance1", 
+            "resourceType": "contentInstance(latest-allAttributes)", 
+            "size": 8.5, 
+            "x": -232.822, 
+            "y": 600
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "1042088253", 
+            "label": "contentInstance0", 
+            "resourceType": "contentInstance(latest-allAttributes)", 
+            "size": 8.5, 
+            "x": 282.865, 
+            "y": 600
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "2039160607", 
+            "label": "contentInstance1", 
+            "resourceType": "contentInstance(latest-allAttributes)", 
+            "size": 8.5, 
+            "x": 806.485, 
+            "y": 600
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "2039160606", 
+            "label": "contentInstance0", 
+            "resourceType": "contentInstance(latest-allAttributes)", 
+            "size": 8.5, 
+            "x": 1314.234, 
+            "y": 600
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "1258734337", 
+            "label": "contentInstance0", 
+            "resourceType": "contentInstance(latest-allAttributes)", 
+            "size": 8.5, 
+            "x": 1844.86, 
+            "y": 600
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "1258734336", 
+            "label": "contentInstance1", 
+            "resourceType": "contentInstance(latest-allAttributes)", 
+            "size": 8.5, 
+            "x": 2434.833, 
+            "y": 600
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "261661984", 
+            "label": "contentInstance0", 
+            "resourceType": "contentInstance(latest-allAttributes)", 
+            "size": 8.5, 
+            "x": 2981.744, 
+            "y": 600
+        }, 
+        {
+            "color": "rgb(255,204,102)", 
+            "id": "261661983", 
+            "label": "contentInstance1", 
+            "resourceType": "contentInstance(latest-allAttributes)", 
+            "size": 8.5, 
+            "x": 3544.66, 
+            "y": 600
+        }
+    ]
+}
