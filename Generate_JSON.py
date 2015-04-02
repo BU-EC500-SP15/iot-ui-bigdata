@@ -226,7 +226,7 @@ print '----------------------------'
 json_string = all_edge_string + all_node_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("/Users/FinleyZhu/Desktop/InteractiveVis/network/data/iot.json", "w")
+text_file = open("/Users/FinleyZhu/Desktop/iot-ui-bigdata/network/dataiot.json", "w")
 text_file.write(pretty_json_string)
 text_file.close()
 print 'iot.json has been successfully created'
