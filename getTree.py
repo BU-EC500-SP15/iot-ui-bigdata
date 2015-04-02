@@ -4,10 +4,14 @@
 #ie: root_node = 'InCSE1/Team2AEx'
 
 #PSUEDO
-#Get ATTR of container                                                                                                          #If exists attribute container_list                                                                                             #for container in container_list                                    
-               #GET ATTR of container and append to attributes_output_list
-               #recurse GetWholeTree(container)                                                                                   
-#If exists attribute child_contentInstance_list                                                                                 #for contentInstance in child_contentInstance_list                                                                              #GET ATTR of contextInstance and append to attributes_output_list
+#Get ATTR of container
+  #If exists attribute container_list
+    #for container in container_list                                    
+      #GET ATTR of container and append to attributes_output_list
+      #recurse GetWholeTree(container)
+  #If exists attribute child_contentInstance_list
+    #for contentInstance in child_contentInstance_list
+    #GET ATTR of contextInstance and append to attributes_output_list
 #Return
 
 import json
