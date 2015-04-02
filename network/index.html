@@ -72,14 +72,16 @@
   		<div class="z" rel="in"></div> <div class="z" rel="out"></div> <div class="z" rel="center"></div>
 	</div>
 	<div id="copyright">
-		<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="images/CC.png" /></a></div>
+		
 	</div>
 <div id="attributepane">
 <div class="text">
 	<div title="Close" class="left-close returntext"><div class="c cf"><span>Return to the full network</span></div></div>	
 <div class="headertext">
 	<span>Information Pane</span>
+  <input type="button" name="edit" value="edit" onclick="document.getElementById('editform').style.display='block'" />
 </div>	
+
   <div class="nodeattributes">
     <div class="name"></div>
 	<div class="data"></div>
@@ -91,9 +93,24 @@
   </div>
 	</div>
 </div>
+<div id="editform">
+  <div ><span class="headertext">Edit Information</span>
+  <input type="button" value="Close" onclick="getElementById('editform').style.display='none'"/></div>
+  <br/><br/>
+  <div class="position"><span class="p">ResourceName:</span><br/>
+  <input type="text" id="resourceName"name="resourceName" value="" /><br/>
+  </div>
+  <div class="position"><span class="p">ResourceId:</span><br/>
+  <input type="text" id="resourceId" name="resourceId" value=""/></div>>
+  <div class="position"><span class="p">labels:</span><br/>
+  <input type="text" id="labels" name="labels" /></div>
+  <div><input type="submit" value="Modify"/></div>
+<div class="left-close"></div>
+</div>
+
+
 <div id="developercontainer">
-	<a href="http://www.oii.ox.ac.uk" title="Oxford Internet Institute"><div id="oii"><span>OII</span></div></a>
-	<a href="http://jisc.ac.uk" title="JISC"><div id="jisc"><span>JISC</span></div></a>	
+	
 </div>
 <script type="text/javascript">
 
