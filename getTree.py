@@ -135,75 +135,45 @@ def getTree(attrOutputList,root_node):
                 #If 1 contentInstance -> remove [ and ]
                 if(numContentInstance == '1'):
                     print contentInstance[1:-1] #TEST
-                    #Construct URI for contentInstance
-                    URI = server + str(contentInstance[1:-1])
-                    
-                    #GET request for Attributes of contentInstance
-                    r = requests.get(URI, params = Parameter10, headers = Header)
-                    contentInstanceOutputRaw = r.text
-                    print contentInstanceOutputRaw #TEST
-                    contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
-                    
-                    #Check that we got valid response
-                    if(checkValidResponse(containerOutput)== 0):
-                        return
-                    #Append Raw JSON Attributes to List
-                    attrOutputList.append(containerOutputRaw) 
+                    getContentInstance(attrOutputList,contentInstance[1:-1])
                     return
                 #First contentInstance -> remove [
                 if(count == 1):
                     print contentInstance[1:] #TEST
-                    URI = server + str(contentInstance[1:])
-                    
-                    #GET request for Attributes of contentInstance
-                    r = requests.get(URI, params = Parameter10, headers = Header)
-                    contentInstanceOutputRaw = r.text
-                    print contentInstanceOutputRaw  #TEST
-                    contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
-
-                    #Check that we got valid response
-                    if(checkValidResponse(containerOutput)== 0):
-                        return
-                    #Append Raw JSON Attributes to List
-                    attrOutputList.append(containerOutputRaw)
+                    getContentInstance(attrOutputList,contentInstance[1:])
                     continue
-                
                 #Last contentInstance -> remove ]
                 if(str(count) == numContentInstance):
                     print contentInstance[:-1]
-                    URI = server + str(contentInstance[:-1])
-                    
-                    #GET request for Attributes of contentInstance
-                    r = requests.get(URI, params = Parameter10, headers = Header)
-                    contentInstanceOutputRaw = r.text
-                    print contentInstanceOutputRaw  #TEST
-                    contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
-                    
-                    #Check that we got valid response
-                    if(checkValidResponse(containerOutput)== 0):
-                        return
-                    #Append Raw JSON Attributes to List
-                    attrOutputList.append(containerOutputRaw)
+                    getContentInstance(attrOutputList,contentInstance[:-1])
                     return
-                
                 #Other contentInstance -> remove nothing
                 print contentInstance
-                URI = server + str(contentInstance[1:])
-                
-                #GET request for Attributes of contentInstance                                                          
-                r = requests.get(URI, params = Parameter10, headers = Header)
-                contentInstanceOutputRaw = r.text
-                print contentInstanceOutputRaw  #TEST                                                                  
-                contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
-                
-                #Check that we got valid response                                                                       
-                if(checkValidResponse(containerOutput)== 0):
-                    return
-                #Append Raw JSON Attributes to List                                                                     
-                attrOutputList.append(containerOutputRaw)
+                getContentInstance(attrOutputList,contentInstance)
+    
+    #Print Final JSON Output
     print attrOutputList
+    if(errorFlag == 1):
+        print 'ERROR: invalid response from server check log'
     return
 
+def getContentInstance(attrOutputList,contentInstancePath):
+    print contentInstancePath
+    URI = server + str(contentInstancePath)
+
+    #GET request for Attributes of contentInstance
+    r = requests.get(URI, params = Parameter10, headers = Header)
+    contentInstanceOutputRaw = r.text
+    print contentInstanceOutputRaw  #TEST
+    contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
+    
+    #Check that we got valid response                                                  
+    if(checkValidResponse(contentInstanceOutput)== 0):
+        return
+    
+    #Append Raw JSON Attributes to List
+    attrOutputList.append(contentInstanceOutputRaw)
+    return
 
 def checkValidResponse(containerOutput):
     if(containerOutput["responseStatusCode"]==2002):
@@ -214,8 +184,3 @@ def checkValidResponse(containerOutput):
         return 0
 
 getTree(attrOutputList,root_node)
-
-
-
-
-
