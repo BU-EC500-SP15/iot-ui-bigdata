@@ -88,7 +88,7 @@ canvas#sigma_bg_1 {
 
 
 #attributepane .returntext em {
-	/*background-image: url('../images/sprite.png');*/
+	background-image: url('../images/sprite.png');
 	background-repeat: no-repeat;
 	display: block;
 	width: 20px;
@@ -187,12 +187,74 @@ font-size:14px;
 
 }
 
+#editform{
+	display:none;
+	position:absolute;
+	top: 25%;
+	left:30%; 
+	width:40%;
+	height:50%;
+	padding:16px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	background-color:white;
+	z-index:2;
+	overflow:auto;
+}
+#editform .headertext {
+	color: #000;
+	margin-bottom: 5px;
+	height: 14px;
+	border-bottom: 1px solid #999;
+	padding: 0px 0 10px 0;
+	font-size:16px;
+	font-weight:bold;
+}
+#editform .p {
+padding-top: 10px;
+font-weight: bold;
+font-size:14px;
+}
+#editform .postion{
+	position:absolute;
+	top:25%;
+}
+#editform .returntext span {
+	padding-left: 5px;
+	display: block;
+}
+#editform .close {
+	padding-left: 14px;
+	margin-top: 10px;
+}
+
+#editform .close .c {
+	border-top: 2px solid #999;
+	padding: 10px 0 14px 0;
+}
+
+#editform .close em {
+background-image: url('../images/sprite.png');
+background-repeat: no-repeat;
+background-position: -11px -13px;
+display: block;
+width: 24px;
+height: 16px;
+float: left;
+}
+
+#editform .close span {
+display: block;
+width: 151px;
+float: left;
+}
 #developercontainer {
 	margin-left:25px;
 	margin-bottom:25px;
 	position:fixed;
 	bottom:0;
 }
+
 
 /*#jisc {
 width: 71px;
