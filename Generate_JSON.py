@@ -233,4 +233,3 @@ print 'iot.json has been successfully created'
 
 end_time = time.time()
 print end_time - start_time
-
