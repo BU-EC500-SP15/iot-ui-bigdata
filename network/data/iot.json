@@ -1,0 +1,403 @@
+{
+    "edges": [
+        {
+            "id": "1", 
+            "source": "1415208429", 
+            "target": "1452585267"
+        }, 
+        {
+            "id": "2", 
+            "source": "1415208429", 
+            "target": "1452585266"
+        }, 
+        {
+            "id": "3", 
+            "source": "1415208429", 
+            "target": "1452585265"
+        }, 
+        {
+            "id": "4", 
+            "source": "1452585267", 
+            "target": "2039160607"
+        }, 
+        {
+            "id": "5", 
+            "source": "1452585267", 
+            "target": "2039160608"
+        }, 
+        {
+            "id": "6", 
+            "source": "1452585267", 
+            "target": "2039160606"
+        }, 
+        {
+            "id": "7", 
+            "source": "1452585267", 
+            "target": "2039160609"
+        }, 
+        {
+            "id": "8", 
+            "source": "1452585266", 
+            "target": "1258734337"
+        }, 
+        {
+            "id": "9", 
+            "source": "1452585266", 
+            "target": "1258734336"
+        }, 
+        {
+            "id": "10", 
+            "source": "1452585266", 
+            "target": "1258734335"
+        }, 
+        {
+            "id": "11", 
+            "source": "1452585266", 
+            "target": "1258734334"
+        }, 
+        {
+            "id": "12", 
+            "source": "1452585265", 
+            "target": "261661982"
+        }, 
+        {
+            "id": "13", 
+            "source": "1452585265", 
+            "target": "261661981"
+        }, 
+        {
+            "id": "14", 
+            "source": "1452585265", 
+            "target": "235222053"
+        }, 
+        {
+            "id": "15", 
+            "source": "1452585265", 
+            "target": "235222052"
+        }, 
+        {
+            "id": "16", 
+            "source": "1452585265", 
+            "target": "261661984"
+        }, 
+        {
+            "id": "17", 
+            "source": "1452585265", 
+            "target": "261661983"
+        }
+    ], 
+    "nodes": [
+        {
+            "attributes": {
+                "Child-ResourceContainer": "3", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "3", 
+                "labels": "Test_Only_For_Yingchao", 
+                "parentID": "InCSE1", 
+                "resourceID": "1415208429", 
+                "resourceType": "AE"
+            }, 
+            "color": "rgb(255,204,102)", 
+            "id": "1415208429", 
+            "label": "Team2AEx", 
+            "size": 15, 
+            "x": 0, 
+            "y": 0
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "0", 
+                "Child-ResourceContentInstance Number": "4", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "4", 
+                "labels": "Test_For_Python_Code", 
+                "parentID": "InCSE1/Team2AEx", 
+                "resourceID": "1452585267", 
+                "resourceType": "container", 
+                "stateTag": "4"
+            }, 
+            "color": "#36e236", 
+            "id": "1452585267", 
+            "label": "container2", 
+            "size": 4, 
+            "x": 2000, 
+            "y": -500
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "0", 
+                "Child-ResourceContentInstance Number": "4", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "4", 
+                "labels": "Test_For_Python_Code", 
+                "parentID": "InCSE1/Team2AEx", 
+                "resourceID": "1452585266", 
+                "resourceType": "container", 
+                "stateTag": "4"
+            }, 
+            "color": "#36e236", 
+            "id": "1452585266", 
+            "label": "container1", 
+            "size": 4, 
+            "x": 2000, 
+            "y": 0
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "0", 
+                "Child-ResourceContentInstance Number": "6", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "6", 
+                "labels": "Test_For_Python_Code", 
+                "parentID": "InCSE1/Team2AEx", 
+                "resourceID": "1452585265", 
+                "resourceType": "container", 
+                "stateTag": "6"
+            }, 
+            "color": "#36e236", 
+            "id": "1452585265", 
+            "label": "container0", 
+            "size": 6, 
+            "x": 2000, 
+            "y": 500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:143", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:143", 
+                "parentID": "container2", 
+                "resourceID": "2039160607", 
+                "resourceType": "contentInstance", 
+                "stateTag": "2"
+            }, 
+            "color": "#3636e2", 
+            "id": "2039160607", 
+            "label": "contentInstance1", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": -3500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:306", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:306", 
+                "parentID": "container2", 
+                "resourceID": "2039160608", 
+                "resourceType": "contentInstance", 
+                "stateTag": "3"
+            }, 
+            "color": "#3636e2", 
+            "id": "2039160608", 
+            "label": "contentInstance2", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": -3000
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:953", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:953", 
+                "parentID": "container2", 
+                "resourceID": "2039160606", 
+                "resourceType": "contentInstance", 
+                "stateTag": "1"
+            }, 
+            "color": "#3636e2", 
+            "id": "2039160606", 
+            "label": "contentInstance0", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": -2500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:488", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:488", 
+                "parentID": "container2", 
+                "resourceID": "2039160609", 
+                "resourceType": "contentInstance", 
+                "stateTag": "4"
+            }, 
+            "color": "#3636e2", 
+            "id": "2039160609", 
+            "label": "contentInstance3", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": -2000
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:107", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:107", 
+                "parentID": "container1", 
+                "resourceID": "1258734337", 
+                "resourceType": "contentInstance", 
+                "stateTag": "1"
+            }, 
+            "color": "#3636e2", 
+            "id": "1258734337", 
+            "label": "contentInstance0", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": -1500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:285", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:285", 
+                "parentID": "container1", 
+                "resourceID": "1258734336", 
+                "resourceType": "contentInstance", 
+                "stateTag": "2"
+            }, 
+            "color": "#3636e2", 
+            "id": "1258734336", 
+            "label": "contentInstance1", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": -1000
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:458", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:458", 
+                "parentID": "container1", 
+                "resourceID": "1258734335", 
+                "resourceType": "contentInstance", 
+                "stateTag": "3"
+            }, 
+            "color": "#3636e2", 
+            "id": "1258734335", 
+            "label": "contentInstance2", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": -500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:621", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:621", 
+                "parentID": "container1", 
+                "resourceID": "1258734334", 
+                "resourceType": "contentInstance", 
+                "stateTag": "4"
+            }, 
+            "color": "#3636e2", 
+            "id": "1258734334", 
+            "label": "contentInstance3", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": 0
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:574", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:574", 
+                "parentID": "container0", 
+                "resourceID": "261661982", 
+                "resourceType": "contentInstance", 
+                "stateTag": "3"
+            }, 
+            "color": "#3636e2", 
+            "id": "261661982", 
+            "label": "contentInstance2", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": 500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:762", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:762", 
+                "parentID": "container0", 
+                "resourceID": "261661981", 
+                "resourceType": "contentInstance", 
+                "stateTag": "4"
+            }, 
+            "color": "#3636e2", 
+            "id": "261661981", 
+            "label": "contentInstance3", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": 1000
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T17:31:146", 
+                "labels": "Test_Only_For_Yingchao", 
+                "lastModifiedTime": "31-03-15T17:31:146", 
+                "parentID": "container0", 
+                "resourceID": "235222053", 
+                "resourceType": "contentInstance", 
+                "stateTag": "5"
+            }, 
+            "color": "#3636e2", 
+            "id": "235222053", 
+            "label": "testCI1", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": 1500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T17:31:373", 
+                "labels": "Test_Only_For_Yingchao", 
+                "lastModifiedTime": "31-03-15T17:31:373", 
+                "parentID": "container0", 
+                "resourceID": "235222052", 
+                "resourceType": "contentInstance", 
+                "stateTag": "6"
+            }, 
+            "color": "#3636e2", 
+            "id": "235222052", 
+            "label": "testCI2", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": 2000
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:206", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:206", 
+                "parentID": "container0", 
+                "resourceID": "261661984", 
+                "resourceType": "contentInstance", 
+                "stateTag": "1"
+            }, 
+            "color": "#3636e2", 
+            "id": "261661984", 
+            "label": "contentInstance0", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": 2500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "31-03-15T16:41:393", 
+                "labels": "Test_For_Python_Code", 
+                "lastModifiedTime": "31-03-15T16:41:393", 
+                "parentID": "container0", 
+                "resourceID": "261661983", 
+                "resourceType": "contentInstance", 
+                "stateTag": "2"
+            }, 
+            "color": "#3636e2", 
+            "id": "261661983", 
+            "label": "contentInstance1", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": 3000
+        }
+    ]
+}
