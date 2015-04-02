@@ -609,6 +609,16 @@ function nodeActive(a) {
 	$GP.info_donnees.show();
     sigInst.active = a;
     window.location.hash = b.label;
+    //console.log(b.label);
+ 
+   $("#editform").ready(function(){
+        $("#resourceName").attr("value",b.label);
+        $("#resourceName").attr("readOnly",true);
+        $("#resourceId").attr("value",b.id);
+        $("#resourceId").attr("readOnly",true);
+        var uniqueId = $("#resourceId").val();
+        var labels = $("#labels").val();
+    });
 }
 
 function showCluster(a) {
