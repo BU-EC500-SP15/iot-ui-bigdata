@@ -25,6 +25,7 @@ Parameter10 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 're
 Header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 attrOutputList = list()
 root_node = 'InCSE1/Team2AEn'
+server = 'http://54.68.184.172:8282/'
 
 def getTree(attrOutputList,root_node):
     global errorFlag
@@ -34,7 +35,7 @@ def getTree(attrOutputList,root_node):
     numContentInstance = 0
 
     #Construct URI for root_node
-    URI = 'http://54.68.184.172:8282/' + str(root_node)
+    URI = server + str(root_node)
     print URI
 
     #Do GET request for attributes of container (p10)
@@ -135,7 +136,7 @@ def getTree(attrOutputList,root_node):
                 if(numContentInstance == '1'):
                     print contentInstance[1:-1] #TEST
                     #Construct URI for contentInstance
-                    URI = 'http://54.68.184.172:8282/' + str(contentInstance[1:-1])
+                    URI = server + str(contentInstance[1:-1])
                     
                     #GET request for Attributes of contentInstance
                     r = requests.get(URI, params = Parameter10, headers = Header)
@@ -152,7 +153,7 @@ def getTree(attrOutputList,root_node):
                 #First contentInstance -> remove [
                 if(count == 1):
                     print contentInstance[1:] #TEST
-                    URI = 'http://54.68.184.172:8282/' + str(contentInstance[1:])
+                    URI = server + str(contentInstance[1:])
                     
                     #GET request for Attributes of contentInstance
                     r = requests.get(URI, params = Parameter10, headers = Header)
@@ -170,7 +171,7 @@ def getTree(attrOutputList,root_node):
                 #Last contentInstance -> remove ]
                 if(str(count) == numContentInstance):
                     print contentInstance[:-1]
-                    URI = 'http://54.68.184.172:8282/' + str(contentInstance[:-1])
+                    URI = server + str(contentInstance[:-1])
                     
                     #GET request for Attributes of contentInstance
                     r = requests.get(URI, params = Parameter10, headers = Header)
@@ -187,7 +188,7 @@ def getTree(attrOutputList,root_node):
                 
                 #Other contentInstance -> remove nothing
                 print contentInstance
-                URI = 'http://54.68.184.172:8282/' + str(contentInstance[1:])
+                URI = server + str(contentInstance[1:])
                 
                 #GET request for Attributes of contentInstance                                                          
                 r = requests.get(URI, params = Parameter10, headers = Header)
