@@ -14,6 +14,9 @@
     #GET ATTR of contextInstance and append to attributes_output_list
 #Return
 
+#Depth count for every level in the tree
+#hash table keeps track of # of containers and context Instances in each level
+
 import json
 import requests
 import pdb
@@ -26,13 +29,16 @@ Header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 attrOutputList = list()
 root_node = 'InCSE1/Team2AEn'
 server = 'http://54.68.184.172:8282/'
+depthToNumObj = dict()
+depth = 0
 
-def getTree(attrOutputList,root_node):
+def getTree(attrOutputList,root_node,depth):
     global errorFlag
     errorFlag = 0
     numChild = 0
     numContainer = 0
     numContentInstance = 0
+    depth += 1
 
     #Construct URI for root_node
     URI = server + str(root_node)
@@ -50,6 +56,14 @@ def getTree(attrOutputList,root_node):
 
     #Append Raw JSON Attributes to List
     attrOutputList.append(containerOutputRaw)
+
+
+    temp = 0
+    #Update Num Containers/contentInstances in Depth Hashtable
+    if(depthToNumObj.has_key(depth)):
+        #If key already exists, grab current value
+        temp = depthToNumObj.get(depth)
+    depthToNumObj[depth] = (temp + 1)
 
     #Check if container has children
     for attr in containerOutput['ResourceOutput'][0]['Attributes']:
@@ -101,21 +115,21 @@ def getTree(attrOutputList,root_node):
                 #If 1 container -> remove [ and ]
                 if(numContainer == '1'):
                     print container[1:-1]
-                    getTree(attrOutputList,container[1:-1])
+                    getTree(attrOutputList,container[1:-1], depth)
                     continue
                 #First container -> remove [
                 if(count == 1):
                     print container[1:] #TEST
-                    getTree(attrOutputList,container[1:])
+                    getTree(attrOutputList,container[1:], depth)
                     continue
                 #Last container -> remove ]
                 if(str(count) == numContainer):
                     print container[:-1] #TEST
-                    getTree(attrOutputList,container[:-1])
+                    getTree(attrOutputList,container[:-1], depth)
                     continue
                 #Other container -> remove nothing
                 print container #TEST
-                getTree(attrOutputList,container)
+                getTree(attrOutputList,container, depth)
     #Get attributes of every content Instance in Child-contentInstance List
     #Child-contentInstance List is string and needs to be parsed
     for attr in containerOutputCList['ResourceOutput'][0]['Attributes']:
@@ -135,21 +149,21 @@ def getTree(attrOutputList,root_node):
                 #If 1 contentInstance -> remove [ and ]
                 if(numContentInstance == '1'):
                     print contentInstance[1:-1] #TEST
-                    getContentInstance(attrOutputList,contentInstance[1:-1])
+                    getContentInstance(attrOutputList,contentInstance[1:-1], depth+1)
                     return
                 #First contentInstance -> remove [
                 if(count == 1):
                     print contentInstance[1:] #TEST
-                    getContentInstance(attrOutputList,contentInstance[1:])
+                    getContentInstance(attrOutputList,contentInstance[1:],depth+1)
                     continue
                 #Last contentInstance -> remove ]
                 if(str(count) == numContentInstance):
                     print contentInstance[:-1]
-                    getContentInstance(attrOutputList,contentInstance[:-1])
+                    getContentInstance(attrOutputList,contentInstance[:-1],depth+1)
                     return
                 #Other contentInstance -> remove nothing
                 print contentInstance
-                getContentInstance(attrOutputList,contentInstance)
+                getContentInstance(attrOutputList,contentInstance,depth+1)
     
     #Print Final JSON Output
     print attrOutputList
@@ -157,7 +171,7 @@ def getTree(attrOutputList,root_node):
         print 'ERROR: invalid response from server check log'
     return
 
-def getContentInstance(attrOutputList,contentInstancePath):
+def getContentInstance(attrOutputList,contentInstancePath, depth):
     print contentInstancePath
     URI = server + str(contentInstancePath)
 
@@ -173,6 +187,14 @@ def getContentInstance(attrOutputList,contentInstancePath):
     
     #Append Raw JSON Attributes to List
     attrOutputList.append(contentInstanceOutputRaw)
+    
+    #Update num containers/contentInstances in depth hashtable
+    temp = 0
+    if(depthToNumObj.has_key(depth)):
+        #Get existing value of key depth
+        temp = depthToNumObj.get(depth)
+        
+    depthToNumObj[depth] = (temp + 1)
     return
 
 def checkValidResponse(containerOutput):
@@ -183,4 +205,7 @@ def checkValidResponse(containerOutput):
         errorFlag = 1
         return 0
 
-getTree(attrOutputList,root_node)
+getTree(attrOutputList,root_node,depth)
+
+print '\nDepth to Num Containers/contentInstances Pairs'
+print depthToNumObj.items()
