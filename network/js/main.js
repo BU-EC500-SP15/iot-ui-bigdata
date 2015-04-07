@@ -180,6 +180,7 @@ function setupGUI(config) {
     $GP.minifier = $GP.intro.find("#minifier");
     $GP.mini = $("#minify");
     $GP.info = $("#attributepane");
+    $GP.info_edit = $GP.info.find(".editattributes");
     $GP.info_donnees = $GP.info.find(".nodeattributes");
     $GP.info_name = $GP.info.find(".name");
     $GP.info_link = $GP.info.find(".link");
@@ -594,10 +595,10 @@ function nodeActive(a) {
         }
 
         if (image_attribute) {
-        	//image_index = jQuery.inArray(image_attribute, temp_array);
-        	$GP.info_name.html("<div><img src=" + f.attributes[image_attribute] + " style=\"vertical-align:middle\" /> <span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.label + "</span></div>");
+            //image_index = jQuery.inArray(image_attribute, temp_array);
+            $GP.info_name.html("<div><img src=" + f.attributes[image_attribute] + " style=\"vertical-align:middle\" /> <span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.label + "</span></div>");
         } else {
-        	$GP.info_name.html("<div><span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.label + "</span></div>");
+            $GP.info_name.html("<div><span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.label + "</span></div>");
         }
         // Image field for attribute pane
         $GP.info_data.html(e.join("<br/>"))
@@ -610,14 +611,150 @@ function nodeActive(a) {
     sigInst.active = a;
     window.location.hash = b.label;
     //console.log(b.label);
+    //console.log(f.attributes);
+
  
    $("#editform").ready(function(){
-        $("#resourceName").attr("value",b.label);
-        $("#resourceName").attr("readOnly",true);
-        $("#resourceId").attr("value",b.id);
-        $("#resourceId").attr("readOnly",true);
-        var uniqueId = $("#resourceId").val();
-        var labels = $("#labels").val();
+        $(".editattributes").empty();
+        $(".modifydata").empty();
+        $(".createdata").empty();
+        $(".addattr").hide();
+        $(".modifytrigger").hide();
+        $(".createtrigger").hide();
+        $(".createbutton").show();
+        $(".modifybutton").show();
+        $(".deletebutton").show();
+        if (f.attributes) {
+            var image_attribute = false;
+            if (config.informationPanel.imageAttribute) {
+                image_attribute=config.informationPanel.imageAttribute;
+            }
+            e = [];
+            temp_array = [];
+            g = 0;
+            l= '<strong>' + b.label+ ':</strong><br/><br/>'
+            //console.log(l)
+            $(".editattributes").append(l);
+            for (var attr in f.attributes) {
+                var d = f.attributes[attr],
+                    h = "";
+                if (attr!=image_attribute) {
+                    h = '<strong>' + attr + ':</strong> ' 
+                    t = '<input type="text" id=\"' + attr +'\"  name=\"' + attr + '\" readOnly = true value=\"'+ d +'\" /><br/>'
+                }
+                //console.log(t)              
+                $(".editattributes").append(h);
+                $(".editattributes").append(t);
+            }
+        $(".editattributes").hide();
+        $(".editattributes").show();
+    }
+
+
+    $(".modifybutton").click(function(){
+        $(".editattributes").empty();
+        $(".modifydata").empty();
+        $(".createdata").empty();
+        $(".modifybutton").hide();
+        $(".createbutton").hide();
+        $(".deletebutton").hide();
+        $(".addattr").hide();
+        $(".modifytrigger").show();
+        $(".createtrigger").hide();
+        if (f.attributes) {
+        var image_attribute = false;
+        if (config.informationPanel.imageAttribute) {
+            image_attribute=config.informationPanel.imageAttribute;
+        }
+        e = [];
+        temp_array = [];
+        g = 0;
+        l= '<strong>' + b.label+ ':</strong><br/><br/>'
+        //console.log(l)
+        $(".modifydata").append(l);
+        for (var attr in f.attributes) {
+            var d = f.attributes[attr],
+                h = "";
+            if (attr=="labels") {
+                h = '<strong>' + attr + ':</strong> ' 
+                t = '<input type="text" id=\"' + attr +'\"  name=\"' + attr + '\" value=\"'+ d +'\" /><br/>'
+            }else{
+                h = '<strong>' + attr + ':</strong> ' 
+                t = '<span>' + d + '</span><br/>'
+                
+            }
+            $(".modifydata").append(h);
+            $(".modifydata").append(t);
+       }
+    }
+    });
+    $(".createbutton").click(function(){
+        $(".editattributes").empty();
+        $(".modifydata").empty();
+        $(".createdata").empty();
+        $(".modifybutton").hide();
+        $(".createbutton").hide();
+        $(".deletebutton").hide();
+        $(".modifytrigger").hide();
+        $(".createtrigger").show();
+        $(".addattr").show();
+        attr=["resourceName","resourceType","labels"]
+        for(var item in attr){
+            var h =""
+            h ='<strong>' + attr[item] + ':</strong> '
+            t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
+            $(".createdata").append(h);
+            $(".createdata").append(t);
+        }
+    });
+    $(".addattr").click(function(){
+        t = '<input type="text" value="attributeName" /><input type="text" value="attributeValue" /><br/>'
+        $(".createdata").append(t);
+    });
+    
+
+    //console.log(b.label);
+    //console.log(e.label);
+    $(".deletebutton").click(function(){
+        //path="/"+b.label;
+//
+        //while(b.source){
+        //    path='/'+b.source.label+path;
+        //    b=b.source;
+        //}
+        resource_url="http://54.68.184.172:8282/InCSE1/Team2AEx/container10";
+        //console.log(resource_url)
+        $.ajax({
+            url:resource_url+'?from=http:localhost:10000&requestIdentifier=12345',
+            type:'DELETE',
+            success:function(data){
+                alert("Delete is sucessfully performed");
+            }
+            
+        });
+    });
+    $(".modifytrigger").click(function(){
+        $.ajax({
+            url:'http://54.68.184.172:8282/InCSE1/Team2AEx/container10?from=http:localhost:10000&requestIdentifier=12345',
+            type:'PUT',
+            headers:{"contentType":'application/json'},
+            content:{'labels':"123456"},
+            success:function(data){
+                alert("Modify is successfully performed");
+            }
+        })
+    })
+
+
+    
+    //console.log($GP.info_edit);
+
+    //    $("#resourceName").attr("value",b.label);
+    //    $("#resourceName").attr("readOnly",true);
+    //    $("#resourceId").attr("value",b.id);
+    //    $("#resourceId").attr("readOnly",true);
+    //    var uniqueId = $("#resourceId").val();
+    //    var labels = $("#labels").val();
     });
 }
 
