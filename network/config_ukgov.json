@@ -10,7 +10,7 @@
     "text": {
 		"title":"IoT Resource Tree Representation for Massive Data Set",
 		"intro":"",
-		"more":"<h3>Description</h3><p>IoT(Internet of things) is a promising new technology. It may link all the embedded computing devices using traditional internet infrastructure. The IoT RTR UI is a user-friendly platform to collect, manage and visualize mass quantities of data. <p>"
+		"more":""
 	},
 
     "legend": {
@@ -23,6 +23,9 @@
         "hoverBehavior": "default",
         "groupSelectorAttribute": true
     },
+    "search":{
+    	"fulltext":true
+    	},
     "informationPanel": {
         "groupByEdgeDirection": true
     },

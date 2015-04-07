@@ -219,35 +219,38 @@ font-size:14px;
 	position:absolute;
 	top:25%;
 }
-#editform .returntext span {
-	padding-left: 5px;
-	display: block;
+#editmodify .modifybutton{
+	position:absolute;
+	right:10px;
+	top:40%;
 }
-#editform .close {
-	padding-left: 14px;
-	margin-top: 10px;
+#editmodify .modifytrigger{
+	position:absolute;
+	right:45%;
+	top:90%;
+}
+#editcreate .createbutton{
+	position:absolute;
+	right:10px;
+	top:50%;
+}
+#editcreate .createtrigger{
+	position:absolute;
+	right:45%;
+	top:90%;
+}
+#editcreate .addattr{
+	position:absolute;
+	right:15%;
+	top:50%;
 }
 
-#editform .close .c {
-	border-top: 2px solid #999;
-	padding: 10px 0 14px 0;
+#editdelete .deletebutton{
+	position:absolute;
+	right:10px;
+	top:60%;
 }
 
-#editform .close em {
-background-image: url('../images/sprite.png');
-background-repeat: no-repeat;
-background-position: -11px -13px;
-display: block;
-width: 24px;
-height: 16px;
-float: left;
-}
-
-#editform .close span {
-display: block;
-width: 151px;
-float: left;
-}
 #developercontainer {
 	margin-left:25px;
 	margin-bottom:25px;

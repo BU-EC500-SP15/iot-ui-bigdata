@@ -79,7 +79,7 @@
 	<div title="Close" class="left-close returntext"><div class="c cf"><span>Return to the full network</span></div></div>	
 <div class="headertext">
 	<span>Information Pane</span>
-  <input type="button" name="edit" value="edit" onclick="document.getElementById('editform').style.display='block'" />
+<input type="button" name="edit" value="edit" onclick="document.getElementById('editform').style.display='block'" />
 </div>	
 
   <div class="nodeattributes">
@@ -94,10 +94,11 @@
 	</div>
 </div>
 <div id="editform">
-  <div ><span class="headertext">Edit Information</span>
+ <div ><span class="headertext">Edit Information</span>
   <input type="button" value="Close" onclick="getElementById('editform').style.display='none'"/></div>
   <br/><br/>
-  <div class="position"><span class="p">ResourceName:</span><br/>
+  <div class="editattributes"></div>
+  <!--<div class="position"><span class="p">ResourceName:</span><br/>
   <input type="text" id="resourceName"name="resourceName" value="" /><br/>
   </div>
   <div class="position"><span class="p">ResourceId:</span><br/>
@@ -105,7 +106,23 @@
   <div class="position"><span class="p">labels:</span><br/>
   <input type="text" id="labels" name="labels" /></div>
   <div><input type="submit" value="Modify"/></div>
-<div class="left-close"></div>
+<div class="left-close"></div> -->
+<div id = "editmodify">
+<div class="modifydata"></div>
+<div class="modifytrigger"><input type="button" value="Modify"/></div>
+<div class="modifybutton"><input type="button" value="Modify"/></div></div>
+<div id = "editcreate">
+<div class="createdata"></div>
+<div class="createbutton">
+  <input type="button" value="Create"/></div>
+  <div class="createtrigger">
+  <input type="button" value="Create"/></div>
+  <div class="addattr"><input type="button" value="Add"/></div>
+</div>
+<div id = "editdelete"><div class="deletebutton">
+  <input type="button" value="Delete"/></div>
+</div>
+
 </div>
 
 
