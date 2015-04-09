@@ -478,7 +478,10 @@ function nodeActive(a) {
         };
         
    	   if (a==b.source) outgoing[b.target]=n;		//SAH
-	   else if (a==b.target) incoming[b.source]=n;		//SAH
+	   else if (a==b.target) {
+       incoming[b.source]=n;		//SAH
+       parent = sigInst._core.graph.nodesIndex[b.source];
+   }
        if (a == b.source || a == b.target) sigInst.neighbors[a == b.target ? b.source : b.target] = n;
        b.hidden = !1, b.attr.color = "rgba(0, 0, 0, 1)";
     });
@@ -616,13 +619,13 @@ function nodeActive(a) {
  
    $("#editform").ready(function(){
         $(".editattributes").empty();
-        $(".modifydata").empty();
+        $(".updatedata").empty();
         $(".createdata").empty();
         $(".addattr").hide();
-        $(".modifytrigger").hide();
+        $(".updatetrigger").hide();
         $(".createtrigger").hide();
         $(".createbutton").show();
-        $(".modifybutton").show();
+        $(".updatebutton").show();
         $(".deletebutton").show();
         if (f.attributes) {
             var image_attribute = false;
@@ -651,15 +654,15 @@ function nodeActive(a) {
     }
 
 
-    $(".modifybutton").click(function(){
+    $(".updatebutton").click(function(){
         $(".editattributes").empty();
-        $(".modifydata").empty();
+        $(".updatedata").empty();
         $(".createdata").empty();
-        $(".modifybutton").hide();
+        $(".updatebutton").hide();
         $(".createbutton").hide();
         $(".deletebutton").hide();
         $(".addattr").hide();
-        $(".modifytrigger").show();
+        $(".updatetrigger").show();
         $(".createtrigger").hide();
         if (f.attributes) {
         var image_attribute = false;
@@ -671,7 +674,7 @@ function nodeActive(a) {
         g = 0;
         l= '<strong>' + b.label+ ':</strong><br/><br/>'
         //console.log(l)
-        $(".modifydata").append(l);
+        $(".updatedata").append(l);
         for (var attr in f.attributes) {
             var d = f.attributes[attr],
                 h = "";
@@ -683,19 +686,19 @@ function nodeActive(a) {
                 t = '<span>' + d + '</span><br/>'
                 
             }
-            $(".modifydata").append(h);
-            $(".modifydata").append(t);
+            $(".updatedata").append(h);
+            $(".updatedata").append(t);
        }
     }
     });
     $(".createbutton").click(function(){
         $(".editattributes").empty();
-        $(".modifydata").empty();
+        $(".updatedata").empty();
         $(".createdata").empty();
-        $(".modifybutton").hide();
+        $(".updatebutton").hide();
         $(".createbutton").hide();
         $(".deletebutton").hide();
-        $(".modifytrigger").hide();
+        $(".updatetrigger").hide();
         $(".createtrigger").show();
         $(".addattr").show();
         attr=["resourceName","resourceType","labels"]
@@ -711,19 +714,28 @@ function nodeActive(a) {
         t = '<input type="text" value="attributeName" /><input type="text" value="attributeValue" /><br/>'
         $(".createdata").append(t);
     });
-    
 
-    //console.log(b.label);
-    //console.log(e.label);
+    //console.log(b)
+    //console.log(b.attr.attributes.parentID)
+    //get the path of the active node
+    if(b.attr.attributes.resourceType=="contentInstance"){
+        path =parent.label + "/" + b.label;
+        
+        //console.log(b)
+        path = parent.attr.attributes.parentID + "/" +path;
+        //console.log(path)
+   
+    }else{
+        path = b.attr.attributes.parentID + "/" + b.label;
+        //console.log(path)
+     }
+
     $(".deletebutton").click(function(){
-        //path="/"+b.label;
-//
-        //while(b.source){
-        //    path='/'+b.source.label+path;
-        //    b=b.source;
-        //}
-        resource_url="http://54.68.184.172:8282/InCSE1/Team2AEx/container10";
-        //console.log(resource_url)
+
+        resource_url="http://54.68.184.172:8282/";
+        resource_url = resource_url + path
+
+        console.log(resource_url)
         $.ajax({
             url:resource_url+'?from=http:localhost:10000&requestIdentifier=12345',
             type:'DELETE',
@@ -733,18 +745,38 @@ function nodeActive(a) {
             
         });
     });
-    $(".modifytrigger").click(function(){
+    $(".updatetrigger").click(function(){
         $.ajax({
             url:'http://54.68.184.172:8282/InCSE1/Team2AEx/container10?from=http:localhost:10000&requestIdentifier=12345',
             type:'PUT',
             headers:{"contentType":'application/json'},
             content:{'labels':"123456"},
             success:function(data){
-                alert("Modify is successfully performed");
+                alert("Update is successfully performed");
             }
         })
-    })
+    });
 
+    $(".createtrigger").click(function(){
+       resource_url = "http://54.68.184.172:8282/InCSE1/Team2AEx"
+        headers = "?from=http:localhost:10000&requestIdentifier=12345"
+        url= resource_url + headers
+
+        data = "{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"container\",\"content\":{\"labels\": \"cookies\" ,\"resourceName\": \"cn11\"}}"
+         
+
+        $.ajax({
+            url: url,
+            type:'POST',
+            dataType:'json',
+            //contentType:'application/json',
+            data: data,
+            success:function(data){
+                alert("Create is successfully performed");
+            }
+        })
+
+    });
 
     
     //console.log($GP.info_edit);
