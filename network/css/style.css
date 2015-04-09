@@ -219,12 +219,12 @@ font-size:14px;
 	position:absolute;
 	top:25%;
 }
-#editmodify .modifybutton{
+#editupdate .updatebutton{
 	position:absolute;
 	right:10px;
 	top:40%;
 }
-#editmodify .modifytrigger{
+#editupdate .updatetrigger{
 	position:absolute;
 	right:45%;
 	top:90%;
