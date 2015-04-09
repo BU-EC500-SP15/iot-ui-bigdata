@@ -179,7 +179,7 @@ def Generate_json_string(input_json_string):
 			edge_id += 1
 			edge_string = '{\"source\":\"%s\",\"target\":\"%s\",\"id\":\"%s\"},' %(source_id, target_id, edge_id)
 			edge_string_list.append(edge_string)
-			node_string = '{\"id\":\"%s\",\"label\":\"%s\",\"attributes\":{\"resourceID\":\"%s\",\"resourceType\":\"%s\",\"creationTime\":\"%s\",\"lastModifiedTime\":\"%s\",\"labels\":\"%s\",\"parentID\":\"%s\",\"stateTag\":\"%s\"},\"x\":%s,\"y\":%s,\"color\":\"#3636e2\",\"size\":0.5},' %(CI_id, CI_name, CI_id, CI_resourceType, CI_creation_time, CI_modified_time, CI_labels, CI_parent, CI_stateTag, x_CI ,y_CI)
+			node_string = '{\"id\":\"%s\",\"label\":\"%s\",\"attributes\":{\"resourceID\":\"%s\",\"resourceType\":\"%s\",\"creationTime\":\"%s\",\"lastModifiedTime\":\"%s\",\"labels\":\"%s\",\"parentID\":\"%s\",\"stateTag\":\"%s\"},\"x\":%s,\"y\":%s,\"color\":\"#3636e2\",\"size\":0.5},' %(CI_id, CI_name, CI_id, CI_resourceType, CI_creation_time, CI_modified_time, CI_labels, CI_parent_idi, CI_stateTag, x_CI ,y_CI)
 			node_string_list.append(node_string)
 				
 GetContainerAttributes()
