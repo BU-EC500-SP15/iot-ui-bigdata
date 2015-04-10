@@ -624,6 +624,7 @@ function nodeActive(a) {
     addButton(b);
 
     createTrigger(b);
+    updateTrigger(b);
 
  
 
@@ -696,6 +697,11 @@ function initForm(b){
         }else{
             $(".createbutton").show();
         }
+        if(b.attr.attributes.resourceType=="contentInstance"){
+            $(".updatebutton").hide();
+        }else{
+            $(".updatebutton").show();
+        }
 
 }
 function editForm(b){
@@ -717,7 +723,8 @@ function editForm(b){
                     h = "";
                 if (attr!=image_attribute) {
                     h = '<strong>' + attr + ':</strong> ' 
-                    t = '<input type="text" id=\"' + attr +'\"  name=\"' + attr + '\" readOnly = true value=\"'+ d +'\" /><br/>'
+                    t = '<span>' + d + '</span><br/>'
+                   // t = '<input type="text" id=\"' + attr +'\"  name=\"' + attr + '\" readOnly = true value=\"'+ d +'\" /><br/>'
                 }
                 //console.log(t)              
                 $(".editattributes").append(h);
@@ -736,7 +743,7 @@ function updateButton(b){
         $(".updatebutton").hide();
         $(".createbutton").hide();
         $(".deletebutton").hide();
-        $(".addattr").hide();
+        $(".addattr").show();
         $(".updatetrigger").show();
         $(".createtrigger").hide();
         if (b.attr.attributes) {
@@ -750,16 +757,16 @@ function updateButton(b){
         l= '<strong>' + b.label+ ':</strong><br/><br/>'
         //console.log(l)
         $(".updatedata").append(l);
+        var attrarray=["labels","ontologyRef","appName","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge","notificationURI","notificationContentType"]
         for (var attr in b.attr.attributes) {
             var d = b.attr.attributes[attr],
                 h = "";
-            if (attr=="labels") {
+            if (!$.inArray(attr,attrarray)) {
                 h = '<strong>' + attr + ':</strong> ' 
                 t = '<input type="text" id=\"' + attr +'\"  name=\"' + attr + '\" value=\"'+ d +'\" /><br/>'
             }else{
                 h = '<strong>' + attr + ':</strong> ' 
                 t = '<span>' + d + '</span><br/>'
-                
             }
             $(".updatedata").append(h);
             $(".updatedata").append(t);
@@ -839,8 +846,26 @@ function getPath(b){
 
 function addButton(b){
     $(".addattr").click(function(){
-        t = '<input type="text" value="attributeName" /><input type="text" value="attributeValue" /><br/>'
-        $(".createdata").append(t);
+        attr=["resourceName","labels","ontologyRef","appName","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge","notificationURI","notificationContentType"];
+        attrtype = '<strong></strong>'+
+        '<select id=selectattr><option value="labels">labels</option>'+
+        '<option value="11">ontologyRef</option>'+
+        '<option value="22">appName</option>'+
+        '<option value="33">expirationTime</option>'+
+        '<option value="44">maxNrOfInstances</option>'+
+        '<option value="55">maxByteSize</option>'+
+        '<option value="66">maxInstanceAge</option>'+
+        '<option value="77">notificationURI</option>'+
+        '<option value="88">notificationContentType</option></select>'
+
+        $(".updatedata").append(attrtype);      
+        type=$("#selectattr option:selected").val();
+
+        //    if(type!=null&&type!="undefined"&&type!=undefined){
+        t = '<input type="text" id="attributeValue" value="" /><br/>';
+        //}
+        $('.updatedata').append(t);
+
     });
 }
 
@@ -934,5 +959,96 @@ function createTrigger(b){
             }
         })
 });
+}
+
+function updateTrigger(b){
+    $(".updatetrigger").click(function(){
+        $(".createlabel").empty();
+        type = b.attr.attributes.resourceType;
+        labels = $("#labels").val();
+        ontologyRef = $("#ontologyRef").val();
+        expirationTime=$("#expirationTime").val();
+        appName = $("#appName").val();
+        maxNrOfInstances = $("#maxNrOfInstances").val();
+        maxByteSize = $("#maxByteSize").val();
+        maxInstanceAge = $("#maxInstanceAge").val();
+        notificationURI = $("#notificationURI").val();
+        notificationContentType = $("#notificationContentType").val();
+        data = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"' + type +'\",\"content\":{ '
+
+        if(type =="AE"){
+            var attrarray={"labels":labels,"ontologyRef":ontologyRef,"appName":appName};
+            for(item in attrarray){
+                if(attrarray[item]!=""&&attrarray[item]!=undefined&&attrarray[item]!="undefined"){
+                    data = data + '\"' + item + '\":\"'+ attrarray[item] +'\",';
+                }
+            }
+            var array=[labels,ontologyRef,appName];
+            attrtype=$("#selectattr option:selected").text();
+            attrvalue=$("#attributeValue").val();
+            if($.inArray(attrtype,array)){
+                if(attrvalue!=""&&attrvalue!="undefined"&&attrvalue!=undefined){
+                data = data +'\"' + attrtype +'\":\"' + attrvalue+'\",';}
+            }
+            data = data + '\"resourceName\":\"' + b.label + '\"}}';
+        }else if(type =="container"){
+            var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime,"maxNrOfInstances":maxNrOfInstances,"maxByteSize":maxByteSize,"maxInstanceAge":maxInstanceAge};
+            for(item in attrarray){
+                if(attrarray[item]!=""&&attrarray[item]!=undefined&&attrarray[item]!="undefined"){
+                    data = data + '\"' + item + '\":\"'+ attrarray[item] +'\",';
+                }
+            }
+            var array=[labels,ontologyRef,expirationTime,maxNrOfInstances,maxByteSize,maxInstanceAge];
+            attrtype=$("#selectattr option:selected").text();
+            attrvalue=$("#attributeValue").val();
+            if($.inArray(attrtype,array)){
+                if(attrvalue!=""&&attrvalue!="undefined"&&attrvalue!=undefined){
+                                  data = data +'\"' + attrtype +'\":\"' + attrvalue+'\",';  
+                }
+            }
+             data = data + '\"resourceName\":\"' + b.label + '\"}}';
+        }else if (type =="subscription"){
+            var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime,"notificationURI":notificationURI,"notificationContentType":notificationContentType}; 
+            for(item in attrarray){
+                if(attrarray[item]!=""&&attrarray[item]!=undefined&&attrarray[item]!="undefined"){
+                    data = data + '\"' + item + '\":\"'+ attrarray[item] +'\",';
+                }
+            }
+            var array=[labels,ontologyRef,expirationTime,notificationURI,notificationContentType];
+            attrtype=$("#selectattr option:selected").text();
+            attrvalue=$("#attributeValue").val();
+            if($.inArray(attrtype,array)){
+                if(attrvalue!=""&&attrvalue!="undefined"&&attrvalue!=undefined){
+                    data = data +'\"' + attrtype +'\":\"' + attrvalue+'\",';}
+            }
+             data = data + '\"resourceName\":\"' + b.label + '\"}}';
+        }else if(type=="contentInstance"){
+            label = "You cannot update a contentInstance";
+            $(".createlabel").append(label);
+            return;
+        }
+
+console.log(data)
+
+   resource_url = "http://54.68.184.172:8282/" + path;
+   console.log(path)
+
+    headers = "?from=http:localhost:10000&requestIdentifier=12345"
+    url= resource_url + headers
+    //console.log(url)
+
+    //data = "{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"container\",\"content\":{\"labels\": \"cookies\" ,\"resourceName\": \"cn11\"}}"
+    $.ajax({
+        url: url,
+        type:'PUT',
+        dataType:'json',
+        //contentType:'application/json',
+        data: data,
+        success:function(data){
+            alert("Update is successfully performed");
+        }
+    })    
+    });
+
 }
 
