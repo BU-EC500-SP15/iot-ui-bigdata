@@ -539,7 +539,7 @@ function nodeActive(a) {
 		}
 		return f;
 	}
-	
+
 	/*console.log("mutual:");
 	console.log(mutual);
 	console.log("incoming:");
@@ -615,179 +615,32 @@ function nodeActive(a) {
     window.location.hash = b.label;
     //console.log(b.label);
     //console.log(f.attributes);
+    initForm(b);
+    editForm(b);
+    getPath(b);
+    updateButton(b);
+    createButton(b);
+    deleteButton(b);
+    addButton(b);
+
+    createTrigger(b);
 
  
-   $("#editform").ready(function(){
-        $(".editattributes").empty();
-        $(".updatedata").empty();
-        $(".createdata").empty();
-        $(".addattr").hide();
-        $(".updatetrigger").hide();
-        $(".createtrigger").hide();
-        $(".createbutton").show();
-        $(".updatebutton").show();
-        $(".deletebutton").show();
-        if (f.attributes) {
-            var image_attribute = false;
-            if (config.informationPanel.imageAttribute) {
-                image_attribute=config.informationPanel.imageAttribute;
-            }
-            e = [];
-            temp_array = [];
-            g = 0;
-            l= '<strong>' + b.label+ ':</strong><br/><br/>'
-            //console.log(l)
-            $(".editattributes").append(l);
-            for (var attr in f.attributes) {
-                var d = f.attributes[attr],
-                    h = "";
-                if (attr!=image_attribute) {
-                    h = '<strong>' + attr + ':</strong> ' 
-                    t = '<input type="text" id=\"' + attr +'\"  name=\"' + attr + '\" readOnly = true value=\"'+ d +'\" /><br/>'
-                }
-                //console.log(t)              
-                $(".editattributes").append(h);
-                $(".editattributes").append(t);
-            }
-        $(".editattributes").hide();
-        $(".editattributes").show();
-    }
+
+    /*  
 
 
-    $(".updatebutton").click(function(){
-        $(".editattributes").empty();
-        $(".updatedata").empty();
-        $(".createdata").empty();
-        $(".updatebutton").hide();
-        $(".createbutton").hide();
-        $(".deletebutton").hide();
-        $(".addattr").hide();
-        $(".updatetrigger").show();
-        $(".createtrigger").hide();
-        if (f.attributes) {
-        var image_attribute = false;
-        if (config.informationPanel.imageAttribute) {
-            image_attribute=config.informationPanel.imageAttribute;
-        }
-        e = [];
-        temp_array = [];
-        g = 0;
-        l= '<strong>' + b.label+ ':</strong><br/><br/>'
-        //console.log(l)
-        $(".updatedata").append(l);
-        for (var attr in f.attributes) {
-            var d = f.attributes[attr],
-                h = "";
-            if (attr=="labels") {
-                h = '<strong>' + attr + ':</strong> ' 
-                t = '<input type="text" id=\"' + attr +'\"  name=\"' + attr + '\" value=\"'+ d +'\" /><br/>'
-            }else{
-                h = '<strong>' + attr + ':</strong> ' 
-                t = '<span>' + d + '</span><br/>'
-                
-            }
-            $(".updatedata").append(h);
-            $(".updatedata").append(t);
-       }
-    }
-    });
-    $(".createbutton").click(function(){
-        $(".editattributes").empty();
-        $(".updatedata").empty();
-        $(".createdata").empty();
-        $(".updatebutton").hide();
-        $(".createbutton").hide();
-        $(".deletebutton").hide();
-        $(".updatetrigger").hide();
-        $(".createtrigger").show();
-        $(".addattr").show();
-        attr=["resourceName","resourceType","labels"]
-        for(var item in attr){
-            var h =""
-            h ='<strong>' + attr[item] + ':</strong> '
-            t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
-            $(".createdata").append(h);
-            $(".createdata").append(t);
-        }
-    });
-    $(".addattr").click(function(){
-        t = '<input type="text" value="attributeName" /><input type="text" value="attributeValue" /><br/>'
-        $(".createdata").append(t);
-    });
-
-    //console.log(b)
-    //console.log(b.attr.attributes.parentID)
-    //get the path of the active node
-    if(b.attr.attributes.resourceType=="contentInstance"){
-        path =parent.label + "/" + b.label;
-        
-        //console.log(b)
-        path = parent.attr.attributes.parentID + "/" +path;
-        //console.log(path)
-   
-    }else{
-        path = b.attr.attributes.parentID + "/" + b.label;
-        //console.log(path)
-     }
-
-    $(".deletebutton").click(function(){
-
-        resource_url="http://54.68.184.172:8282/";
-        resource_url = resource_url + path
-
-        console.log(resource_url)
-        $.ajax({
-            url:resource_url+'?from=http:localhost:10000&requestIdentifier=12345',
-            type:'DELETE',
-            success:function(data){
-                alert("Delete is sucessfully performed");
-            }
-            
-        });
-    });
-    $(".updatetrigger").click(function(){
-        $.ajax({
-            url:'http://54.68.184.172:8282/InCSE1/Team2AEx/container10?from=http:localhost:10000&requestIdentifier=12345',
-            type:'PUT',
-            headers:{"contentType":'application/json'},
-            content:{'labels':"123456"},
-            success:function(data){
-                alert("Update is successfully performed");
-            }
-        })
-    });
-
-    $(".createtrigger").click(function(){
-       resource_url = "http://54.68.184.172:8282/InCSE1/Team2AEx"
-        headers = "?from=http:localhost:10000&requestIdentifier=12345"
-        url= resource_url + headers
-
-        data = "{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"container\",\"content\":{\"labels\": \"cookies\" ,\"resourceName\": \"cn11\"}}"
-         
-
-        $.ajax({
-            url: url,
-            type:'POST',
-            dataType:'json',
-            //contentType:'application/json',
-            data: data,
-            success:function(data){
-                alert("Create is successfully performed");
-            }
-        })
-
-    });
-
+//$("select").change(function(){
+    //var selIndex = $("#selecttype").selectedIndex;
+    //console.log(selIndex)
+    //var selValue = $("#selecttype").options(selIndex).val();
+    //console.log(selValue);
+//})
+     
     
-    //console.log($GP.info_edit);
+    */
 
-    //    $("#resourceName").attr("value",b.label);
-    //    $("#resourceName").attr("readOnly",true);
-    //    $("#resourceId").attr("value",b.id);
-    //    $("#resourceId").attr("readOnly",true);
-    //    var uniqueId = $("#resourceId").val();
-    //    var labels = $("#labels").val();
-    });
+
 }
 
 function showCluster(a) {
@@ -825,4 +678,261 @@ function showCluster(a) {
     return !1
 }
 
+
+function initForm(b){
+        $(".createlabel").empty();
+        $(".editattributes").empty();
+        $(".updatedata").empty();
+        $(".createdata").empty();
+        $(".updatetrigger").hide();
+        $(".createtrigger").hide();
+        $(".addattr").hide();
+        $(".editattributes").hide();
+        $(".updatebutton").show();
+        //$(".createbutton").show();
+        $(".deletebutton").show();
+        if(b.attr.attributes.resourceType=="contentInstance"){
+            $(".createbutton").hide();
+        }else{
+            $(".createbutton").show();
+        }
+
+}
+function editForm(b){
+   $("#editform").ready(function(){
+        
+        if (b.attr.attributes) {
+            var image_attribute = false;
+            if (config.informationPanel.imageAttribute) {
+                image_attribute=config.informationPanel.imageAttribute;
+            }
+            e = [];
+            temp_array = [];
+            g = 0;
+            l= '<strong>' + b.label+ ':</strong><br/><br/>'
+            //console.log(l)
+            $(".editattributes").append(l);
+            for (var attr in b.attr.attributes) {
+                var d = b.attr.attributes[attr],
+                    h = "";
+                if (attr!=image_attribute) {
+                    h = '<strong>' + attr + ':</strong> ' 
+                    t = '<input type="text" id=\"' + attr +'\"  name=\"' + attr + '\" readOnly = true value=\"'+ d +'\" /><br/>'
+                }
+                //console.log(t)              
+                $(".editattributes").append(h);
+                $(".editattributes").append(t);
+            }
+        $(".editattributes").show();
+    }
+})
+}
+
+function updateButton(b){
+    $(".updatebutton").click(function(){
+        $(".editattributes").empty();
+        $(".updatedata").empty();
+        $(".createdata").empty();
+        $(".updatebutton").hide();
+        $(".createbutton").hide();
+        $(".deletebutton").hide();
+        $(".addattr").hide();
+        $(".updatetrigger").show();
+        $(".createtrigger").hide();
+        if (b.attr.attributes) {
+        var image_attribute = false;
+        if (config.informationPanel.imageAttribute) {
+            image_attribute=config.informationPanel.imageAttribute;
+        }
+        e = [];
+        temp_array = [];
+        g = 0;
+        l= '<strong>' + b.label+ ':</strong><br/><br/>'
+        //console.log(l)
+        $(".updatedata").append(l);
+        for (var attr in b.attr.attributes) {
+            var d = b.attr.attributes[attr],
+                h = "";
+            if (attr=="labels") {
+                h = '<strong>' + attr + ':</strong> ' 
+                t = '<input type="text" id=\"' + attr +'\"  name=\"' + attr + '\" value=\"'+ d +'\" /><br/>'
+            }else{
+                h = '<strong>' + attr + ':</strong> ' 
+                t = '<span>' + d + '</span><br/>'
+                
+            }
+            $(".updatedata").append(h);
+            $(".updatedata").append(t);
+       }
+    }
+})
+}
+
+function createButton(b){
+        $(".createbutton").click(function(){
+        $(".createlabel").empty();
+        $(".editattributes").empty();
+        $(".updatedata").empty();
+        $(".createdata").empty();
+        $(".updatebutton").hide();
+        $(".createbutton").hide();
+        $(".deletebutton").hide();
+        $(".updatetrigger").hide();
+        $(".createtrigger").show();
+        $(".addattr").show();
+        $(".createdata").show();
+        type = '<strong>Choose resourceType: </strong><select id=selecttype><option value="AE">AE</option><option value="container">container</option><option value="contentInstance">contentInstance</option><option value="subscription">subscription</option></select><br/>'
+        attr=["resourceName","labels","ontologyRef","appName","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge","notificationURI","notificationContentType"]
+        $(".createdata").append(type);
+        for(var item in attr){
+            var h =""
+            if(attr[item]=="appName"){
+                h ='<strong>' + attr[item] + '(Only_for_AEs): </strong> '
+                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
+            }else if(attr[item]=="maxNrOfInstances"||attr[item]=="maxByteSize"||attr[item]=="maxInstanceAge"){
+                h ='<strong>' + attr[item] + '(Only_for_containers): </strong>'
+                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
+            }else if(attr[item]=="notificationURI"|| attr[item]=="notificationContentType"){
+                h ='<strong>' + attr[item] + 'Required_for_subcriptions): </strong>'
+                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
+            }else{
+                h ='<strong>' + attr[item] + ': </strong>'
+                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
+            }
+            $(".createdata").append(h);
+            $(".createdata").append(t);
+            
+        }
+    });
+}
+
+function deleteButton(b){
+    $(".deletebutton").click(function(){
+        resource_url="http://54.68.184.172:8282/";
+        resource_url = resource_url + path
+
+        console.log(resource_url)
+        $.ajax({
+            url:resource_url+'?from=http:localhost:10000&requestIdentifier=12345',
+            type:'DELETE',
+            success:function(data){
+                alert("Delete is sucessfully performed");
+            }
+            
+        });
+    });
+}
+
+function getPath(b){
+    if(b.attr.attributes.resourceType=="contentInstance"){
+        path =parent.label + "/" + b.label;
+        
+        //console.log(b)
+        path = parent.attr.attributes.parentID + "/" +path;
+        //console.log(path)
+   
+    }else{
+        path = b.attr.attributes.parentID + "/" + b.label;
+        //console.log(path)
+     }
+}
+
+function addButton(b){
+    $(".addattr").click(function(){
+        t = '<input type="text" value="attributeName" /><input type="text" value="attributeValue" /><br/>'
+        $(".createdata").append(t);
+    });
+}
+
+
+function createTrigger(b){
+    $(".createtrigger").click(function(){
+        type = $("#selecttype option:selected").val();
+        name = $("#resourceName").val();
+        labels = $("#labels").val();
+        ontologyRef = $("#ontologyRef").val();
+        expirationTime=$("#expirationTime").val();
+        appName = $("#appName").val();
+        maxNrOfInstances = $("#maxNrOfInstances").val();
+        maxByteSize = $("#maxByteSize").val();
+        maxInstanceAge = $("#maxInstanceAge").val();
+        notificationURI = $("#notificationURI").val();
+        notificationContentType = $("#notificationContentType").val();
+
+
+        parentType = b.attr.attributes.resourceType;
+//console.log(parentType!="contentInstance")
+        if(parentType!="contentInstance"){
+            if(type == "AE"){
+                label='<strong>You cannot create an AE except in the root node</strong><br/>'
+                $(".createlabel").append(label);
+                return;
+            }else{
+                if(name!=""){
+                    data = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"' + type +'\",\"content\":{ \"resourceName\":'
+                    if(type=="container"){
+                        data = data + '\"' + name +'\"';
+                        var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime,"maxNrOfInstances":maxNrOfInstances,"maxByteSize":maxByteSize,"maxInstanceAge":maxInstanceAge};
+                        for(item in attrarray){
+                            if(attrarray[item]!=""){
+                                data = data + ',\"' + item + '\":\"'+ attrarray[item] +'\"';
+                            }
+                        }
+                        data = data + '}}';
+                    }else if(type=="contentInstance"){
+                        data = data + '\"' + name +'\"';
+                        var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime};     
+                        for(item in attrarray){
+                            if(attrarray[item]!=""){
+                                //console.log(item)
+                                //console.log(attrarray[item]=="")
+                                 data = data + ',\"' + item + '\":\"'+ attrarray[item] +'\"';
+                            }
+                        } 
+                        data = data + '}}';                
+                    }else if(type=="subscription"){
+                       data = data + '\"' + name +'\"';
+                       var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime,"notificationURI":notificationURI,"notificationContentType":notificationContentType}; 
+                       for(item in attrarray){
+                        if(attrarray[item]!=""){
+                            data = data + ',\"' + item + '\":\"'+ attrarray[item] +'\"';
+                        }
+                       } 
+                       data = data + '}}'; 
+                }else{
+                    label='<strong>You must enter a resourceName';
+                    $(".createlabel").append(label);
+                    return;
+                }
+            }
+        }
+    }else{
+            label='<strong>You cannot create a node under a contentInstance</strong><br/>';
+            $(".createlabel").append(label);
+            return;
+        }
+
+//console.log(data)
+
+
+
+       resource_url = "http://54.68.184.172:8282/" + path;
+       //console.log(path)
+
+        headers = "?from=http:localhost:10000&requestIdentifier=12345"
+        url= resource_url + headers
+
+        //data = "{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"container\",\"content\":{\"labels\": \"cookies\" ,\"resourceName\": \"cn11\"}}"
+        $.ajax({
+            url: url,
+            type:'POST',
+            dataType:'json',
+            //contentType:'application/json',
+            data: data,
+            success:function(data){
+                alert("Create is successfully performed");
+            }
+        })
+});
+}
 
