@@ -2,472 +2,184 @@
     "edges": [
         {
             "id": "1", 
-            "source": "1415208429", 
-            "target": "1452585269"
+            "source": "1415208419", 
+            "target": "161758075"
         }, 
         {
             "id": "2", 
-            "source": "1415208429", 
-            "target": "1452585268"
+            "source": "161758075", 
+            "target": "1241018083"
         }, 
         {
             "id": "3", 
-            "source": "1415208429", 
-            "target": "1452585267"
+            "source": "1415208419", 
+            "target": "161758076"
         }, 
         {
             "id": "4", 
-            "source": "1415208429", 
-            "target": "1452585266"
+            "source": "161758076", 
+            "target": "1370100802"
         }, 
         {
             "id": "5", 
-            "source": "1415208429", 
-            "target": "1452585265"
+            "source": "1370100802", 
+            "target": "1511283696"
         }, 
         {
             "id": "6", 
-            "source": "1452585269", 
-            "target": "45015901"
+            "source": "1370100802", 
+            "target": "1511283695"
         }, 
         {
             "id": "7", 
-            "source": "1452585269", 
-            "target": "45015900"
-        }, 
-        {
-            "id": "8", 
-            "source": "1452585269", 
-            "target": "1505419327"
-        }, 
-        {
-            "id": "9", 
-            "source": "1452585269", 
-            "target": "1505419328"
-        }, 
-        {
-            "id": "10", 
-            "source": "1452585269", 
-            "target": "1505419329"
-        }, 
-        {
-            "id": "11", 
-            "source": "1452585268", 
-            "target": "1042088254"
-        }, 
-        {
-            "id": "12", 
-            "source": "1452585268", 
-            "target": "1042088253"
-        }, 
-        {
-            "id": "13", 
-            "source": "1452585267", 
-            "target": "2039160607"
-        }, 
-        {
-            "id": "14", 
-            "source": "1452585267", 
-            "target": "2039160606"
-        }, 
-        {
-            "id": "15", 
-            "source": "1452585266", 
-            "target": "1258734337"
-        }, 
-        {
-            "id": "16", 
-            "source": "1452585266", 
-            "target": "1258734336"
-        }, 
-        {
-            "id": "17", 
-            "source": "1452585265", 
-            "target": "1429431230"
-        }, 
-        {
-            "id": "18", 
-            "source": "1452585265", 
-            "target": "1429431231"
-        }, 
-        {
-            "id": "19", 
-            "source": "1452585265", 
-            "target": "261661984"
-        }, 
-        {
-            "id": "20", 
-            "source": "1452585265", 
-            "target": "261661983"
+            "source": "161758076", 
+            "target": "400183285"
         }
     ], 
     "nodes": [
         {
             "attributes": {
-                "Child-ResourceContainer": "5", 
+                "Child-ResourceContainer": "2", 
                 "Child-ResourceSubscription Number": "0", 
-                "Total Child Resource Number": "5", 
-                "labels": "Test_Only_For_Yingchao", 
+                "Total Child Resource Number": "2", 
+                "labels": "For_Nik", 
                 "parentID": "InCSE1", 
-                "resourceID": "1415208429", 
+                "resourceID": "1415208419", 
                 "resourceType": "AE"
             }, 
             "color": "rgb(255,204,102)", 
-            "id": "1415208429", 
-            "label": "Team2AEx", 
+            "id": "1415208419", 
+            "label": "Team2AEn", 
             "size": 15, 
             "x": 0, 
             "y": 0
         }, 
         {
             "attributes": {
-                "Child-ResourceContainer": "0", 
-                "Child-ResourceContentInstance Number": "5", 
+                "Child-ResourceContainer": "1", 
+                "Child-ResourceContentInstance Number": "0", 
                 "Child-ResourceSubscription Number": "0", 
-                "Total Child Resource Number": "5", 
-                "labels": "Test_For_Python_Code", 
-                "parentID": "InCSE1/Team2AEx", 
-                "resourceID": "1452585269", 
+                "Total Child Resource Number": "1", 
+                "labels": "Test_Only_For_Yingchao", 
+                "parentID": "InCSE1/Team2AEn", 
+                "resourceID": "161758075", 
                 "resourceType": "container", 
-                "stateTag": "5"
+                "stateTag": "1"
             }, 
             "color": "#36e236", 
-            "id": "1452585269", 
-            "label": "container4", 
-            "size": 5, 
+            "id": "161758075", 
+            "label": "container0", 
+            "size": 1, 
             "x": 2000, 
-            "y": -1000
+            "y": 500
         }, 
         {
             "attributes": {
-                "Child-ResourceContainer": "0", 
-                "Child-ResourceContentInstance Number": "2", 
+                "Child-ResourceContainer": "1", 
+                "Child-ResourceContentInstance Number": "0", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "1", 
+                "labels": "Test_Only_For_Yingchao", 
+                "parentID": "InCSE1/Team2AEn/container0", 
+                "resourceID": "1241018083", 
+                "resourceType": "container", 
+                "stateTag": "0"
+            }, 
+            "color": "#36e236", 
+            "id": "1241018083", 
+            "label": "container0", 
+            "size": 1, 
+            "x": 4000, 
+            "y": 1000
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "1", 
+                "Child-ResourceContentInstance Number": "1", 
                 "Child-ResourceSubscription Number": "0", 
                 "Total Child Resource Number": "2", 
-                "labels": "Test_For_Python_Code", 
-                "parentID": "InCSE1/Team2AEx", 
-                "resourceID": "1452585268", 
+                "labels": "Test_Only_For_Yingchao", 
+                "parentID": "InCSE1/Team2AEn", 
+                "resourceID": "161758076", 
                 "resourceType": "container", 
                 "stateTag": "2"
             }, 
             "color": "#36e236", 
-            "id": "1452585268", 
-            "label": "container3", 
-            "size": 2, 
-            "x": 2000, 
-            "y": -500
-        }, 
-        {
-            "attributes": {
-                "Child-ResourceContainer": "0", 
-                "Child-ResourceContentInstance Number": "2", 
-                "Child-ResourceSubscription Number": "0", 
-                "Total Child Resource Number": "2", 
-                "labels": "Test_For_Python_Code", 
-                "parentID": "InCSE1/Team2AEx", 
-                "resourceID": "1452585267", 
-                "resourceType": "container", 
-                "stateTag": "2"
-            }, 
-            "color": "#36e236", 
-            "id": "1452585267", 
-            "label": "container2", 
-            "size": 2, 
-            "x": 2000, 
-            "y": 0
-        }, 
-        {
-            "attributes": {
-                "Child-ResourceContainer": "0", 
-                "Child-ResourceContentInstance Number": "2", 
-                "Child-ResourceSubscription Number": "0", 
-                "Total Child Resource Number": "2", 
-                "labels": "Test_For_Python_Code", 
-                "parentID": "InCSE1/Team2AEx", 
-                "resourceID": "1452585266", 
-                "resourceType": "container", 
-                "stateTag": "2"
-            }, 
-            "color": "#36e236", 
-            "id": "1452585266", 
+            "id": "161758076", 
             "label": "container1", 
             "size": 2, 
             "x": 2000, 
-            "y": 500
-        }, 
-        {
-            "attributes": {
-                "Child-ResourceContainer": "0", 
-                "Child-ResourceContentInstance Number": "4", 
-                "Child-ResourceSubscription Number": "0", 
-                "Total Child Resource Number": "4", 
-                "labels": "Test_For_Python_Code", 
-                "parentID": "InCSE1/Team2AEx", 
-                "resourceID": "1452585265", 
-                "resourceType": "container", 
-                "stateTag": "4"
-            }, 
-            "color": "#36e236", 
-            "id": "1452585265", 
-            "label": "container0", 
-            "size": 4, 
-            "x": 2000, 
-            "y": 1000
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:190", 
-                "labels": "Test_For_Python_Code", 
-                "lastModifiedTime": "02-04-15T14:13:190", 
-                "parentID": "container4", 
-                "resourceID": "45015901", 
-                "resourceType": "contentInstance", 
-                "stateTag": "2"
-            }, 
-            "color": "#3636e2", 
-            "id": "45015901", 
-            "label": "contentInstance1", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": -3500
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:26", 
-                "labels": "Test_For_Python_Code", 
-                "lastModifiedTime": "02-04-15T14:13:26", 
-                "parentID": "container4", 
-                "resourceID": "45015900", 
-                "resourceType": "contentInstance", 
-                "stateTag": "1"
-            }, 
-            "color": "#3636e2", 
-            "id": "45015900", 
-            "label": "contentInstance0", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": -3000
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:14:532", 
-                "labels": "Test_Only_For_Yingchao", 
-                "lastModifiedTime": "02-04-15T14:14:532", 
-                "parentID": "container4", 
-                "resourceID": "1505419327", 
-                "resourceType": "contentInstance", 
-                "stateTag": "5"
-            }, 
-            "color": "#3636e2", 
-            "id": "1505419327", 
-            "label": "TestCI3", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": -2500
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:343", 
-                "labels": "Test_Only_For_Yingchao", 
-                "lastModifiedTime": "02-04-15T14:13:343", 
-                "parentID": "container4", 
-                "resourceID": "1505419328", 
-                "resourceType": "contentInstance", 
-                "stateTag": "4"
-            }, 
-            "color": "#3636e2", 
-            "id": "1505419328", 
-            "label": "TestCI2", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": -2000
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:925", 
-                "labels": "Test_Only_For_Yingchao", 
-                "lastModifiedTime": "02-04-15T14:13:925", 
-                "parentID": "container4", 
-                "resourceID": "1505419329", 
-                "resourceType": "contentInstance", 
-                "stateTag": "3"
-            }, 
-            "color": "#3636e2", 
-            "id": "1505419329", 
-            "label": "TestCI1", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": -1500
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:697", 
-                "labels": "Test_For_Python_Code", 
-                "lastModifiedTime": "02-04-15T14:13:697", 
-                "parentID": "container3", 
-                "resourceID": "1042088254", 
-                "resourceType": "contentInstance", 
-                "stateTag": "2"
-            }, 
-            "color": "#3636e2", 
-            "id": "1042088254", 
-            "label": "contentInstance1", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": -1000
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:533", 
-                "labels": "Test_For_Python_Code", 
-                "lastModifiedTime": "02-04-15T14:13:533", 
-                "parentID": "container3", 
-                "resourceID": "1042088253", 
-                "resourceType": "contentInstance", 
-                "stateTag": "1"
-            }, 
-            "color": "#3636e2", 
-            "id": "1042088253", 
-            "label": "contentInstance0", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": -500
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:207", 
-                "labels": "Test_For_Python_Code", 
-                "lastModifiedTime": "02-04-15T14:13:207", 
-                "parentID": "container2", 
-                "resourceID": "2039160607", 
-                "resourceType": "contentInstance", 
-                "stateTag": "2"
-            }, 
-            "color": "#3636e2", 
-            "id": "2039160607", 
-            "label": "contentInstance1", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": 0
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:45", 
-                "labels": "Test_For_Python_Code", 
-                "lastModifiedTime": "02-04-15T14:13:45", 
-                "parentID": "container2", 
-                "resourceID": "2039160606", 
-                "resourceType": "contentInstance", 
-                "stateTag": "1"
-            }, 
-            "color": "#3636e2", 
-            "id": "2039160606", 
-            "label": "contentInstance0", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": 500
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:557", 
-                "labels": "Test_For_Python_Code", 
-                "lastModifiedTime": "02-04-15T14:13:557", 
-                "parentID": "container1", 
-                "resourceID": "1258734337", 
-                "resourceType": "contentInstance", 
-                "stateTag": "1"
-            }, 
-            "color": "#3636e2", 
-            "id": "1258734337", 
-            "label": "contentInstance0", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": 1000
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:720", 
-                "labels": "Test_For_Python_Code", 
-                "lastModifiedTime": "02-04-15T14:13:720", 
-                "parentID": "container1", 
-                "resourceID": "1258734336", 
-                "resourceType": "contentInstance", 
-                "stateTag": "2"
-            }, 
-            "color": "#3636e2", 
-            "id": "1258734336", 
-            "label": "contentInstance1", 
-            "size": 0.5, 
-            "x": 4000, 
             "y": 1500
         }, 
         {
             "attributes": {
-                "creationTime": "02-04-15T14:14:178", 
+                "Child-ResourceContainer": "0", 
+                "Child-ResourceContentInstance Number": "2", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "2", 
                 "labels": "Test_Only_For_Yingchao", 
-                "lastModifiedTime": "02-04-15T14:14:178", 
-                "parentID": "container0", 
-                "resourceID": "1429431230", 
-                "resourceType": "contentInstance", 
-                "stateTag": "3"
+                "parentID": "InCSE1/Team2AEn/container1", 
+                "resourceID": "1370100802", 
+                "resourceType": "container", 
+                "stateTag": "2"
             }, 
-            "color": "#3636e2", 
-            "id": "1429431230", 
-            "label": "TestCI4", 
-            "size": 0.5, 
+            "color": "#36e236", 
+            "id": "1370100802", 
+            "label": "container0", 
+            "size": 2, 
             "x": 4000, 
             "y": 2000
         }, 
         {
             "attributes": {
-                "creationTime": "02-04-15T14:14:445", 
+                "creationTime": "02-04-15T00:05:635", 
                 "labels": "Test_Only_For_Yingchao", 
-                "lastModifiedTime": "02-04-15T14:14:445", 
-                "parentID": "container0", 
-                "resourceID": "1429431231", 
-                "resourceType": "contentInstance", 
-                "stateTag": "4"
-            }, 
-            "color": "#3636e2", 
-            "id": "1429431231", 
-            "label": "TestCI5", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": 2500
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:68", 
-                "labels": "Test_For_Python_Code", 
-                "lastModifiedTime": "02-04-15T14:13:68", 
-                "parentID": "container0", 
-                "resourceID": "261661984", 
-                "resourceType": "contentInstance", 
-                "stateTag": "1"
-            }, 
-            "color": "#3636e2", 
-            "id": "261661984", 
-            "label": "contentInstance0", 
-            "size": 0.5, 
-            "x": 4000, 
-            "y": 3000
-        }, 
-        {
-            "attributes": {
-                "creationTime": "02-04-15T14:13:233", 
-                "labels": "Test_For_Python_Code", 
-                "lastModifiedTime": "02-04-15T14:13:233", 
-                "parentID": "container0", 
-                "resourceID": "261661983", 
+                "lastModifiedTime": "02-04-15T00:05:635", 
+                "parentID": "InCSE1/Team2AEn/container1/container0", 
+                "resourceID": "1511283696", 
                 "resourceType": "contentInstance", 
                 "stateTag": "2"
             }, 
             "color": "#3636e2", 
-            "id": "261661983", 
+            "id": "1511283696", 
             "label": "contentInstance1", 
             "size": 0.5, 
+            "x": 6000, 
+            "y": 500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "02-04-15T00:05:357", 
+                "labels": "Test_Only_For_Yingchao", 
+                "lastModifiedTime": "02-04-15T00:05:357", 
+                "parentID": "InCSE1/Team2AEn/container1/container0", 
+                "resourceID": "1511283695", 
+                "resourceType": "contentInstance", 
+                "stateTag": "1"
+            }, 
+            "color": "#3636e2", 
+            "id": "1511283695", 
+            "label": "contentInstance0", 
+            "size": 0.5, 
+            "x": 6000, 
+            "y": 1000
+        }, 
+        {
+            "attributes": {
+                "creationTime": "02-04-15T00:04:914", 
+                "labels": "Test_Only_For_Yingchao", 
+                "lastModifiedTime": "02-04-15T00:04:914", 
+                "parentID": "InCSE1/Team2AEn/container1", 
+                "resourceID": "400183285", 
+                "resourceType": "contentInstance", 
+                "stateTag": "2"
+            }, 
+            "color": "#3636e2", 
+            "id": "400183285", 
+            "label": "contentInstance0", 
+            "size": 0.5, 
             "x": 4000, 
-            "y": 3500
+            "y": 1500
         }
     ]
 }
