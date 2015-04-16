@@ -226,8 +226,8 @@ font-size:14px;
 }
 #editupdate .updatetrigger{
 	position:absolute;
-	right:45%;
-	top:90%;
+	right:10px;
+	top:70%;
 }
 #editcreate .createbutton{
 	position:absolute;
@@ -236,8 +236,8 @@ font-size:14px;
 }
 #editcreate .createtrigger{
 	position:absolute;
-	right:45%;
-	top:90%;
+	right:10px;
+	top:70%;
 }
 #editcreate .addattr{
 	position:absolute;

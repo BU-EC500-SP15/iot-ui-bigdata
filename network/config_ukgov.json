@@ -1,6 +1,7 @@
 {
     "type": "network",
 	"data":"data/iot.json",
+	"data_latest":"data/iot_latest.json",
     "version": "1.0",
     "logo": {
         "file": "images/iot_logo.png",
