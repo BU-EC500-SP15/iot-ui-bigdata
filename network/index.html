@@ -64,6 +64,7 @@
       </div>
     </form>
     </div>
+  <button type="button" id = "open">Refersh</button>
   </div>
   <div id="information">
   </div>
@@ -95,8 +96,7 @@
 </div>
 <div id="editform">
  <div ><span class="headertext">Edit Information</span>
-  <input type="button" value="Close" onclick="getElementById('editform').style.display='none'"/>
-  <input class="backattr" type="button" name="Back" value="back" /></div>
+  <input type="button" value="Close" onclick="getElementById('editform').style.display='none'"/></div>
   <br/><br/>
   <div class="editattributes"></div>
   <!--<div class="position"><span class="p">ResourceName:</span><br/>
@@ -110,7 +110,6 @@
 <div class="left-close"></div> -->
 <div id = "editupdate">
 <div class="updatedata"></div>
-<div class="updateadd"></div>
 <div class="updatetrigger"><input type="button" value="update"/></div>
 <div class="updatebutton"><input type="button" value="update"/></div></div>
 <div id = "editcreate">
@@ -134,18 +133,28 @@
 </div>
 <script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-21293169-4']);
-  _gaq.push(['_setDomainName', 'none']);
-  _gaq.push(['_setAllowLinker', true]);
-  _gaq.push(['_trackPageview']);
+  //var _gaq = _gaq || [];
+  //_gaq.push(['_setAccount', 'UA-21293169-4']);
+  //_gaq.push(['_setDomainName', 'none']);
+  //_gaq.push(['_setAllowLinker', true]);
+  //_gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
+  //(function() {
+  //  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  //  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  //  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  //})();
+$("#open").click(function()
+{
+  $.ajax({
+   type: "POST",
+   url: "/network/cgi-bin/getTree.py",
+   success: function (msg) {
+       alert(msg)
+       location.reload(true);
+   }
+});
+})
 </script>
 </body>
 </html>
