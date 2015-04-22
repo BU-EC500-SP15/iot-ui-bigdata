@@ -65,6 +65,9 @@
     </form>
     </div>
   <button type="button" id = "open">Refersh</button>
+  </br>
+  <h3 id="wait" style="display:none">Please wait while processing...</h3>
+  <!--<img src="/network/images/loading.gif" id="img" width="100" height="100" style="display:none"/ > -->
   </div>
   <div id="information">
   </div>
@@ -146,10 +149,12 @@
   //})();
 $("#open").click(function()
 {
+  $('#wait').show();
   $.ajax({
    type: "POST",
    url: "/network/cgi-bin/getTree.py",
    success: function (msg) {
+       $('#wait').hide();
        alert(msg)
        location.reload(true);
    }
