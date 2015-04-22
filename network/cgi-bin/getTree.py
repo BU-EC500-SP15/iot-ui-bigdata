@@ -1,16 +1,33 @@
-#!/usr/bin/python
+#The getTree function will get the JSON attribute data of all containers
+#and contentInstances that are below the root_node parameter passed.
+#root_node is a string of the path to the node
+#ie: root_node = 'InCSE1/Team2AEx'
+
+#PSUEDO
+#Get ATTR of container
+  #If exists attribute container_list
+    #for container in container_list                                    
+      #GET ATTR of container and append to attributes_output_list
+      #recurse GetWholeTree(container)
+  #If exists attribute child_contentInstance_list
+    #for contentInstance in child_contentInstance_list
+    #GET ATTR of contextInstance and append to attributes_output_list
+#Return
+
+#Depth count for every level in the tree
+#hash table keeps track of # of containers and context Instances in each level
 
 import json
 import requests
-import cgitb
+import pdb
 
 Parameter1 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent' : '1'}
-Parameter2 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent' : '2'}
+Parameter2 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent' : '6'}
 Parameter3 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent': '3'}
 Parameter10 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent': '10'}
 Header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 attrOutputList = list()
-root_node = 'InCSE1/Team2AEx'
+root_node = 'InCSE1/' + raw_input('Please enter root_node:')
 server = 'http://54.68.184.172:8282/'
 depthToNumObj = dict()
 depth = 0
@@ -162,35 +179,30 @@ def getTree(attrOutputList,root_node,depth):
     return
 
 def getContentInstance(attrOutputList,contentInstancePath, depth):
-    try:    
-        #print contentInstancePath
-        URI = server + str(contentInstancePath)
+    #print contentInstancePath
+    URI = server + str(contentInstancePath)
 
-        #GET request for Attributes of contentInstance
-        r = requests.get(URI, params = Parameter10, headers = Header)
-        contentInstanceOutputRaw = r.text
-        #print contentInstanceOutputRaw  #TEST
-        contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
-        
-        #Check that we got valid response                                                  
-        if(checkValidResponse(contentInstanceOutput)== 0):
-            return
-        
-        #Append Raw JSON Attributes to List
-        attrOutputList.append(contentInstanceOutputRaw)
-        
-        #Update num containers/contentInstances in depth hashtable
-        temp = 0
-        if(depthToNumObj.has_key(depth)):
-            #Get existing value of key depth
-            temp = depthToNumObj.get(depth)
-            
-        depthToNumObj[depth] = (temp + 1)
+    #GET request for Attributes of contentInstance
+    r = requests.get(URI, params = Parameter10, headers = Header)
+    contentInstanceOutputRaw = r.text
+    #print contentInstanceOutputRaw  #TEST
+    contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
+    
+    #Check that we got valid response                                                  
+    if(checkValidResponse(contentInstanceOutput)== 0):
         return
-    except ValueError:
-        print "Content-Type: text/html\n"
-        print 'Error getting contentInstance'
-        exit()
+    
+    #Append Raw JSON Attributes to List
+    attrOutputList.append(contentInstanceOutputRaw)
+    
+    #Update num containers/contentInstances in depth hashtable
+    temp = 0
+    if(depthToNumObj.has_key(depth)):
+        #Get existing value of key depth
+        temp = depthToNumObj.get(depth)
+        
+    depthToNumObj[depth] = (temp + 1)
+    return
 
 def checkValidResponse(containerOutput):
     if(containerOutput["responseStatusCode"]==2002):
@@ -324,8 +336,8 @@ def Generate_json_string(input_json_string):
 
 getTree(attrOutputList,root_node,depth)
 
-#print '\nDepth to Num Containers/contentInstances Pairs'
-#print depthToNumObj.items()
+print '\nDepth to Num Containers/contentInstances Pairs'
+print depthToNumObj.items()
 
 edge_id = 0
 x_AE = 0
@@ -341,10 +353,10 @@ for string in node_string_list:
 node_start_string = '\"nodes\":['
 node_end_string = ']}'
 all_node_string = node_start_string + all_node_string + node_end_string
-#print 'this is the all_node_string'
-#print '----------------------------'
-#print all_node_string
-#print '----------------------------'
+print 'this is the all_node_string'
+print '----------------------------'
+print all_node_string
+print '----------------------------'
 edge_start_string = '{\"edges\":['
 edge_end_string = '],'
 for string in edge_string_list:
@@ -352,15 +364,14 @@ for string in edge_string_list:
     if string == edge_string_list[-1]:
         all_edge_string = all_edge_string[:len(all_edge_string)-1]
 all_edge_string = edge_start_string + all_edge_string + edge_end_string
-#print 'this is the all_edge_string'
-#print '----------------------------'
-#print all_edge_string
-#print '----------------------------'
+print 'this is the all_edge_string'
+print '----------------------------'
+print all_edge_string
+print '----------------------------'
 json_string = all_edge_string + all_node_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("/var/www/html/network/data/iot.json", "w")
+text_file = open("/Users/FinleyZhu/Desktop/own_iot-ui-bigdata/network/data/iot.json", "w")
 text_file.write(pretty_json_string)
 text_file.close()
-print "Content-Type: text/html\n"
 print 'iot.json has been successfully created'
