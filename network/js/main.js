@@ -1054,7 +1054,7 @@ console.log(data)
         url: url,
         type:'PUT',
         dataType:'json',
-        //contentType:'application/json',
+        contentType:'application/json',
         data: data,
         success:function(data){
             alert("Update is successfully performed");
