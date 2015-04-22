@@ -1,0 +1,207 @@
+{
+    "edges": [
+        {
+            "id": "1", 
+            "source": "1415208422", 
+            "target": "549006233"
+        }, 
+        {
+            "id": "2", 
+            "source": "549006233", 
+            "target": "753594544"
+        }, 
+        {
+            "id": "3", 
+            "source": "549006233", 
+            "target": "753594545"
+        }, 
+        {
+            "id": "4", 
+            "source": "1415208422", 
+            "target": "549006232"
+        }, 
+        {
+            "id": "5", 
+            "source": "549006232", 
+            "target": "680344233"
+        }, 
+        {
+            "id": "6", 
+            "source": "549006232", 
+            "target": "680344232"
+        }, 
+        {
+            "id": "7", 
+            "source": "680344232", 
+            "target": "1108021663"
+        }, 
+        {
+            "id": "8", 
+            "source": "680344232", 
+            "target": "11064718"
+        }
+    ], 
+    "nodes": [
+        {
+            "attributes": {
+                "Child-ResourceContainer": "2", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "2", 
+                "labels": "Test_for_qq", 
+                "parentID": "InCSE1", 
+                "resourceID": "1415208422", 
+                "resourceType": "AE"
+            }, 
+            "color": "rgb(255,204,102)", 
+            "id": "1415208422", 
+            "label": "Team2AEq", 
+            "size": 15, 
+            "x": 0, 
+            "y": 0
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "0", 
+                "Child-ResourceContentInstance Number": "2", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "2", 
+                "labels": "Temp", 
+                "parentID": "InCSE1/Team2AEq", 
+                "resourceID": "549006233", 
+                "resourceType": "container", 
+                "stateTag": "2"
+            }, 
+            "color": "#36e236", 
+            "id": "549006233", 
+            "label": "container1", 
+            "size": 2, 
+            "x": 2000, 
+            "y": 500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "21-04-15T15:43:624", 
+                "labels": "Temp", 
+                "lastModifiedTime": "21-04-15T15:43:624", 
+                "parentID": "InCSE1/Team2AEq/container1", 
+                "resourceID": "753594544", 
+                "resourceType": "contentInstance", 
+                "stateTag": "2"
+            }, 
+            "color": "#3636e2", 
+            "id": "753594544", 
+            "label": "CI_3", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": 500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "21-04-15T15:43:584", 
+                "labels": "Temp", 
+                "lastModifiedTime": "21-04-15T15:43:584", 
+                "parentID": "InCSE1/Team2AEq/container1", 
+                "resourceID": "753594545", 
+                "resourceType": "contentInstance", 
+                "stateTag": "1"
+            }, 
+            "color": "#3636e2", 
+            "id": "753594545", 
+            "label": "CI_2", 
+            "size": 0.5, 
+            "x": 4000, 
+            "y": 1000
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "2", 
+                "Child-ResourceContentInstance Number": "0", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "2", 
+                "labels": "Test_Only", 
+                "parentID": "InCSE1/Team2AEq", 
+                "resourceID": "549006232", 
+                "resourceType": "container", 
+                "stateTag": "2"
+            }, 
+            "color": "#36e236", 
+            "id": "549006232", 
+            "label": "container0", 
+            "size": 2, 
+            "x": 2000, 
+            "y": 1000
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "2", 
+                "Child-ResourceContentInstance Number": "0", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "2", 
+                "labels": "Temp", 
+                "parentID": "InCSE1/Team2AEq/container0", 
+                "resourceID": "680344233", 
+                "resourceType": "container", 
+                "stateTag": "0"
+            }, 
+            "color": "#36e236", 
+            "id": "680344233", 
+            "label": "container3", 
+            "size": 2, 
+            "x": 4000, 
+            "y": 1500
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "0", 
+                "Child-ResourceContentInstance Number": "2", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "2", 
+                "labels": "Temp", 
+                "parentID": "InCSE1/Team2AEq/container0", 
+                "resourceID": "680344232", 
+                "resourceType": "container", 
+                "stateTag": "4"
+            }, 
+            "color": "#36e236", 
+            "id": "680344232", 
+            "label": "container2", 
+            "size": 2, 
+            "x": 4000, 
+            "y": 2000
+        }, 
+        {
+            "attributes": {
+                "creationTime": "21-04-15T15:43:829", 
+                "labels": "Temp", 
+                "lastModifiedTime": "21-04-15T15:43:829", 
+                "parentID": "InCSE1/Team2AEq/container0/container2", 
+                "resourceID": "1108021663", 
+                "resourceType": "contentInstance", 
+                "stateTag": "4"
+            }, 
+            "color": "#3636e2", 
+            "id": "1108021663", 
+            "label": "CI_1", 
+            "size": 0.5, 
+            "x": 6000, 
+            "y": 1500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "21-04-15T15:43:792", 
+                "labels": "Temp", 
+                "lastModifiedTime": "21-04-15T15:43:792", 
+                "parentID": "InCSE1/Team2AEq/container0/container2", 
+                "resourceID": "11064718", 
+                "resourceType": "contentInstance", 
+                "stateTag": "3"
+            }, 
+            "color": "#3636e2", 
+            "id": "11064718", 
+            "label": "CI_qq", 
+            "size": 0.5, 
+            "x": 6000, 
+            "y": 2000
+        }
+    ]
+}

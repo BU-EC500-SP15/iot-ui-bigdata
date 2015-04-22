@@ -1,4 +1,4 @@
-var sigInst, canvas, $GP
+var sigInst, canvas, $GP,flag = 0;
 
 //Load configuration file
 var config={};
@@ -30,6 +30,11 @@ jQuery.getJSON(GetQueryStringParams("config","config.json"), function(data, text
 	
 	//As soon as page is ready (and data ready) set up it
 	$(document).ready(setupGUI(config));
+
+    changeJSON();
+
+
+
 });//End JSON Config load
 
 
@@ -44,8 +49,12 @@ Object.size = function(obj) {
 };
 
 function initSigma(config) {//This function just say that if we do not have a config file for sigma, we can use the default one below.
-	var data=config.data
-	
+	if(flag=="0"){
+        var data=config.data;
+    }
+    if(flag=="1"){
+        var data=config.data_limited;
+    }
 	var drawProps, graphProps,mouseProps;
 	if (config.sigma && config.sigma.drawingProperties) 
 		drawProps=config.sigma.drawingProperties;
@@ -456,6 +465,8 @@ function nodeNormal() {
         a.attr.lineWidth = !1;
         a.attr.size = !1
     }), sigInst.draw(2, 2, 2, 2), sigInst.neighbors = {}, sigInst.active = !1, $GP.calculating = !1, window.location.hash = "")
+
+
 }
 
 function nodeActive(a) {
@@ -1063,4 +1074,25 @@ console.log(data)
     });
 
 }
+
+//this function can be used to change to another .json file by clicking a button. 
+//It mainly changes the file in function initSigma using the variable flag I set up.
+function changeJSON(){
+
+  $("#showlimited").click(function(){
+   flag=1;
+   console.log(flag);
+   $("#sigma-canvas").empty();
+   initSigma(config);
+
+});
+
+    $("#showall").click(function(){
+    flag = 0;
+    $("#sigma-canvas").empty();
+    initSigma(config);
+   });
+}
+
+
 
