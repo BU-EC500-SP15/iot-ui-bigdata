@@ -65,8 +65,8 @@
     </form>
     </div>
   <button type="button" id = "open">Refresh</button>
-  <button type="button"  id= "showall" >Whole Tree</button>
-  <button type="button"  id="showlimited" >Limited Level</button>
+  <button type="button"  id= "showall">Whole Tree</button>
+  <button type="button"  id="showlimited">Limited Level</button>
   </br>
   <h3 id="wait" style="display:none">Please wait while processing...</h3>
   <!--<img src="/network/images/loading.gif" id="img" width="100" height="100" style="display:none"/ > -->
@@ -101,7 +101,9 @@
 </div>
 <div id="editform">
  <div ><span class="headertext">Edit Information</span>
-  <input type="button" value="Close" onclick="getElementById('editform').style.display='none'"/></div>
+  <input type="button" value="Close" onclick="getElementById('editform').style.display='none'"/>
+  <input class="backattr" type="button" name="Back" value="back" />
+  </div>
   <br/><br/>
   <div class="editattributes"></div>
 <div id = "editupdate">
@@ -122,6 +124,12 @@
 </div>
 
 </div>
+<div id="latestform">
+<strong>The Latest ContentInstance: </strong>
+  <input type="button" value="Close" onclick="getElementById('latestform').style.display='none'"/>
+
+  <div class="latestdata"></div>
+</div>>
 
 
 <div id="developercontainer">

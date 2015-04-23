@@ -257,7 +257,20 @@ font-size:14px;
 	position:fixed;
 	bottom:0;
 }
-
+#latestform{
+	display:none;
+	position:absolute;
+	top: 25%;
+	left:30%; 
+	width:40%;
+	height:50%;
+	padding:16px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	background-color:white;
+	z-index:2;
+	overflow:auto;
+}
 
 /*#jisc {
 width: 71px;

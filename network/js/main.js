@@ -572,7 +572,7 @@ function nodeActive(a) {
 		f.push("<h2>Parent (" + size + ")</h2>");
 		(size>0)? f=f.concat(createList(incoming)) : f.push("No Parent link<br>");
 		size=Object.size(outgoing);
-		f.push("<h2>Children_List (" + size + ")</h2><br/><span>Show latest children: <input type='button' value='Latest'/></span><br/>");
+		f.push("<h2>Children_List (" + size + ")</h2><br/><span>Show latest children: <input type='button' id='Latest' value='Latest'/></span><br/>");
 		(size>0)? f=f.concat(createList(outgoing)) : f.push("No Children links<br>");
 	} else {
 		f=f.concat(createList(sigInst.neighbors));
@@ -626,7 +626,7 @@ function nodeActive(a) {
     window.location.hash = b.label;
     //console.log(b.label);
     //console.log(f.attributes);
-    initForm(b);
+
     editForm(b);
     getPath(b);
     updateButton(b);
@@ -637,7 +637,7 @@ function nodeActive(a) {
     createTrigger(b);
     updateTrigger(b);
     backButton(b);
-
+    getAJAX(b);
  
 
     /*  
@@ -719,7 +719,7 @@ function initForm(b){
 }
 function editForm(b){
    $("#editform").ready(function(){
-        
+        initForm(b);
         if (b.attr.attributes) {
             var image_attribute = false;
             if (config.informationPanel.imageAttribute) {
@@ -1092,6 +1092,36 @@ function changeJSON(){
     $("#sigma-canvas").empty();
     initSigma(config);
    });
+}
+
+function getAJAX(b){
+
+   $("#Latest").click(function(){
+    $(".latestdata").empty();
+    document.getElementById('latestform').style.display="block";
+    getPath(b);
+    var resource_url = "http://54.68.184.172:8282/" + path+ "/latest";
+    var headers = "?from=http:localhost:10000&requestIdentifier=12345&resultContent=2"
+    url = resource_url + headers;
+    result="";
+    $.ajax({
+        url:url,
+        type:"GET",
+        dataType:'json',
+        success:function(data){
+           console.log(data);
+           result = data.output.ResourceOutput[0].Attributes;
+           for(item in result){
+            t = '<span>'+ result[item].attributeName + ':' + result[item].attributeValue + '</span><br/>';
+              $(".latestdata").append(t);
+           }
+           console.log(result);
+        }
+     
+    })
+        $(".latestdata").show();
+    //return result;
+   })
 }
 
 
