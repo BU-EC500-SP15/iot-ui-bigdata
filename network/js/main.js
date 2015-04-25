@@ -55,6 +55,7 @@ function initSigma(config) {//This function just say that if we do not have a co
     if(flag=="1"){
         var data=config.data_limited;
     }
+
 	var drawProps, graphProps,mouseProps;
 	if (config.sigma && config.sigma.drawingProperties) 
 		drawProps=config.sigma.drawingProperties;
@@ -970,12 +971,12 @@ console.log(data)
         headers = "?from=http:localhost:10000&requestIdentifier=12345"
         url= resource_url + headers
 
+
         //data = "{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"container\",\"content\":{\"labels\": \"cookies\" ,\"resourceName\": \"cn11\"}}"
-        $.ajax({
+       $.ajax({
             url: url,
             type:'POST',
             dataType:'json',
-            //contentType:'application/json',
             data: data,
             success:function(data){
                 alert("Create is successfully performed");
@@ -1120,9 +1121,8 @@ function getAJAX(b){
      
     })
         $(".latestdata").show();
-    //return result;
    })
 }
 
-
+//sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex[\'' + c.id + '\'])
 
