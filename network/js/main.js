@@ -835,6 +835,14 @@ function deleteButton(b){
             url:resource_url+'?from=http:localhost:10000&requestIdentifier=12345',
             type:'DELETE',
             success:function(data){
+                $.ajax({
+               type: "POST",
+               url: "/network/cgi-bin/getTree.py",
+               success: function (msg) {
+                   location.reload(true);
+   }
+});
+          document.getElementById('editform').style.display="none";
                 alert("Delete is sucessfully performed");
             }
             
@@ -979,6 +987,14 @@ console.log(data)
             dataType:'json',
             data: data,
             success:function(data){
+            $.ajax({
+           type: "POST",
+           url: "/network/cgi-bin/getTree.py",
+           success: function (msg) {
+               location.reload(true);
+   }
+});
+          document.getElementById('editform').style.display="none";
                 alert("Create is successfully performed");
             }
         })
@@ -1069,6 +1085,14 @@ console.log(data)
         contentType:'application/json',
         data: data,
         success:function(data){
+          $.ajax({
+           type: "POST",
+           url: "/network/cgi-bin/getTree.py",
+           success: function (msg) {
+               location.reload(true);
+   }
+});
+          document.getElementById('editform').style.display="none";
             alert("Update is successfully performed");
         }
     })    
