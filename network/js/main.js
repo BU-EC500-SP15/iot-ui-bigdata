@@ -1074,7 +1074,7 @@ function updateTrigger(b){
             return;
         }
 
-console.log(data)
+//console.log(data)
 
    resource_url = "http://54.68.184.172:8282/" + path;
    console.log(path)
@@ -1154,5 +1154,4 @@ function getAJAX(b){
    })
 }
 
-//sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex[\'' + c.id + '\'])
 
