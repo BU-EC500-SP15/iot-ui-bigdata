@@ -391,8 +391,8 @@ function Search(a) {
         this.searching = !0;
         this.lastSearch = a;
         this.results.empty();
-        if (2 >= a.length) this.results.html("<i>You must search for a name with a minimum of 3 letters.</i>");
-        else {
+        //if (2 >= a.length) this.results.html("<i>You must search for a name with a minimum of 3 letters.</i>");
+         {
 	        sigInst.iterNodes(function (a) {
 	            if (g.test(a.label.toLowerCase())) {
 	            	c.push({
@@ -734,7 +734,9 @@ function editForm(b){
             $(".editattributes").append(l);
             for (var attr in b.attr.attributes) {
                 var d = b.attr.attributes[attr],
+                    //test = b.attr.attributes['resourceType'],
                     h = "";
+                    //console.log(test)
                 if (attr!=image_attribute) {
                     h = '<strong>' + attr + ':</strong> ' 
                     t = '<span>' + d + '</span><br/>'
