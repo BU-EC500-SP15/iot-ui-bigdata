@@ -285,7 +285,7 @@ def Generate_json_string(input_json_string):
                 edge_id += 1
                 edge_string = '{\"source\":\"%s\",\"target\":\"%s\",\"id\":\"%s\"},' %(source_id, target_id, edge_id)
                 edge_string_list.append(edge_string)
-            x_container = 2000 * depth        
+            x_container = 1000 * depth        
             node_string = '{\"id\":\"%s\",\"label\":\"%s\",\"attributes\":{\"resourceID\":\"%s\",\"resourceType\":\"%s\",\"labels\":\"%s\",\"parentID\":\"%s\",\"stateTag\":\"%s\",\"Total Child Resource Number\":\"%s\",\"Child-ResourceContainer\":\"%s\",\"Child-ResourceContentInstance Number\":\"%s\",\"Child-ResourceSubscription Number\":\"%s\"},\"x\":%s,\"y\":%s,\"color\":\"#36e236\",\"size\":%s},' %(container_id, container_name, container_id, resourceType, container_labels, container_parent_id, container_stateTag, container_child_num, container_child_container_num, container_child_CI_num, container_child_sub_num, x_container ,y_container, container_node_size)
             node_string_list.append(node_string)
         if resourceType == 'contentInstance(latest-allAttributes)':
@@ -317,7 +317,7 @@ def Generate_json_string(input_json_string):
             edge_id += 1
             edge_string = '{\"source\":\"%s\",\"target\":\"%s\",\"id\":\"%s\"},' %(source_id, target_id, edge_id)
             edge_string_list.append(edge_string)
-            x_CI = 2000 * depth
+            x_CI = 1000 * depth
             node_string = '{\"id\":\"%s\",\"label\":\"%s\",\"attributes\":{\"resourceID\":\"%s\",\"resourceType\":\"%s\",\"creationTime\":\"%s\",\"lastModifiedTime\":\"%s\",\"labels\":\"%s\",\"parentID\":\"%s\",\"stateTag\":\"%s\"},\"x\":%s,\"y\":%s,\"color\":\"#3636e2\",\"size\":0.5},' %(CI_id, CI_name, CI_id, CI_resourceType, CI_creation_time, CI_modified_time, CI_labels, CI_parent_id, CI_stateTag, x_CI ,y_CI)
             node_string_list.append(node_string)
     inputcount += 1
@@ -330,7 +330,7 @@ getTree(attrOutputList,root_node,depth)
 edge_id = 0
 x_AE = 0
 y_AE = 0
-y_container = 0
+y_container = 250
 y_CI = 0
 for string in attrOutputList:
     Generate_json_string(string)
@@ -359,7 +359,7 @@ all_edge_string = edge_start_string + all_edge_string + edge_end_string
 json_string = all_edge_string + all_node_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("/var/www/html/network/data/iot.json", "w")
+text_file = open("/Users/FinleyZhu/Desktop/own_iot-ui-bigdata/network/data/iot.json", "w")
 text_file.write(pretty_json_string)
 text_file.close()
 print "Content-Type: text/html\n"
