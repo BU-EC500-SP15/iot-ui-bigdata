@@ -109,7 +109,9 @@ function initSigma(config) {//This function just say that if we do not have a co
 				 // alert(JSON.stringify(b.attr.attributes[5].val));
 				// alert(b.x);
 				a.clusters[b.color] || (a.clusters[b.color] = []);
-				a.clusters[b.color].push(b.id);//SAH: push id not label
+				a.clusters[b.color].push({id:b.id,attr:b.attr.attributes.resourceType})
+                //SAH: push id not label
+                //console.log(b.attr.attributes.resourceType)
 			}
 		
 		);
