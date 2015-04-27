@@ -1,6 +1,6 @@
 {
     "type": "network",
-	"data":"data/iot_qq.json",
+	"data":"data/iot.json",
 	"data_limited":"data/iot100.json",
     "version": "1.0",
     "logo": {
@@ -33,7 +33,7 @@
 	"sigma": {
     	"drawingProperties":{    
 			"defaultLabelColor": "#000",
-			"defaultLabelSize": 10,
+			"defaultLabelSize": 28,
 			"defaultLabelBGColor": "#ddd",
 			"defaultHoverLabelBGColor": "#002147",
 			"defaultLabelHoverColor": "#fff",
