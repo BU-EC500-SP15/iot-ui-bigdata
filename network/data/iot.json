@@ -2,38 +2,68 @@
     "edges": [
         {
             "id": "1", 
-            "source": "1415208419", 
-            "target": "161758075"
+            "source": "1415208429", 
+            "target": "1452585266"
         }, 
         {
             "id": "2", 
-            "source": "161758075", 
-            "target": "1241018083"
+            "source": "1452585266", 
+            "target": "932843724"
         }, 
         {
             "id": "3", 
-            "source": "1415208419", 
-            "target": "161758076"
+            "source": "932843724", 
+            "target": "2114673374"
         }, 
         {
             "id": "4", 
-            "source": "161758076", 
-            "target": "1370100802"
+            "source": "932843724", 
+            "target": "2114673375"
         }, 
         {
             "id": "5", 
-            "source": "1370100802", 
-            "target": "1511283696"
+            "source": "932843724", 
+            "target": "949801784"
         }, 
         {
             "id": "6", 
-            "source": "1370100802", 
-            "target": "1511283695"
+            "source": "932843724", 
+            "target": "949801785"
         }, 
         {
             "id": "7", 
-            "source": "161758076", 
-            "target": "400183285"
+            "source": "1452585266", 
+            "target": "1381291475"
+        }, 
+        {
+            "id": "8", 
+            "source": "1415208429", 
+            "target": "1452585265"
+        }, 
+        {
+            "id": "9", 
+            "source": "1452585265", 
+            "target": "803761005"
+        }, 
+        {
+            "id": "10", 
+            "source": "803761005", 
+            "target": "730905100"
+        }, 
+        {
+            "id": "11", 
+            "source": "803761005", 
+            "target": "1090470382"
+        }, 
+        {
+            "id": "12", 
+            "source": "803761005", 
+            "target": "1183221519"
+        }, 
+        {
+            "id": "13", 
+            "source": "803761005", 
+            "target": "1974838194"
         }
     ], 
     "nodes": [
@@ -42,55 +72,17 @@
                 "Child-ResourceContainer": "2", 
                 "Child-ResourceSubscription Number": "0", 
                 "Total Child Resource Number": "2", 
-                "labels": "For_Nik", 
+                "labels": "Test_Only_For_Yingchao", 
                 "parentID": "InCSE1", 
-                "resourceID": "1415208419", 
+                "resourceID": "1415208429", 
                 "resourceType": "AE"
             }, 
             "color": "rgb(255,204,102)", 
-            "id": "1415208419", 
-            "label": "Team2AEn", 
+            "id": "1415208429", 
+            "label": "Team2AEx", 
             "size": 15, 
             "x": 0, 
             "y": 0
-        }, 
-        {
-            "attributes": {
-                "Child-ResourceContainer": "1", 
-                "Child-ResourceContentInstance Number": "0", 
-                "Child-ResourceSubscription Number": "0", 
-                "Total Child Resource Number": "1", 
-                "labels": "Test_Only_For_Yingchao", 
-                "parentID": "InCSE1/Team2AEn", 
-                "resourceID": "161758075", 
-                "resourceType": "container", 
-                "stateTag": "1"
-            }, 
-            "color": "#36e236", 
-            "id": "161758075", 
-            "label": "container0", 
-            "size": 1, 
-            "x": 2000, 
-            "y": 500
-        }, 
-        {
-            "attributes": {
-                "Child-ResourceContainer": "1", 
-                "Child-ResourceContentInstance Number": "0", 
-                "Child-ResourceSubscription Number": "0", 
-                "Total Child Resource Number": "1", 
-                "labels": "Test_Only_For_Yingchao", 
-                "parentID": "InCSE1/Team2AEn/container0", 
-                "resourceID": "1241018083", 
-                "resourceType": "container", 
-                "stateTag": "0"
-            }, 
-            "color": "#36e236", 
-            "id": "1241018083", 
-            "label": "container0", 
-            "size": 1, 
-            "x": 4000, 
-            "y": 1000
         }, 
         {
             "attributes": {
@@ -99,87 +91,233 @@
                 "Child-ResourceSubscription Number": "0", 
                 "Total Child Resource Number": "2", 
                 "labels": "Test_Only_For_Yingchao", 
-                "parentID": "InCSE1/Team2AEn", 
-                "resourceID": "161758076", 
+                "parentID": "InCSE1/Team2AEx", 
+                "resourceID": "1452585266", 
                 "resourceType": "container", 
                 "stateTag": "2"
             }, 
             "color": "#36e236", 
-            "id": "161758076", 
+            "id": "1452585266", 
             "label": "container1", 
             "size": 2, 
+            "x": 1000, 
+            "y": 750
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "2", 
+                "Child-ResourceContentInstance Number": "2", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "4", 
+                "labels": "Test_Only_For_Yingchao", 
+                "parentID": "InCSE1/Team2AEx/container1", 
+                "resourceID": "932843724", 
+                "resourceType": "container", 
+                "stateTag": "6"
+            }, 
+            "color": "#36e236", 
+            "id": "932843724", 
+            "label": "container0", 
+            "size": 4, 
+            "x": 2000, 
+            "y": 1250
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "2", 
+                "Child-ResourceContentInstance Number": "2", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "4", 
+                "labels": "test", 
+                "parentID": "InCSE1/Team2AEx/container1/container0", 
+                "resourceID": "2114673374", 
+                "resourceType": "container", 
+                "stateTag": "0"
+            }, 
+            "color": "#36e236", 
+            "id": "2114673374", 
+            "label": "test3", 
+            "size": 4, 
+            "x": 3000, 
+            "y": 1750
+        }, 
+        {
+            "attributes": {
+                "Child-ResourceContainer": "2", 
+                "Child-ResourceContentInstance Number": "2", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "4", 
+                "labels": "jkf ffsdf ", 
+                "parentID": "InCSE1/Team2AEx/container1/container0", 
+                "resourceID": "2114673375", 
+                "resourceType": "container", 
+                "stateTag": "0"
+            }, 
+            "color": "#36e236", 
+            "id": "2114673375", 
+            "label": "test4", 
+            "size": 4, 
+            "x": 3000, 
+            "y": 2250
+        }, 
+        {
+            "attributes": {
+                "creationTime": "23-04-15T15:58:801", 
+                "labels": "Test_Only_For_Yingchao", 
+                "lastModifiedTime": "23-04-15T15:58:801", 
+                "parentID": "InCSE1/Team2AEx/container1/container0", 
+                "resourceID": "949801784", 
+                "resourceType": "contentInstance", 
+                "stateTag": "2"
+            }, 
+            "color": "#3636e2", 
+            "id": "949801784", 
+            "label": "CI1", 
+            "size": 0.5, 
+            "x": 3000, 
+            "y": 500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "23-04-15T15:58:702", 
+                "labels": "Test_Only_For_Yingchao", 
+                "lastModifiedTime": "23-04-15T15:58:702", 
+                "parentID": "InCSE1/Team2AEx/container1/container0", 
+                "resourceID": "949801785", 
+                "resourceType": "contentInstance", 
+                "stateTag": "1"
+            }, 
+            "color": "#3636e2", 
+            "id": "949801785", 
+            "label": "CI0", 
+            "size": 0.5, 
+            "x": 3000, 
+            "y": 1000
+        }, 
+        {
+            "attributes": {
+                "creationTime": "23-04-15T15:58:874", 
+                "labels": "Test_Only_For_Yingchao", 
+                "lastModifiedTime": "23-04-15T15:58:874", 
+                "parentID": "InCSE1/Team2AEx/container1", 
+                "resourceID": "1381291475", 
+                "resourceType": "contentInstance", 
+                "stateTag": "2"
+            }, 
+            "color": "#3636e2", 
+            "id": "1381291475", 
+            "label": "CI0", 
+            "size": 0.5, 
             "x": 2000, 
             "y": 1500
         }, 
         {
             "attributes": {
-                "Child-ResourceContainer": "0", 
-                "Child-ResourceContentInstance Number": "2", 
+                "Child-ResourceContainer": "1", 
+                "Child-ResourceContentInstance Number": "0", 
                 "Child-ResourceSubscription Number": "0", 
-                "Total Child Resource Number": "2", 
+                "Total Child Resource Number": "1", 
                 "labels": "Test_Only_For_Yingchao", 
-                "parentID": "InCSE1/Team2AEn/container1", 
-                "resourceID": "1370100802", 
+                "parentID": "InCSE1/Team2AEx", 
+                "resourceID": "1452585265", 
                 "resourceType": "container", 
-                "stateTag": "2"
+                "stateTag": "1"
             }, 
             "color": "#36e236", 
-            "id": "1370100802", 
+            "id": "1452585265", 
             "label": "container0", 
-            "size": 2, 
-            "x": 4000, 
-            "y": 2000
+            "size": 1, 
+            "x": 1000, 
+            "y": 2750
         }, 
         {
             "attributes": {
-                "creationTime": "02-04-15T00:05:635", 
+                "Child-ResourceContainer": "1", 
+                "Child-ResourceContentInstance Number": "3", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "4", 
                 "labels": "Test_Only_For_Yingchao", 
-                "lastModifiedTime": "02-04-15T00:05:635", 
-                "parentID": "InCSE1/Team2AEn/container1/container0", 
-                "resourceID": "1511283696", 
-                "resourceType": "contentInstance", 
-                "stateTag": "2"
+                "parentID": "InCSE1/Team2AEx/container0", 
+                "resourceID": "803761005", 
+                "resourceType": "container", 
+                "stateTag": "23"
             }, 
-            "color": "#3636e2", 
-            "id": "1511283696", 
-            "label": "contentInstance1", 
-            "size": 0.5, 
-            "x": 6000, 
-            "y": 500
+            "color": "#36e236", 
+            "id": "803761005", 
+            "label": "container0", 
+            "size": 4, 
+            "x": 2000, 
+            "y": 3250
         }, 
         {
             "attributes": {
-                "creationTime": "02-04-15T00:05:357", 
-                "labels": "Test_Only_For_Yingchao", 
-                "lastModifiedTime": "02-04-15T00:05:357", 
-                "parentID": "InCSE1/Team2AEn/container1/container0", 
-                "resourceID": "1511283695", 
+                "Child-ResourceContainer": "1", 
+                "Child-ResourceContentInstance Number": "3", 
+                "Child-ResourceSubscription Number": "0", 
+                "Total Child Resource Number": "4", 
+                "labels": "test", 
+                "parentID": "InCSE1/Team2AEx/container0/container0", 
+                "resourceID": "730905100", 
+                "resourceType": "container", 
+                "stateTag": "0"
+            }, 
+            "color": "#36e236", 
+            "id": "730905100", 
+            "label": "test", 
+            "size": 4, 
+            "x": 3000, 
+            "y": 3750
+        }, 
+        {
+            "attributes": {
+                "creationTime": "23-04-15T16:01:115", 
+                "labels": "setset", 
+                "lastModifiedTime": "23-04-15T16:01:115", 
+                "parentID": "InCSE1/Team2AEx/container0/container0", 
+                "resourceID": "1090470382", 
                 "resourceType": "contentInstance", 
                 "stateTag": "1"
             }, 
             "color": "#3636e2", 
-            "id": "1511283695", 
-            "label": "contentInstance0", 
+            "id": "1090470382", 
+            "label": "testset", 
             "size": 0.5, 
-            "x": 6000, 
-            "y": 1000
+            "x": 3000, 
+            "y": 2000
         }, 
         {
             "attributes": {
-                "creationTime": "02-04-15T00:04:914", 
-                "labels": "Test_Only_For_Yingchao", 
-                "lastModifiedTime": "02-04-15T00:04:914", 
-                "parentID": "InCSE1/Team2AEn/container1", 
-                "resourceID": "400183285", 
+                "creationTime": "23-04-15T16:06:409", 
+                "labels": "setest", 
+                "lastModifiedTime": "23-04-15T16:06:409", 
+                "parentID": "InCSE1/Team2AEx/container0/container0", 
+                "resourceID": "1183221519", 
+                "resourceType": "contentInstance", 
+                "stateTag": "3"
+            }, 
+            "color": "#3636e2", 
+            "id": "1183221519", 
+            "label": "teste", 
+            "size": 0.5, 
+            "x": 3000, 
+            "y": 2500
+        }, 
+        {
+            "attributes": {
+                "creationTime": "23-04-15T16:01:612", 
+                "labels": "steest", 
+                "lastModifiedTime": "23-04-15T16:01:612", 
+                "parentID": "InCSE1/Team2AEx/container0/container0", 
+                "resourceID": "1974838194", 
                 "resourceType": "contentInstance", 
                 "stateTag": "2"
             }, 
             "color": "#3636e2", 
-            "id": "400183285", 
-            "label": "contentInstance0", 
+            "id": "1974838194", 
+            "label": "tessts", 
             "size": 0.5, 
-            "x": 4000, 
-            "y": 1500
+            "x": 3000, 
+            "y": 3000
         }
     ]
 }
