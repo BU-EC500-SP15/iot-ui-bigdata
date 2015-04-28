@@ -109,8 +109,8 @@ function initSigma(config) {//This function just say that if we do not have a co
 				 // alert(JSON.stringify(b.attr.attributes[5].val));
 				// alert(b.x);
 				a.clusters[b.color] || (a.clusters[b.color] = []);
-				a.clusters[b.color].push({id:b.id,attr:b.attr.attributes.resourceType})
-                //SAH: push id not label
+                //a.clusters[b.color].push({id:b.id,attr:b.attr.attributes.resourceType})
+                a.clusters[b.color].push(b.id);
                 //console.log(b.attr.attributes.resourceType)
 			}
 		
@@ -191,7 +191,7 @@ function setupGUI(config) {
     $GP.intro = $("#intro");
     $GP.minifier = $GP.intro.find("#minifier");
     $GP.mini = $("#minify");
-    $GP.info = $("#attributepane");
+    $GP.info = $("#attributepane");    //the attributes on the right side
     $GP.info_edit = $GP.info.find(".editattributes");
     $GP.info_donnees = $GP.info.find(".nodeattributes");
     $GP.info_name = $GP.info.find(".name");
@@ -302,8 +302,19 @@ function configSigmaElements(config) {
     var a = [],
         b,x=1;
 		for (b in sigInst.clusters) {
+            console.log(b)
+            //console.log(sigInst.clusters)
             //console.log(sigInst.clusters[b][0].attr)
-            a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + sigInst.clusters[b][0].attr+ ' (' + sigInst.clusters[b].length + ' members)</a></div>');}
+            if(b=="rgb(255,204,102)"){
+                a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + 'AE'+ ' (' + sigInst.clusters[b].length + ' members)</a></div>');
+            }else if(b=="#36e236"){
+                a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + 'container'+ ' (' + sigInst.clusters[b].length + ' members)</a></div>');
+            }else if (b=="#3636e2"){
+                a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + 'contentInstance'+ ' (' + sigInst.clusters[b].length + ' members)</a></div>');
+            }else{
+                a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' +(x++)+ ' (' + sigInst.clusters[b].length + ' members)</a></div>');
+            }
+            }
     //a.sort();
     $GP.cluster.content(a.join(""));
     b = {
@@ -832,7 +843,7 @@ function createButton(b){
 }
 
 function deleteButton(b){
-    $(".deletebutton").click(function(){
+    $(".deletebutton").one('click',function(){
         resource_url="http://54.68.184.172:8282/";
         resource_url = resource_url + path
 
@@ -904,7 +915,7 @@ function backButton(b){
 
 
 function createTrigger(b){
-    $(".createtrigger").click(function(){
+    $(".createtrigger").one('click',function(){
         $(".createlabel").empty();
         type = $("#selecttype option:selected").val();
         name = $("#resourceName").val();
@@ -1008,7 +1019,7 @@ console.log(data)
 }
 
 function updateTrigger(b){
-    $(".updatetrigger").click(function(){
+    $(".updatetrigger").one('click',function(){
         $(".createlabel").empty();
         type = b.attr.attributes.resourceType;
         labels = $("#labels").val();
