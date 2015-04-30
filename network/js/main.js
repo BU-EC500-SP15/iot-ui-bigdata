@@ -735,6 +735,8 @@ function initForm(b){
 }
 function editForm(b){
    $("#editform").ready(function(){
+        hidebuttons();
+        emptyattributes();
         initForm(b);
         if (b.attr.attributes) {
             var image_attribute = false;
@@ -768,7 +770,11 @@ function editForm(b){
 
 function updateButton(b){
     $(".updatebutton").click(function(){
+
+        hidebuttons();
+        emptyattributes();
         initForm(b);
+        $(".backattr").show();
         $(".updatebutton").hide();
         $(".createbutton").hide();
         $(".deletebutton").hide();
@@ -804,50 +810,135 @@ function updateButton(b){
 })
 }
 
+function hidebuttons(){
+    $(".updatebutton").hide();
+    $(".createbutton").hide();
+    $(".deletebutton").hide();
+    $(".aebutton").hide();
+    $(".containerbutton").hide();
+    $(".contentbutton").hide();
+    $(".subscription").hide();
+    $(".createtrigger").hide();
+    $(".updatetrigger").hide();
+    $(".addattr").hide();
+    $(".backattr").hide();
+}
+function emptyattributes(){
+    $(".editattributes").empty();
+    $(".updatedata").empty();
+    $(".updateadd").empty();
+    $(".createdata").empty();
+    $(".createlabel").empty();
+}
 function createButton(b){
-        $(".createbutton").click(function(){
-        $(".createlabel").empty();
-        $(".editattributes").empty();
-        $(".updatedata").empty();
-        $(".createdata").empty();
-        $(".updatebutton").hide();
-        $(".createbutton").hide();
-        $(".deletebutton").hide();
-        $(".updatetrigger").hide();
-        $(".createtrigger").show();
-        $(".addattr").hide();
-        $(".createdata").show();
-        type = '<strong>Choose resourceType: </strong><select id=selecttype><option value="AE">AE</option><option value="container">container</option><option value="contentInstance">contentInstance</option><option value="subscription">subscription</option></select><br/>'
-        attr=["resourceName","labels","ontologyRef","appName","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge","notificationURI","notificationContentType"]
-        $(".createdata").append(type);
-        for(var item in attr){
-            var h =""
-            if(attr[item]=="appName"){
-                h ='<strong>' + attr[item] + '(Only_for_AEs): </strong> '
-                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
-            }else if(attr[item]=="maxNrOfInstances"||attr[item]=="maxByteSize"||attr[item]=="maxInstanceAge"){
-                h ='<strong>' + attr[item] + '(Only_for_containers): </strong>'
-                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
-            }else if(attr[item]=="notificationURI"|| attr[item]=="notificationContentType"){
-                h ='<strong>' + attr[item] + 'Required_for_subcriptions): </strong>'
-                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
-            }else{
-                h ='<strong>' + attr[item] + ': </strong>'
-                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
-            }
+    $(".createbutton").click(function(){
+        emptyattributes();
+        hidebuttons();
+        $(".backattr").show();
+        parentType = b.attr.attributes.resourceType;
+        if(parentType=="" && parentType=="undefined" && parentType==undefined){
+            $(".aebutton").show();
+        }
+        if(parentType=="AE"){
+            $(".containerbutton").show();
+            $(".subscription").show();
+        }
+        if(parentType=="container"){
+            $(".containerbutton").show();
+            $(".contentbutton").show();
+            $(".subscription").show();
+        }
+        if(parentType=="subscription"||parentType=="contentInstance"){
+            label = "You can't create children under this"
+            $(".createlabel").append(label);
+            return;
+        }
+
+        $(".aebutton").click(function(){
+            hidebuttons();
+            emptyattributes();
+            $(".createtrigger").show();            
+            attr=["resourceName","labels","ontologyRef","appName"];
+            h ='<strong>resourceType: </strong> '
+            t = '<input type="text" id="resourceType" name="resourceType" value="AE" readOnly="true"/><br/>'
             $(".createdata").append(h);
             $(".createdata").append(t);
-            
+            for(var item in attr){   
+                h ='<strong>' + attr[item] + ': </strong> '
+                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
+                $(".createdata").append(h);
+                $(".createdata").append(t);
+            }
+            $(".createdata").show();
+        });
+
+        $(".containerbutton").click(function(){
+            hidebuttons();
+            emptyattributes();
+            $(".createtrigger").show();
+            attr=["resourceName","labels","ontologyRef","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge"];
+            h ='<strong>resourceType: </strong> '
+            t = '<input type="text" id="resourceType" name="resourceType" value="container" readOnly="true"/><br/>'
+            $(".createdata").append(h);
+            $(".createdata").append(t);                
+            for(var item in attr){
+                var h="";
+                h ='<strong>' + attr[item] + ': </strong> '
+                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
+                $(".createdata").append(h);
+                $(".createdata").append(t);
         }
+            $("createdata").show();
+        });
+
+        $(".contentbutton").click(function(){
+            hidebuttons();
+            emptyattributes();  
+            $(".createtrigger").show();          
+            attr=["resourceName","labels","ontologyRef","expirationTime"];
+            h ='<strong>resourceType: </strong> '
+            t = '<input type="text" id="resourceType" name="resourceType" value="contentInstance" readOnly="true"/><br/>'
+            $(".createdata").append(h);
+            $(".createdata").append(t);            
+            for(var item in attr){
+                var h="";
+                h ='<strong>' + attr[item] + ': </strong> '
+                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
+                $(".createdata").append(h);
+                $(".createdata").append(t);
+            }
+            $(".createdata").show();
+        });
+
+        $(".subscription").click(function(){
+            hidebuttons();
+            emptyattributes(); 
+            $(".createtrigger").show();       
+            attr=["resourceName","labels","ontologyRef","notificationURI","notificationContentType"];
+            h ='<strong>resourceType: </strong> '
+            t = '<input type="text" id="resourceType" name="resourceType" value="subscription" readOnly="true"/><br/>'
+            $(".createdata").append(h);
+            $(".createdata").append(t);            
+            for(var item in attr){
+                var h="";
+                h ='<strong>' + attr[item] + ': </strong> '
+                t = '<input type="text" id=\"' + attr[item] +'\"  name=\"' + attr[item] + '\" value="" /><br/>'
+                $(".createdata").append(h);
+                $(".createdata").append(t);
+            }   
+            $(".createdata").show();         
+        });
     });
 }
 
+
 function deleteButton(b){
-    $(".deletebutton").one('click',function(){
+    $(".deletebutton").click(function(){
         resource_url="http://54.68.184.172:8282/";
         resource_url = resource_url + path
 
         console.log(resource_url)
+        var isFetch=false;
         $.ajax({
             url:resource_url+'?from=http:localhost:10000&requestIdentifier=12345',
             type:'DELETE',
@@ -857,12 +948,14 @@ function deleteButton(b){
                url: "/network/cgi-bin/getTree.py",
                success: function (msg) {
                    location.reload(true);
-   }
-});
-          document.getElementById('editform').style.display="none";
+                }
+            });
+            document.getElementById('editform').style.display="none";
+            if(!isFetch){
                 alert("Delete is sucessfully performed");
             }
-            
+            isFetch=true;
+        }            
         });
     });
 }
@@ -906,6 +999,7 @@ function addButton(b){
 
     });
 }
+
 function backButton(b){
     $(".backattr").click(function(){
         initForm(b);
@@ -913,11 +1007,10 @@ function backButton(b){
     })
 }
 
-
 function createTrigger(b){
-    $(".createtrigger").one('click',function(){
+    $(".createtrigger").click(function(){
         $(".createlabel").empty();
-        type = $("#selecttype option:selected").val();
+        type = $('#resourceType').val();
         name = $("#resourceName").val();
         labels = $("#labels").val();
         ontologyRef = $("#ontologyRef").val();
@@ -929,74 +1022,30 @@ function createTrigger(b){
         notificationURI = $("#notificationURI").val();
         notificationContentType = $("#notificationContentType").val();
 
-
-        parentType = b.attr.attributes.resourceType;
-//console.log(parentType!="contentInstance")
-        if(parentType!="contentInstance"){
-            if(name!=""){
-                data = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"' + type +'\",\"content\":{ \"resourceName\":'
-                if(type == "AE"){
-                if(parentType=="AE"||parentType=="container"||parentType=="contentInstance"){
-                label='<strong>You cannot create an AE except in the root node</strong><br/>'
-                $(".createlabel").append(label);
-                return; 
-                    }    
-                }
-                if(type=="container"){
-                    data = data + '\"' + name +'\"';
-                    var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime,"maxNrOfInstances":maxNrOfInstances,"maxByteSize":maxByteSize,"maxInstanceAge":maxInstanceAge};
-                    for(item in attrarray){
-                        if(attrarray[item]!=""){
-                            data = data + ',\"' + item + '\":\"'+ attrarray[item] +'\"';
-                        }
-                    }
-                    data = data + '}}';
-                }
-                if(type=="contentInstance"){
-                    data = data + '\"' + name +'\"';
-                    var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime};     
-                    for(item in attrarray){
-                        if(attrarray[item]!=""){
-                            //console.log(item)
-                            //console.log(attrarray[item]=="")
-                             data = data + ',\"' + item + '\":\"'+ attrarray[item] +'\"';
-                        }
-                    } 
-                    data = data + '}}';                
-                }
-                if(type=="subscription"){
-                   data = data + '\"' + name +'\"';
-                   var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime,"notificationURI":notificationURI,"notificationContentType":notificationContentType}; 
-                   for(item in attrarray){
-                    if(attrarray[item]!=""){
-                        data = data + ',\"' + item + '\":\"'+ attrarray[item] +'\"';
-                    }
-                   } 
-                   data = data + '}}'; 
-            }
-            }else{
-                label='<strong>You must enter a resourceName</strong><br/>';
-                $(".createlabel").append(label);
-                console.log(label)
-                return;
-                }
-    }else{
-            label='<strong>You cannot create a node under a contentInstance</strong><br/>';
+        if(name==""){
+            var label = "You must have a resourceName"
             $(".createlabel").append(label);
             return;
         }
+        data = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"' + type +'\",\"content\":{ \"resourceName\":'
+        data = data + '\"' + name +'\"';
+        var attrarray={"labels":labels,"ontologyRef":ontologyRef,"appName":appName,"expirationTime":expirationTime,"maxNrOfInstances":maxNrOfInstances,"maxByteSize":maxByteSize,"maxInstanceAge":maxInstanceAge,"notificationURI":notificationURI,"notificationContentType":notificationContentType};
+        for(item in attrarray){
+            if(attrarray[item]!="" && attrarray[item]!=undefined && attrarray[item]!="undefined"){
+                data = data + ',\"' + item + '\":\"'+ attrarray[item] +'\"';
+            }
+        }
+        data = data + '}}';
+        //console.log(data);
 
-console.log(data)
-
-
-
-       resource_url = "http://54.68.184.172:8282/" + path;
-       console.log(path)
+        resource_url = "http://54.68.184.172:8282/" + path;
+        //console.log(path)
 
         headers = "?from=http:localhost:10000&requestIdentifier=12345"
         url= resource_url + headers
 
 
+        var isFetch=false;
         //data = "{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"container\",\"content\":{\"labels\": \"cookies\" ,\"resourceName\": \"cn11\"}}"
        $.ajax({
             url: url,
@@ -1004,22 +1053,28 @@ console.log(data)
             dataType:'json',
             data: data,
             success:function(data){
-            $.ajax({
-           type: "POST",
-           url: "/network/cgi-bin/getTree.py",
-           success: function (msg) {
-               location.reload(true);
-   }
-});
-          document.getElementById('editform').style.display="none";
-                alert("Create is successfully performed");
+                $.ajax({
+                type: "POST",
+                url: "/network/cgi-bin/getTree.py",
+                success: function (msg) {
+                   location.reload(true);
+                    }
+                });
+                document.getElementById('editform').style.display="none";
+                if(!isFetch){
+                    alert("Create is successfully performed");
+                }
+                isFetch=true;                
             }
-        })
-});
+
+        });
+    });
 }
 
+
+
 function updateTrigger(b){
-    $(".updatetrigger").one('click',function(){
+    $(".updatetrigger").click(function(){
         $(".createlabel").empty();
         type = b.attr.attributes.resourceType;
         labels = $("#labels").val();
@@ -1094,6 +1149,7 @@ function updateTrigger(b){
     url= resource_url + headers
     //console.log(url)
 
+    var isFetch=false;
     //data = "{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"container\",\"content\":{\"labels\": \"cookies\" ,\"resourceName\": \"cn11\"}}"
     $.ajax({
         url: url,
@@ -1107,10 +1163,14 @@ function updateTrigger(b){
            url: "/network/cgi-bin/getTree.py",
            success: function (msg) {
                location.reload(true);
-   }
-});
+                }
+            });
           document.getElementById('editform').style.display="none";
+          if(!isFetch){
             alert("Update is successfully performed");
+          }
+          isFetch=true;
+            
         }
     })    
     });
