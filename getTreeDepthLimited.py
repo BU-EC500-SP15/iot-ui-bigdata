@@ -21,7 +21,6 @@ import json
 import requests
 import cgi
 import cgitb
-import sys
 
 #resultContent = 1 -> Attributes Only
 Parameter1 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent' : '1'}
