@@ -1,5 +1,24 @@
 #!/usr/bin/env python
 
+    #PSUEDO
+    #getTree(attrOutputList,resource,depth):
+        #GET Attr of passed Resource
+        #Append Attr to attrOutputList
+        #For every resource (container/AE) in resourceOutput
+            #getNumChildren(resource)
+            #if numChildren == 0
+                #continue - nothing to do
+            #else
+                #Do 2nd Get request for child_list
+                #if(checkValidResponse):
+                    #for every child in child_list
+                        #if child is contentInstance
+                            #GET child Attributes
+                            #append Attributes to attrOutputList
+                            #continue
+                        #if child is container
+                            #recurse getTree(attrOutputList,child,depth)
+
 import json
 import requests
 import cgitb
