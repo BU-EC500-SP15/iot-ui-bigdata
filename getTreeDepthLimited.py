@@ -58,7 +58,8 @@ if(numRootPath >= 1):
 
 depthToNumObj[0] = 1
 
-DEPTH_LIMIT = cgi.FieldStorage().getvalue('depthLimit')
+#Get Depth_Limit passed by AJAX call
+DEPTH_LIMIT = int(cgi.FieldStorage().getvalue('depthLimit'))
 #DEPTH_LIMIT = 2
 
 
