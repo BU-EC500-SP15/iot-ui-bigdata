@@ -70,19 +70,19 @@ def getTree(attrOutputList,root_node,depth):
     if(depthToNumObj.has_key(depth)):
         #If key already exists, grab current value
         temp = depthToNumObj.get(depth)
-    depthToNumObj[depth] = (temp + 1)
+    depthToNumObj[depth] = (temp + len(resourceOutput['ResourceOutput']))
 
     #PSUEDO
     #For every resource (container/AE) in resourceOutput
         #getNumChildren(resource)
         #if numChildren == 0
-            #return nothing to do
+            #continue - nothing to do
         #else
             #Do 2nd Get request for child_list
             #CheckValidResponse
             #for every child in child_list
                 #getResource
-                
+    
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
         for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
