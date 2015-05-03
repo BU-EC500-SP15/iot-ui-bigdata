@@ -37,12 +37,11 @@ Parameter10 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 're
 
 Header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 attrOutputList = list()
-root_node = 'InCSE1'
+root_node = 'InCSE1/Team2AEx'
 server = 'http://54.68.184.172:8282/'
 depthToNumObj = dict()
 depthToCount = dict()
 depthToY = dict()
-depth = 0
 nodeStringList = list()
 edgeStringList = list()
 container_id_list = list()
@@ -50,6 +49,13 @@ container_name_list = list()
 allNodeString = ''
 allEdgeString = ''
 pathwithid = dict()
+
+#Set InitialDepth
+depth = 0
+#Exception if root_node is not CSEBase
+numRootPath = root_node.count('/')
+if(numRootPath >= 1):
+    depth = -1
 
 
 def getTree(attrOutputList,root_node,depth):
@@ -91,7 +97,9 @@ def getTree(attrOutputList,root_node,depth):
     if(depthToNumObj.has_key(depth)):
         #If key already exists, grab current value
         temp = depthToNumObj.get(depth)
-    depthToNumObj[depth] = (temp + len(resourceOutput['ResourceOutput']))
+
+    if(depth != 0):
+        depthToNumObj[depth] = (temp + len(resourceOutput['ResourceOutput']))
 
     #PSUEDO
     #For every resource (container/AE) in resourceOutput
@@ -355,8 +363,8 @@ def generateJsonString(rawInput):
 
 getTree(attrOutputList,root_node,depth)
 
-#print '\nDepth to Num Containers/contentInstances Pairs'
-#print depthToNumObj.items()
+print '\nDepth to Num Containers/contentInstances Pairs'
+print depthToNumObj.items()
 for depth in depthToNumObj.keys():
     depthToCount[depth] = 0
 
@@ -412,8 +420,8 @@ json_string = allEdgeString + allNodeString
 #print json_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("/var/www/html/network/data/iot.json", "w")
-text_file.write(json_string)
-text_file.close()
+#text_file = open("/var/www/html/network/data/iot.json", "w")
+#text_file.write(json_string)
+#text_file.close()
 print "Content-Type: text/html\n"
 print 'iot.json has been successfully created'
