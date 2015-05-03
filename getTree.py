@@ -101,17 +101,6 @@ def getTree(attrOutputList,root_node,depth):
 
     if(depth != 0):
         depthToNumObj[depth] = (temp + len(resourceOutput['ResourceOutput']))
-
-    #PSUEDO
-    #For every resource (container/AE) in resourceOutput
-        #getNumChildren(resource)
-        #if numChildren == 0
-            #continue - nothing to do
-        #else
-            #Do 2nd Get request for child_list
-            #CheckValidResponse
-            #for every child in child_list
-                #getResource
     
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
@@ -274,7 +263,7 @@ def getContentInstance(attrOutputList,contentInstancePath, depth,count):
         #GET request for Attributes of contentInstance
         r = requests.get(URI, params = Parameter10, headers = Header)
         contentInstanceOutputRaw = r.text
-        ##print contentInstanceOutputRaw  #TEST
+        #print contentInstanceOutputRaw  #TEST
         contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
         
         #Check that we got valid response                                                  

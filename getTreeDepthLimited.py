@@ -151,10 +151,10 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
                 #Parse Child-Container List
                 containerList = attr['attributeValue'].split(', ')
                 count = 0
-                print 'numChild = ' + str(numChild) #TEST
-                print 'numContainer = ' + str(numContainer) #TEST
-                print 'numContentInstance = ' + str(numContentInstance) #TEST
-                print 'X =' + str(x)
+                #print 'numChild = ' + str(numChild) #TEST
+                #print 'numContainer = ' + str(numContainer) #TEST
+                #print 'numContentInstance = ' + str(numContentInstance) #TEST
+                #print 'X =' + str(x)
 
                 #Iterate and Recurse on every container
                 for container in containerList:
@@ -187,10 +187,10 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
                 #Parse child-contentInstance List
                 contentInstanceList = attr['attributeValue'].split(', ')
                 count = 0
-                print 'numChild = ' + str(numChild) #TEST
-                print 'numContainer = ' + str(numContainer) #TEST
-                print 'numContentInstance = ' + str(numContentInstance) #TEST
-                print 'X =' + str(x)
+                #print 'numChild = ' + str(numChild) #TEST
+                #print 'numContainer = ' + str(numContainer) #TEST
+                #print 'numContentInstance = ' + str(numContentInstance) #TEST
+                #print 'X =' + str(x)
 
                 #Iterate through contentInstances
                 for contentInstance in contentInstanceList:
