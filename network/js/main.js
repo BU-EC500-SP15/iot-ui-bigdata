@@ -836,6 +836,7 @@ function createButton(b){
         hidebuttons();
         $(".backattr").show();
         parentType = b.attr.attributes.resourceType;
+        console.log(parentType)
         if(parentType=="cseBase"){
             $(".aebutton").show();
         }
@@ -968,7 +969,10 @@ function getPath(b){
         path = parent.attr.attributes.parentID + "/" +path;
         //console.log(path)
    
-    }else{
+    }else if(b.attr.attributes.resourceType=="cseBase"){
+        path = "InCSE1";
+    }
+    else{
         path = b.attr.attributes.parentID + "/" + b.label;
         //console.log(path)
      }
