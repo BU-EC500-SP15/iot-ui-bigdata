@@ -54,3 +54,9 @@ After done this, restart apache server:
     http://localhost/network/index.html?config=config_ukgov.json
 
 And you are ready to go!
+
+<b>Tool on EC2</b>
+
+There is another replica of this tool on our EC2 instance, feel free to try it out.
+
+    http://54.68.184.172/network/index.html?config=config_ukgov.json#
