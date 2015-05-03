@@ -1,21 +1,11 @@
-#The getTree function will get the JSON attribute data of all containers
+#!/usr/bin/env python
+
+#The getTree function will get the JSON attribute data of all AE's, containers,
 #and contentInstances that are below the root_node parameter passed.
 #root_node is a string of the path to the node
-#ie: root_node = 'InCSE1/Team2AEx'
+#ie: root_node = 'InCSE1/'
 
-#PSUEDO
-#Get ATTR of container
-  #If exists attribute container_list
-    #for container in container_list                                    
-      #GET ATTR of container and append to attributes_output_list
-      #recurse GetWholeTree(container)
-  #If exists attribute child_contentInstance_list
-    #for contentInstance in child_contentInstance_list
-    #GET ATTR of contextInstance and append to attributes_output_list
-#Return
 
-#Depth count for every level in the tree
-#hash table keeps track of # of containers and context Instances in each level
 
 #DEPTH_LIMIT works as follows
 #Every object has a depth in the chart, defined by how many level it is
@@ -28,31 +18,6 @@
 #the content inside of a container, or updates the tree using CRUD.
 #The result is the user only having a limited view of the tree (whatever depth is set)
 #But with much more reasonable response time.
-
-    if(depth == DEPTH_LIMIT):
-        return
-
-
-#!/usr/bin/env python
-
-    #PSUEDO
-    #getTree(attrOutputList,resource,depth):
-        #GET Attr of passed Resource
-        #Append Attr to attrOutputList
-        #For every resource (container/AE) in resourceOutput
-            #getNumChildren(resource)
-            #if numChildren == 0
-                #continue - nothing to do
-            #else
-                #Do 2nd Get request for child_list
-                #if(checkValidResponse):
-                    #for every child in child_list
-                        #if child is contentInstance
-                            #GET child Attributes
-                            #append Attributes to attrOutputList
-                            #continue
-                        #if child is container
-                            #recurse getTree(attrOutputList,child,depth)
 
 import json
 import requests
