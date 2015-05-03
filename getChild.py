@@ -22,6 +22,7 @@
 import json
 import requests
 import cgitb
+import cgi
 
 #resultContent = 1 -> Attributes Only
 Parameter1 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent' : '1'}
@@ -50,12 +51,11 @@ allEdgeString = ''
 pathwithid = dict()
 
 root_node = cgi.FieldStorage().getvalue('root_node')
-
 #Set InitialDepth
 depth = 0
 #Exception if root_node is not CSEBase
-numRootPath = root_node.count('/')
-if(numRootPath >= 1):
+rootDepth = root_node.count('/')
+if(rootDepth >= 1):
     depth = -1
 
 depthToNumObj[0] = 1
@@ -306,7 +306,7 @@ def generateJsonString(rawInput):
         attrDict[item["attributeName"]] = item["attributeValue"]
     #generate JSON edge string start
     fullPath = attrDict["parentID"] + '/' + attrDict["resourceName"]
-    depth = len(fullPath.split('/')) - 1
+    depth = fullPath.count('/') - rootDepth
     depthToCount[depth] += 1
     pathwithid[fullPath] = attrDict["resourceID"]
     for parent in pathwithid.keys():
@@ -367,18 +367,19 @@ for depth, num in depthToNumObj.iteritems():
     if (num % 2 == 0):
         depthToY[depth] = num / 2 * 500 - 250
 
-tempCSE1 = attrOutputList[0]
-attrOutputList.pop(0)
+if(rootDepth == 0):
+    tempCSE1 = attrOutputList[0]
+    attrOutputList.pop(0)
 
-firstString = '{\"output\":{\"responseStatusCode\":2002,\"ResourceOutput\":['
-lastString = ']}}'
-for x in xrange(depthToNumObj[1]):
-    rawString = firstString + json.dumps(json.loads(tempCSE1)["output"]["ResourceOutput"][x]) + lastString
-    attrOutputList.insert(x, rawString)
-#initial for InCSE1 node
-pathwithid['InCSE1'] = 10000
-cse1String = '{\"id\":10000,\"label\":\"InCSE1\",\"attributes\":{\"labels\":\"This is InCSE1\",\"resourceType\":\"cseBase\"},\"x\":0,\"y\":0,\"color\":\"rgb(240,0,0)\",\"size\":20},'
-nodeStringList.append(cse1String)
+    firstString = '{\"output\":{\"responseStatusCode\":2002,\"ResourceOutput\":['
+    lastString = ']}}'
+    for x in xrange(depthToNumObj[1]):
+        rawString = firstString + json.dumps(json.loads(tempCSE1)["output"]["ResourceOutput"][x]) + lastString
+        attrOutputList.insert(x, rawString)
+    #initial for InCSE1 node
+    pathwithid['InCSE1'] = 10000
+    cse1String = '{\"id\":10000,\"label\":\"InCSE1\",\"attributes\":{\"labels\":\"This is InCSE1\",\"resourceType\":\"cseBase\"},\"x\":0,\"y\":0,\"color\":\"rgb(240,0,0)\",\"size\":20},'
+    nodeStringList.append(cse1String)
 #initial for JSON string attributes
 edgeId = 0
 for raw in attrOutputList:
@@ -411,8 +412,8 @@ json_string = allEdgeString + allNodeString
 #print json_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-#text_file = open("/var/www/html/network/data/iot.json", "w")
-#text_file.write(json_string)
-#text_file.close()
+text_file = open("/Users/FinleyZhu/Desktop/iot-ui-bigdata/network/data/iot.json", "w")
+text_file.write(pretty_json_string)
+text_file.close()
 print "Content-Type: text/html\n"
 print 'iot.json has been successfully created'
