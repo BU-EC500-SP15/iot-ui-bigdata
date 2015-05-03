@@ -19,6 +19,7 @@
 
 import json
 import requests
+import cgi
 import cgitb
 import sys
 
@@ -58,8 +59,8 @@ if(numRootPath >= 1):
 
 depthToNumObj[0] = 1
 
-#DEPTH_LIMIT = sys.argv[1]
-DEPTH_LIMIT = 2
+DEPTH_LIMIT = cgi.FieldStorage().getvalue('depthLimit')
+#DEPTH_LIMIT = 2
 
 
 def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
@@ -381,3 +382,4 @@ text_file.write(json_string)
 text_file.close()
 print "Content-Type: text/html\n"
 print 'iot.json has been successfully created'
+print 'Depth Limit = ' + str(DEPTH_LIMIT)
