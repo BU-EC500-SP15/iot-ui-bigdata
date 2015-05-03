@@ -67,9 +67,6 @@ def getTree(attrOutputList,root_node,depth, DEPTH_LIMIT):
     #Current depth in tree
     depth += 1
 
-    if(depth == (DEPTH_LIMIT + 1)):
-        return
-
     #Construct URI for root_node
     URI = server + str(root_node)
     #print URI
@@ -98,16 +95,8 @@ def getTree(attrOutputList,root_node,depth, DEPTH_LIMIT):
         temp = depthToNumObj.get(depth)
     depthToNumObj[depth] = (temp + len(resourceOutput['ResourceOutput']))
 
-    #PSUEDO
-    #For every resource (container/AE) in resourceOutput
-        #getNumChildren(resource)
-        #if numChildren == 0
-            #continue - nothing to do
-        #else
-            #Do 2nd Get request for child_list
-            #CheckValidResponse
-            #for every child in child_list
-                #getResource
+    if(depth == DEPTH_LIMIT):
+        return
     
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
