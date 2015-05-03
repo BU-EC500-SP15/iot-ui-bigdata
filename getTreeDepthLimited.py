@@ -5,8 +5,6 @@
 #root_node is a string of the path to the node
 #ie: root_node = 'InCSE1/'
 
-
-
 #DEPTH_LIMIT works as follows
 #Every object has a depth in the chart, defined by how many level it is
 #removed from the root node. Root node in this case is variable and whatever
@@ -311,7 +309,7 @@ def generateJsonString(rawInput):
     ##print attrDict
     nodeStringList.append(nodeString)
 
-getTree(attrOutputList,root_node,depth,DEPTH_LIMIT)
+getTreeDepthLimited(attrOutputList,root_node,depth,DEPTH_LIMIT)
 
 #print '\nDepth to Num Containers/contentInstances Pairs'
 #print depthToNumObj.items()
