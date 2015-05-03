@@ -37,7 +37,7 @@ Parameter10 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 're
 
 Header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 attrOutputList = list()
-root_node = 'InCSE1/Team2AEx'
+root_node = 'InCSE1'
 server = 'http://54.68.184.172:8282/'
 depthToNumObj = dict()
 depthToCount = dict()
@@ -56,6 +56,8 @@ depth = 0
 numRootPath = root_node.count('/')
 if(numRootPath >= 1):
     depth = -1
+
+depthToNumObj[0] = 1
 
 
 def getTree(attrOutputList,root_node,depth):

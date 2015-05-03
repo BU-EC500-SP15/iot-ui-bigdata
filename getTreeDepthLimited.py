@@ -41,7 +41,6 @@ server = 'http://54.68.184.172:8282/'
 depthToNumObj = dict()
 depthToCount = dict()
 depthToY = dict()
-depth = 0
 nodeStringList = list()
 edgeStringList = list()
 container_id_list = list()
@@ -49,6 +48,15 @@ container_name_list = list()
 allNodeString = ''
 allEdgeString = ''
 pathwithid = dict()
+
+#Set InitialDepth
+depth = 0
+#Exception if root_node is not CSEBase
+numRootPath = root_node.count('/')
+if(numRootPath >= 1):
+    depth = -1
+
+depthToNumObj[0] = 1
 
 #DEPTH_LIMIT = sys.argv[1]
 DEPTH_LIMIT = 2
@@ -93,7 +101,9 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     if(depthToNumObj.has_key(depth)):
         #If key already exists, grab current value
         temp = depthToNumObj.get(depth)
-    depthToNumObj[depth] = (temp + len(resourceOutput['ResourceOutput']))
+
+    if(depth != 0):
+        depthToNumObj[depth] = (temp + len(resourceOutput['ResourceOutput']))
 
     if(depth == DEPTH_LIMIT):
         return
@@ -140,10 +150,10 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
                 #Parse Child-Container List
                 containerList = attr['attributeValue'].split(', ')
                 count = 0
-                #print 'numChild = ' + str(numChild) #TEST
-                #print 'numContainer = ' + str(numContainer) #TEST
-                #print 'numContentInstance = ' + str(numContentInstance) #TEST
-                #print 'X =' + str(x)
+                print 'numChild = ' + str(numChild) #TEST
+                print 'numContainer = ' + str(numContainer) #TEST
+                print 'numContentInstance = ' + str(numContentInstance) #TEST
+                print 'X =' + str(x)
 
                 #Iterate and Recurse on every container
                 for container in containerList:
@@ -176,10 +186,10 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
                 #Parse child-contentInstance List
                 contentInstanceList = attr['attributeValue'].split(', ')
                 count = 0
-                #print 'numChild = ' + str(numChild) #TEST
-                #print 'numContainer = ' + str(numContainer) #TEST
-                #print 'numContentInstance = ' + str(numContentInstance) #TEST
-                #print 'X =' + str(x)
+                print 'numChild = ' + str(numChild) #TEST
+                print 'numContainer = ' + str(numContainer) #TEST
+                print 'numContentInstance = ' + str(numContentInstance) #TEST
+                print 'X =' + str(x)
 
                 #Iterate through contentInstances
                 for contentInstance in contentInstanceList:
@@ -206,8 +216,6 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
                     getContentInstance(attrOutputList,contentInstance,depth+1, count)
     
     #Print Final JSON Output
-    #if(depth == 1):
-        #print attrOutputList
     if(errorFlag == 1):
         print 'ERROR: invalid response from server check log'
     return
