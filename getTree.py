@@ -32,18 +32,23 @@ pathwithid = dict()
 inputcount = 0
 
 def getTree(attrOutputList,root_node,depth):
+    #If we encounter an error - breaks us out of our recursion
     global errorFlag
     errorFlag = 0
+
+    #Info we need
     numChild = 0
     numContainer = 0
     numContentInstance = 0
+
+    #Current depth in tree
     depth += 1
 
     #Construct URI for root_node
     URI = server + str(root_node)
     print URI
 
-    #Do GET request for attributes of container/AE (p10)
+    #Do GET request for attributes of object (p10)
     r = requests.get(URI, params = Parameter10, headers = Header)
     resourceOutputRaw = r.text
     print resourceOutputRaw
@@ -61,6 +66,7 @@ def getTree(attrOutputList,root_node,depth):
 
     temp = 0
     #Update Num Containers/contentInstances in Depth Hashtable
+    #This tells us how many objects are in each depth level
     if(depthToNumObj.has_key(depth)):
         #If key already exists, grab current value
         temp = depthToNumObj.get(depth)
@@ -76,13 +82,7 @@ def getTree(attrOutputList,root_node,depth):
             #CheckValidResponse
             #for every child in child_list
                 #getResource
-    for x in range(0, len(resourceOutput['ResourceOutput'])):
-        print resourceOutput['ResourceOutput'][x]
-        #for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
-            #if(attr['attributeName'] == 'Total Child Resource Number'):
-                #print 'Num Children = ' + attr['attributeValue'] + ' for x = ' + str(x)
-
-    print 'Length = ' + str(len(resourceOutput['ResourceOutput']))
+                
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
         for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
@@ -91,13 +91,13 @@ def getTree(attrOutputList,root_node,depth):
                 #Get number of children
                 if(numChild  == "0"):
                     #Found no children
-                    return
+                    continue
             if(attr['attributeName'] == 'Total Child Resource Number'):
                 #Get number of children
                 numChild = attr['attributeValue']
                 if(numChild == "0"):
                     #Found no children
-                    return
+                    continue
             if(attr['attributeName'] == 'Child-ResourceContainer Number'):
                 #Get number of containers
                 numContainer = attr['attributeValue']
@@ -400,10 +400,9 @@ def Generate_json_string(input_json_string):
 
 getTree(attrOutputList,root_node,depth)
 
-#print '\nDepth to Num Containers/contentInstances Pairs'
-#print depthToNumObj.items()
+print '\nDepth to Num Containers/contentInstances Pairs'
+print depthToNumObj.items()
 
-<<<<<<< HEAD
 
 #edge_id = 0
 #x_AE = 0
@@ -419,22 +418,6 @@ getTree(attrOutputList,root_node,depth)
 #node_start_string = '\"nodes\":['
 #node_end_string = ']}'
 #all_node_string = node_start_string + all_node_string + node_end_string
-=======
-edge_id = 0
-x_AE = 0
-y_AE = 0
-y_container = 250
-y_CI = 0
-for string in attrOutputList:
-    Generate_json_string(string)
-for string in node_string_list:
-    all_node_string += string
-    if (string == node_string_list[-1]):
-        all_node_string = all_node_string[:len(all_node_string)-1]
-node_start_string = '\"nodes\":['
-node_end_string = ']}'
-all_node_string = node_start_string + all_node_string + node_end_string
->>>>>>> dfa9b67fa51a88002b50e1ddbcb75282c73b49ce
 #print 'this is the all_node_string'
 #print '----------------------------'
 #print all_node_string
@@ -450,7 +433,6 @@ all_node_string = node_start_string + all_node_string + node_end_string
 #print '----------------------------'
 #print all_edge_string
 #print '----------------------------'
-<<<<<<< HEAD
 #json_string = all_edge_string + all_node_string
 #parsed = json.loads(json_string)
 #pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
@@ -459,13 +441,4 @@ all_node_string = node_start_string + all_node_string + node_end_string
 #text_file.close()
 #print "Content-Type: text/html\n"
 #print 'iot.json has been successfully created'
-=======
-json_string = all_edge_string + all_node_string
-parsed = json.loads(json_string)
-pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("/Users/FinleyZhu/Desktop/own_iot-ui-bigdata/network/data/iot.json", "w")
-text_file.write(pretty_json_string)
-text_file.close()
-print "Content-Type: text/html\n"
-print 'iot.json has been successfully created'
->>>>>>> dfa9b67fa51a88002b50e1ddbcb75282c73b49ce
+
