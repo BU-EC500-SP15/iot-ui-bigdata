@@ -836,7 +836,7 @@ function createButton(b){
         hidebuttons();
         $(".backattr").show();
         parentType = b.attr.attributes.resourceType;
-        if(parentType=="" && parentType=="undefined" && parentType==undefined){
+        if(parentType=="cseBase"){
             $(".aebutton").show();
         }
         if(parentType=="AE"){
