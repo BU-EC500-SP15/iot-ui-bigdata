@@ -51,7 +51,9 @@ container_name_list = list()
 allNodeString = ''
 allEdgeString = ''
 pathwithid = dict()
-DEPTH_LIMIT = sys.argv[1]
+
+#DEPTH_LIMIT = sys.argv[1]
+DEPTH_LIMIT = 2
 
 
 def getTree(attrOutputList,root_node,depth, DEPTH_LIMIT):
