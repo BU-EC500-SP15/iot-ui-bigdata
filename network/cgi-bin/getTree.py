@@ -48,12 +48,12 @@ def getTree(attrOutputList,root_node,depth):
 
     #Construct URI for root_node
     URI = server + str(root_node)
-    print URI
+    #print URI
 
     #Do GET request for attributes of object (p10)
     r = requests.get(URI, params = Parameter10, headers = Header)
     resourceOutputRaw = r.text
-    print resourceOutputRaw
+    #print resourceOutputRaw
     resourceOutput = json.loads(resourceOutputRaw)['output']
     
     #Check that we got valid response
@@ -112,7 +112,7 @@ def getTree(attrOutputList,root_node,depth):
         #consider adding if condition to only do it if x = 0
         r = requests.get(URI, params = Parameter6, headers = Header)
         resourceOutputCListRaw = r.text
-        print resourceOutputCListRaw
+        #print resourceOutputCListRaw
         resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
         
         #Check that we got valid response
@@ -123,14 +123,14 @@ def getTree(attrOutputList,root_node,depth):
         #Child-container List is string and therefore needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-container List'):
-                print attr['attributeValue']
+                #print attr['attributeValue']
                 #Parse Child-Container List
                 containerList = attr['attributeValue'].split(', ')
                 count = 0
-                print 'numChild = ' + str(numChild) #TEST
-                print 'numContainer = ' + str(numContainer) #TEST
-                print 'numContentInstance = ' + str(numContentInstance) #TEST
-                print 'X =' + str(x)
+                #print 'numChild = ' + str(numChild) #TEST
+                #print 'numContainer = ' + str(numContainer) #TEST
+                #print 'numContentInstance = ' + str(numContentInstance) #TEST
+                #print 'X =' + str(x)
 
                 #Iterate and Recurse on every container
                 for container in containerList:
@@ -139,34 +139,34 @@ def getTree(attrOutputList,root_node,depth):
                     count += 1
                     #If 1 container -> remove [ and ]
                     if(numContainer == '1'):
-                        print container[1:-1]
+                        #print container[1:-1]
                         getTree(attrOutputList,container[1:-1], depth)
                         continue
                     #First container -> remove [
                     if(count == 1):
-                        print container[1:] #TEST
+                        #print container[1:] #TEST
                         getTree(attrOutputList,container[1:], depth)
                         continue
                     #Last container -> remove ]
                     if(str(count) == numContainer):
-                        print container[:-1] #TEST
+                        #print container[:-1] #TEST
                         getTree(attrOutputList,container[:-1], depth)
                         continue
                     #Other container -> remove nothing
-                    print container #TEST
+                    #print container #TEST
                     getTree(attrOutputList,container, depth)
         #Get attributes of every content Instance in Child-contentInstance List
         #Child-contentInstance List is string and needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-contentInstance List'):
-                #print attr['attributeValue']
+                ##print attr['attributeValue']
                 #Parse child-contentInstance List
                 contentInstanceList = attr['attributeValue'].split(', ')
                 count = 0
-                print 'numChild = ' + str(numChild) #TEST
-                print 'numContainer = ' + str(numContainer) #TEST
-                print 'numContentInstance = ' + str(numContentInstance) #TEST
-                print 'X =' + str(x)
+                #print 'numChild = ' + str(numChild) #TEST
+                #print 'numContainer = ' + str(numContainer) #TEST
+                #print 'numContentInstance = ' + str(numContentInstance) #TEST
+                #print 'X =' + str(x)
 
                 #Iterate through contentInstances
                 for contentInstance in contentInstanceList:
@@ -175,26 +175,26 @@ def getTree(attrOutputList,root_node,depth):
                     count += 1
                     #If 1 contentInstance -> remove [ and ]
                     if(numContentInstance == '1'):
-                        print contentInstance[1:-1] #TEST
+                        #print contentInstance[1:-1] #TEST
                         getContentInstance(attrOutputList,contentInstance[1:-1], depth+1, count)
                         return
                     #First contentInstance -> remove [
                     if(count == 1):
-                        print contentInstance[1:] #TEST
+                        #print contentInstance[1:] #TEST
                         getContentInstance(attrOutputList,contentInstance[1:],depth+1, count)
                         continue
                     #Last contentInstance -> remove ]
                     if(str(count) == numContentInstance):
-                        print contentInstance[:-1]
+                        #print contentInstance[:-1]
                         getContentInstance(attrOutputList,contentInstance[:-1],depth+1, count)
                         return
                     #Other contentInstance -> remove nothing
-                    print contentInstance
+                    #print contentInstance
                     getContentInstance(attrOutputList,contentInstance,depth+1, count)
     
     #Print Final JSON Output
-    if(depth == 1):
-        print attrOutputList
+    #if(depth == 1):
+        #print attrOutputList
     if(errorFlag == 1):
         print 'ERROR: invalid response from server check log'
     return
@@ -204,14 +204,14 @@ def getContainer(containerOutputClist):
     #Child-container List is string and therefore needs to be parsed
     for attr in containerOutputCList['ResourceOutput'][0]['Attributes']:
         if(attr['attributeName'] == 'child-container List'):
-            print attr['attributeValue']
+            #print attr['attributeValue']
             
             #Parse Child-Container List
             containerList = attr['attributeValue'].split(', ')
             count = 0
-            print 'numChild = ' + str(numChild) #TEST
-            print 'numContainer = ' + str(numContainer) #TEST
-            print 'numContentInstance = ' + str(numContentInstance) #TEST
+            #print 'numChild = ' + str(numChild) #TEST
+            #print 'numContainer = ' + str(numContainer) #TEST
+            #print 'numContentInstance = ' + str(numContentInstance) #TEST
             
             #Iterate and Recurse on every container
             for container in containerList:
@@ -220,33 +220,33 @@ def getContainer(containerOutputClist):
                 count += 1
                 #If 1 container -> remove [ and ]
                 if(numContainer == '1'):
-                    #print container[1:-1]
+                    ##print container[1:-1]
                     getTree(attrOutputList,container[1:-1], depth)
                     continue
                 #First container -> remove [
                 if(count == 1):
-                    #print container[1:] #TEST
+                    ##print container[1:] #TEST
                     getTree(attrOutputList,container[1:], depth)
                     continue
                 #Last container -> remove ]
                 if(str(count) == numContainer):
-                    #print container[:-1] #TEST
+                    ##print container[:-1] #TEST
                     getTree(attrOutputList,container[:-1], depth)
                     continue
                 #Other container -> remove nothing
-                #print container #TEST
+                ##print container #TEST
                 getTree(attrOutputList,container, depth)
 
 def getContentInstance(attrOutputList,contentInstancePath, depth,count):
     try:    
-        #print contentInstancePath
+        ##print contentInstancePath
         URI = server + str(contentInstancePath)
-        print count
+        #print count
 
         #GET request for Attributes of contentInstance
         r = requests.get(URI, params = Parameter10, headers = Header)
         contentInstanceOutputRaw = r.text
-        #print contentInstanceOutputRaw  #TEST
+        ##print contentInstanceOutputRaw  #TEST
         contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
         
         #Check that we got valid response                                                  
@@ -274,7 +274,7 @@ def checkValidResponse(containerOutput):
     if(containerOutput["responseStatusCode"]==2002):
         return 1
     else:
-        print 'ERROR - invalid response from server'
+        #print 'ERROR - invalid response from server'
         errorFlag = 1
         return 0
 
@@ -330,14 +330,14 @@ def generateJsonString(rawInput):
         color = '#3636e2'
     nodeString += '},\"x\":%s,\"y\":%s,\"color\":\"%s\",\"size\":%s},' %(x, y, color, size)
     #generate JSON node string end
-    #print nodeString
-    #print attrDict
+    ##print nodeString
+    ##print attrDict
     nodeStringList.append(nodeString)
 
 getTree(attrOutputList,root_node,depth)
 
-print '\nDepth to Num Containers/contentInstances Pairs'
-print depthToNumObj.items()
+#print '\nDepth to Num Containers/contentInstances Pairs'
+#print depthToNumObj.items()
 for depth in depthToNumObj.keys():
     depthToCount[depth] = 0
 
@@ -365,8 +365,8 @@ nodeStringList.append(cse1String)
 edgeId = 0
 for raw in attrOutputList:
     generateJsonString(raw)
-#print nodeStringList
-#print edgeStringList
+##print nodeStringList
+##print edgeStringList
 for string in nodeStringList:
     allNodeString += string
     if (string == nodeStringList[-1]):
@@ -374,10 +374,10 @@ for string in nodeStringList:
 nodeStartString = '\"nodes\":['
 nodeEndString = ']}'
 allNodeString = nodeStartString + allNodeString + nodeEndString
-print 'this is the allNodeString'
-print '----------------------------'
-print allNodeString
-print '----------------------------'
+#print 'this is the allNodeString'
+#print '----------------------------'
+#print allNodeString
+#print '----------------------------'
 edge_start_string = '{\"edges\":['
 edge_end_string = '],'
 for string in edgeStringList:
@@ -385,15 +385,15 @@ for string in edgeStringList:
    if string == edgeStringList[-1]:
        allEdgeString = allEdgeString[:len(allEdgeString)-1]
 allEdgeString = edge_start_string + allEdgeString + edge_end_string
-print 'this is the allEdgeString'
-print '----------------------------'
-print allEdgeString
-print '----------------------------'
+#print 'this is the allEdgeString'
+#print '----------------------------'
+#print allEdgeString
+#print '----------------------------'
 json_string = allEdgeString + allNodeString
-print json_string
+#print json_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("/Users/FinleyZhu/Desktop/iot-ui-bigdata/network/data/iot.json", "w")
+text_file = open("/var/www/html/network/data/iot.json", "w")
 text_file.write(json_string)
 text_file.close()
 print "Content-Type: text/html\n"
