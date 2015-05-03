@@ -305,13 +305,17 @@ function configSigmaElements(config) {
             console.log(b)
             //console.log(sigInst.clusters)
             //console.log(sigInst.clusters[b][0].attr)
-            if(b=="rgb(255,204,102)"){
+            if(b=="rgb(240,0,0)"){
+                a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + 'InCSE'+ ' (' + sigInst.clusters[b].length + ' members)</a></div>');
+            }
+            else if(b=="rgb(255,204,102)"){
                 a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + 'AE'+ ' (' + sigInst.clusters[b].length + ' members)</a></div>');
             }else if(b=="#36e236"){
                 a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + 'container'+ ' (' + sigInst.clusters[b].length + ' members)</a></div>');
             }else if (b=="#3636e2"){
                 a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + 'contentInstance'+ ' (' + sigInst.clusters[b].length + ' members)</a></div>');
-            }else{
+            }
+            else{
                 a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' +(x++)+ ' (' + sigInst.clusters[b].length + ' members)</a></div>');
             }
             }
@@ -1173,8 +1177,7 @@ function updateTrigger(b){
           if(!isFetch){
             alert("Update is successfully performed");
           }
-          isFetch=true;
-            
+          isFetch=true;           
         }
     })    
     });
@@ -1218,7 +1221,7 @@ function getAJAX(b){
            console.log(data);
            result = data.output.ResourceOutput[0].Attributes;
            for(item in result){
-            t = '<span>'+ result[item].attributeName + ':' + result[item].attributeValue + '</span><br/>';
+            t = '<span><strong>'+ result[item].attributeName + ':</strong>' + result[item].attributeValue + '</span><br/>';
               $(".latestdata").append(t);
            }
            console.log(result);
