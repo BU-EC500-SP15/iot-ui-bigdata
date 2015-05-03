@@ -56,7 +56,7 @@ pathwithid = dict()
 DEPTH_LIMIT = 2
 
 
-def getTree(attrOutputList,root_node,depth, DEPTH_LIMIT):
+def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     #If we encounter an error - breaks us out of our recursion
     global errorFlag
     errorFlag = 0
@@ -155,21 +155,21 @@ def getTree(attrOutputList,root_node,depth, DEPTH_LIMIT):
                     #If 1 container -> remove [ and ]
                     if(numContainer == '1'):
                         #print container[1:-1]
-                        getTree(attrOutputList,container[1:-1], depth)
+                        getTreeDepthLimited(attrOutputList,container[1:-1], depth,DEPTH_LIMIT)
                         continue
                     #First container -> remove [
                     if(count == 1):
                         #print container[1:] #TEST
-                        getTree(attrOutputList,container[1:], depth)
+                        getTreeDepthLimited(attrOutputList,container[1:], depth,DEPTH_LIMIT)
                         continue
                     #Last container -> remove ]
                     if(str(count) == numContainer):
                         #print container[:-1] #TEST
-                        getTree(attrOutputList,container[:-1], depth)
+                        getTreeDepthLimited(attrOutputList,container[:-1], depth,DEPTH_LIMIT)
                         continue
                     #Other container -> remove nothing
                     #print container #TEST
-                    getTree(attrOutputList,container, depth)
+                    getTreeDepthLimited(attrOutputList,container, depth,DEPTH_LIMIT)
         #Get attributes of every content Instance in Child-contentInstance List
         #Child-contentInstance List is string and needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
@@ -213,44 +213,6 @@ def getTree(attrOutputList,root_node,depth, DEPTH_LIMIT):
     if(errorFlag == 1):
         print 'ERROR: invalid response from server check log'
     return
-
-def getContainer(containerOutputClist):
-    #Recurse getTree on every container in Child-Container List
-    #Child-container List is string and therefore needs to be parsed
-    for attr in containerOutputCList['ResourceOutput'][0]['Attributes']:
-        if(attr['attributeName'] == 'child-container List'):
-            #print attr['attributeValue']
-            
-            #Parse Child-Container List
-            containerList = attr['attributeValue'].split(', ')
-            count = 0
-            #print 'numChild = ' + str(numChild) #TEST
-            #print 'numContainer = ' + str(numContainer) #TEST
-            #print 'numContentInstance = ' + str(numContentInstance) #TEST
-            
-            #Iterate and Recurse on every container
-            for container in containerList:
-                if(errorFlag == 1):
-                    return
-                count += 1
-                #If 1 container -> remove [ and ]
-                if(numContainer == '1'):
-                    ##print container[1:-1]
-                    getTree(attrOutputList,container[1:-1], depth)
-                    continue
-                #First container -> remove [
-                if(count == 1):
-                    ##print container[1:] #TEST
-                    getTree(attrOutputList,container[1:], depth)
-                    continue
-                #Last container -> remove ]
-                if(str(count) == numContainer):
-                    ##print container[:-1] #TEST
-                    getTree(attrOutputList,container[:-1], depth)
-                    continue
-                #Other container -> remove nothing
-                ##print container #TEST
-                getTree(attrOutputList,container, depth)
 
 def getContentInstance(attrOutputList,contentInstancePath, depth,count):
     try:    
