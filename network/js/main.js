@@ -847,12 +847,12 @@ function createButton(b){
         }
         if(parentType=="AE"){
             $(".containerbutton").show();
-            $(".subscription").show();
+           // $(".subscription").show();
         }
         if(parentType=="container"){
             $(".containerbutton").show();
             $(".contentbutton").show();
-            $(".subscription").show();
+            //$(".subscription").show();
         }
         if(parentType=="subscription"||parentType=="contentInstance"){
             label = "You can't create children under this"
