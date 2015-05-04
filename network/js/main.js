@@ -843,6 +843,7 @@ function createButton(b){
         console.log(parentType)
         if(parentType=="cseBase"){
             $(".aebutton").show();
+            $(".containerbutton").show();
         }
         if(parentType=="AE"){
             $(".containerbutton").show();
