@@ -46,11 +46,15 @@ We have a Cron job on the server that generates a new JSON file every 10 minute.
 
 
 ![Visualization Example](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/Visual.png)
-This is a screen shot of our visual running in Chrome
+<center>This is a screen shot of our visual running in Chrome</center>
+
+
+You can easily filter or search the visualization if you know the name of a specific resource, resource type, or attribute.
 
 Clicking on a resource such as an AE, Container, or contentInstance will render exclusively that node along with its parent and children. It also pulls up a side-panel containing all of the attributes of that node. Among these, include the resource’s name, ID, type, size, number of children, as well as links to its parent and child nodes. 
 
 ![Node Focus](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/Focus.png)
+<center>Displaying a node with its parent and children</center>
 
 
 For nodes with an extremely large number of data points (called contentInstances), it may be difficult to find the most recent collected data. To make this easier, we’ve added a button called “latest” which will conveniently grab and display this latest data.
@@ -60,9 +64,6 @@ From this panel you can also click the edit button to modify the tree. You can e
 
 
 ![Tree Management](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/Edit.png)
-
-
-You can easily filter or search the visualization if you know the name of a specific resource, resource type, or attribute.
 
 
 In order to be more real-time we’ve added the option to refresh the tree. The user can choose to either refresh the whole tree, thereby incurring a potentially large time penalty, OR choose to merely update the current node along with a user-specified level depth to render. This results in a MUCH quicker render while still giving the user the real-time data they want. We feel this is a very good trade-off between functionality and usability.
