@@ -5,7 +5,7 @@ The goal of the project is to provide a webapp to view 1 million+ data points co
 
 ##System Overview:
 
-![UML Diagram](https://raw.github.com/nkunkel/BU-EC500-SP15/iot-ui-bigdata/master/Docs/IOT_UML.png)
+![UML Diagram](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/IOT_UML.png)
 
 ##Prerequisite
 <b>1. Install Python2</b> (https://www.python.org/downloads/)
