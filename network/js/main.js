@@ -843,6 +843,7 @@ function createButton(b){
         console.log(parentType)
         if(parentType=="cseBase"){
             $(".aebutton").show();
+            $(".containerbutton").show();
         }
         if(parentType=="AE"){
             $(".containerbutton").show();
@@ -862,6 +863,7 @@ function createButton(b){
         $(".aebutton").click(function(){
             hidebuttons();
             emptyattributes();
+            $(".backattr").show();
             $(".createtrigger").show();            
             attr=["resourceName","labels","ontologyRef","appName"];
             h ='<strong>resourceType: </strong> '
@@ -880,6 +882,7 @@ function createButton(b){
         $(".containerbutton").click(function(){
             hidebuttons();
             emptyattributes();
+            $(".backattr").show();
             $(".createtrigger").show();
             attr=["resourceName","labels","ontologyRef","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge"];
             h ='<strong>resourceType: </strong> '
@@ -898,7 +901,8 @@ function createButton(b){
 
         $(".contentbutton").click(function(){
             hidebuttons();
-            emptyattributes();  
+            emptyattributes(); 
+            $(".backattr").show(); 
             $(".createtrigger").show();          
             attr=["resourceName","labels","ontologyRef","expirationTime"];
             h ='<strong>resourceType: </strong> '
@@ -918,6 +922,7 @@ function createButton(b){
         $(".subscription").click(function(){
             hidebuttons();
             emptyattributes(); 
+            $(".backattr").show();
             $(".createtrigger").show();       
             attr=["resourceName","labels","ontologyRef","notificationURI","notificationContentType"];
             h ='<strong>resourceType: </strong> '
@@ -1253,6 +1258,8 @@ function getAJAX(b){
    })
 }
 
+
+//This function is to return the interger that is typed for getting limited level
 function limitedLevel(){    
     var depth = $(".depth").val();
     if(!isNaN(depth) && (function(x) { return (x | 0) === x; })(parseFloat(depth))){
