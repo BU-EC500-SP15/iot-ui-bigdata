@@ -9,9 +9,13 @@ The goal of this project is to provide a webapp to visualize 1 million+ data poi
 
 <b>Legend</b>
 Yellow = EC2 Instance
+
 Green = Server-side Execution
+
 Red = Web Browser
+
 Blue = Client-side User Functionality in browser
+
 
 ##Prerequisite
 <b>1. Install Python2</b> (https://www.python.org/downloads/)
