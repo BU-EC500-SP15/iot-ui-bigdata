@@ -45,7 +45,7 @@ However, walking the tree and generating the corresponding sigma.js JSON can tak
 We have a Cron job on the server that generates a new JSON file every 10 minute. This gives us near “real-time” visualization client-side without incurring a time-penalty.
 
 
-![Visualization Example](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/Visualization.png)
+![Visualization Example](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/Visual.png)
 
 
 Clicking on a resource such as an AE, Container, or contentInstance pulls up a side-panel containing all of the attributes of that node. Among these, include the resource’s name, ID, type, size, number of children, as well as links to its parent and child nodes. 
