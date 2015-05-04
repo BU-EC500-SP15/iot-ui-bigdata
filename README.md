@@ -163,7 +163,7 @@ There is another replica of this tool on our EC2 instance, feel free to try it o
 ##Special Thanks
 
 Instructors - Ata Turk(BU), Orran Krieger(BU), Peter Desnoyers(NEU), Michael Daitzman(Vecna), Jason Hennessey(BU)
-Mentor - Lionel Florit(Cisco), Jim Ballingall(IAP)
+Mentors - Lionel Florit(Cisco), Jim Ballingall(IAP)
 
 ##Reference
 
