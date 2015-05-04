@@ -48,8 +48,7 @@ We have a Cron job on the server that generates a new JSON file every 10 minute.
 ![Visualization Example](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/Visual.png)
 <center>This is a screen shot of our visual running in Chrome</center>
 
-
-You can easily filter or search the visualization if you know the name of a specific resource, resource type, or attribute.
+You can zoom in and zoom out of the tree by clicking the + and - magnifying buttons in the center console. You can also move the tree by clicking and dragging it. You can easily filter or search the visualization if you know the name of a specific resource or attribute using the search bar on the left. Right below the search bar is the group selector which allows selecting and rendering only resources of a specific type (eg: container).
 
 Clicking on a resource such as an AE, Container, or contentInstance will render exclusively that node along with its parent and children. It also pulls up a side-panel containing all of the attributes of that node. Among these, include the resource’s name, ID, type, size, number of children, as well as links to its parent and child nodes. 
 
