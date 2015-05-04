@@ -159,3 +159,24 @@ And you are ready to go!
 There is another replica of this tool on our EC2 instance, feel free to try it out.
 
     http://54.68.184.172/network/index.html?config=config_ukgov.json
+
+##Special Thanks
+
+Instructors - Ata Turk(BU), Orran Krieger(BU), Peter Desnoyers(NEU), Michael Daitzman(Vecna), Jason Hennessey(BU)
+Mentor - Lionel Florit(Cisco), Jim Ballingall(IAP)
+
+##Reference
+
+Oxford Internet Institution(OII) Interactive Visualizations Blog
+
+    http://blogs.oii.ox.ac.uk/vis/
+    
+OII InteractiveVis github repo
+
+    https://github.com/oxfordinternetinstitute/InteractiveVis
+    
+Cross-origin resource sharing information
+
+    http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+    http://enable-cors.org
+
