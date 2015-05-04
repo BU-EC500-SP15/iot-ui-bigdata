@@ -1266,7 +1266,7 @@ function limitedLevel(){
 
 function partialTree(b){
     $('.getchild').click(function(){
-    var path = getPath(b);
+    getPath(b);
     $.ajax({
         url:"/network/cgi-bin/getTreeDepthLimited.py?root_node="+path,
         type:"GET",
@@ -1274,7 +1274,7 @@ function partialTree(b){
             nodeNormal();
         }
     });
-    console.log("partialTree")
+   
     });
 }
 
