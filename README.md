@@ -131,11 +131,24 @@ Change the interval by modifying the 10 value. (the / acts as a mod, with the fi
     */45 * * * *  /usr/bin/python /PATH/TO/SCRIPT/getTree.py >/dev/null 2>&1
 
 
+##Google Chrome and CORS
+
+Due to recent updates in ODL, CRUD operations have been restricted for certain use-cases. We've identified a quick-fix to this bottleneck, however it exclusively works for Google Chrome. Hence we only support tree management operations in Google Chrome. 
+
+
+<b>CORS</b>
+
+CORS (Allow-Control-Allow-Origin) is a plugin for Chrome which enables CRUD functionality for our visual. You can install it from the following link:
+
+   https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en
+   
+Once installed, view the visualization in your web browser. Make sure the CORS icon is visible in the top right corner of your browser. If it isn't go into your Chrome extensions and ensure that CORS is enabled. Once you see it, click on the CORS icon and toggle the "Enable cross-origin resource sharing" switch to ON. Now you are ready to use the tool!
+
 ##Using visualization tool
 
 <b>Access tool</b>
 
- After successfully configure Apache, use this URL to access
+ After successfully following the above installation procedure, use this URL to access our visualization tool:
 
     http://localhost/network/index.html?config=config_ukgov.json
 
@@ -145,4 +158,4 @@ And you are ready to go!
 
 There is another replica of this tool on our EC2 instance, feel free to try it out.
 
-    http://54.68.184.172/network/index.html?config=config_ukgov.json#
+    http://54.68.184.172/network/index.html?config=config_ukgov.json
