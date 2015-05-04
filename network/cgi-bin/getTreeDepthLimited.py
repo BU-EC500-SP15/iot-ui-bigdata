@@ -1,23 +1,21 @@
 #!/usr/bin/env python
 
-    #PSUEDO
-    #getTree(attrOutputList,resource,depth):
-        #GET Attr of passed Resource
-        #Append Attr to attrOutputList
-        #For every resource (container/AE) in resourceOutput
-            #getNumChildren(resource)
-            #if numChildren == 0
-                #continue - nothing to do
-            #else
-                #Do 2nd Get request for child_list
-                #if(checkValidResponse):
-                    #for every child in child_list
-                        #if child is contentInstance
-                            #GET child Attributes
-                            #append Attributes to attrOutputList
-                            #continue
-                        #if child is container
-                            #recurse getTree(attrOutputList,child,depth)
+#The getTree function will get the JSON attribute data of all AE's, containers,
+#and contentInstances that are below the root_node parameter passed.
+#root_node is a string of the path to the node
+#ie: root_node = 'InCSE1/'
+
+#DEPTH_LIMIT works as follows
+#Every object has a depth in the chart, defined by how many level it is
+#removed from the root node. Root node in this case is variable and whatever
+#the user sets it as. This allows us to get the JSON for subtrees starting
+#from ANY node, while at the same time limiting how far down the tree we call.
+#This allows us to generate the JSON for this depth-limited tree much quicker.
+#The reason we do this is because parsing the JSON for the whole tree takes too long!
+#This lets client-side rendering be instantaneous when a user wants to refresh
+#the content inside of a container, or updates the tree using CRUD.
+#The result is the user only having a limited view of the tree (whatever depth is set)
+#But with much more reasonable response time.
 
 import json
 import requests
@@ -51,17 +49,21 @@ allNodeString = ''
 allEdgeString = ''
 pathwithid = dict()
 
-
 #Set InitialDepth
 depth = 0
 #Exception if root_node is not CSEBase
-rootDepth = root_node.count('/')
-if(rootDepth >= 1):
+numRootPath = root_node.count('/')
+if(numRootPath >= 1):
     depth = -1
 
 depthToNumObj[0] = 1
 
-def getTree(attrOutputList,root_node,depth):
+#Get Depth_Limit passed by AJAX call
+DEPTH_LIMIT = int(cgi.FieldStorage().getvalue('depthLimit'))
+#DEPTH_LIMIT = 2
+
+
+def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     #If we encounter an error - breaks us out of our recursion
     global errorFlag
     errorFlag = 0
@@ -103,6 +105,9 @@ def getTree(attrOutputList,root_node,depth):
 
     if(depth != 0):
         depthToNumObj[depth] = (temp + len(resourceOutput['ResourceOutput']))
+
+    if(depth == DEPTH_LIMIT):
+        return
     
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
@@ -159,21 +164,21 @@ def getTree(attrOutputList,root_node,depth):
                     #If 1 container -> remove [ and ]
                     if(numContainer == '1'):
                         #print container[1:-1]
-                        getTree(attrOutputList,container[1:-1], depth)
+                        getTreeDepthLimited(attrOutputList,container[1:-1], depth,DEPTH_LIMIT)
                         continue
                     #First container -> remove [
                     if(count == 1):
                         #print container[1:] #TEST
-                        getTree(attrOutputList,container[1:], depth)
+                        getTreeDepthLimited(attrOutputList,container[1:], depth,DEPTH_LIMIT)
                         continue
                     #Last container -> remove ]
                     if(str(count) == numContainer):
                         #print container[:-1] #TEST
-                        getTree(attrOutputList,container[:-1], depth)
+                        getTreeDepthLimited(attrOutputList,container[:-1], depth,DEPTH_LIMIT)
                         continue
                     #Other container -> remove nothing
                     #print container #TEST
-                    getTree(attrOutputList,container, depth)
+                    getTreeDepthLimited(attrOutputList,container, depth,DEPTH_LIMIT)
         #Get attributes of every content Instance in Child-contentInstance List
         #Child-contentInstance List is string and needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
@@ -212,49 +217,9 @@ def getTree(attrOutputList,root_node,depth):
                     getContentInstance(attrOutputList,contentInstance,depth+1, count)
     
     #Print Final JSON Output
-    #if(depth == 1):
-        #print attrOutputList
     if(errorFlag == 1):
         print 'ERROR: invalid response from server check log'
     return
-
-def getContainer(containerOutputClist):
-    #Recurse getTree on every container in Child-Container List
-    #Child-container List is string and therefore needs to be parsed
-    for attr in containerOutputCList['ResourceOutput'][0]['Attributes']:
-        if(attr['attributeName'] == 'child-container List'):
-            #print attr['attributeValue']
-            
-            #Parse Child-Container List
-            containerList = attr['attributeValue'].split(', ')
-            count = 0
-            #print 'numChild = ' + str(numChild) #TEST
-            #print 'numContainer = ' + str(numContainer) #TEST
-            #print 'numContentInstance = ' + str(numContentInstance) #TEST
-            
-            #Iterate and Recurse on every container
-            for container in containerList:
-                if(errorFlag == 1):
-                    return
-                count += 1
-                #If 1 container -> remove [ and ]
-                if(numContainer == '1'):
-                    ##print container[1:-1]
-                    getTree(attrOutputList,container[1:-1], depth)
-                    continue
-                #First container -> remove [
-                if(count == 1):
-                    ##print container[1:] #TEST
-                    getTree(attrOutputList,container[1:], depth)
-                    continue
-                #Last container -> remove ]
-                if(str(count) == numContainer):
-                    ##print container[:-1] #TEST
-                    getTree(attrOutputList,container[:-1], depth)
-                    continue
-                #Other container -> remove nothing
-                ##print container #TEST
-                getTree(attrOutputList,container, depth)
 
 def getContentInstance(attrOutputList,contentInstancePath, depth,count):
     try:    
@@ -265,7 +230,7 @@ def getContentInstance(attrOutputList,contentInstancePath, depth,count):
         #GET request for Attributes of contentInstance
         r = requests.get(URI, params = Parameter10, headers = Header)
         contentInstanceOutputRaw = r.text
-        #print contentInstanceOutputRaw  #TEST
+        ##print contentInstanceOutputRaw  #TEST
         contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
         
         #Check that we got valid response                                                  
@@ -307,7 +272,7 @@ def generateJsonString(rawInput):
         attrDict[item["attributeName"]] = item["attributeValue"]
     #generate JSON edge string start
     fullPath = attrDict["parentID"] + '/' + attrDict["resourceName"]
-    depth = fullPath.count('/') - rootDepth
+    depth = len(fullPath.split('/')) - 1
     depthToCount[depth] += 1
     pathwithid[fullPath] = attrDict["resourceID"]
     for parent in pathwithid.keys():
@@ -353,10 +318,10 @@ def generateJsonString(rawInput):
     ##print attrDict
     nodeStringList.append(nodeString)
 
-getTree(attrOutputList,root_node,depth)
+getTreeDepthLimited(attrOutputList,root_node,depth,DEPTH_LIMIT)
 
-print '\nDepth to Num Containers/contentInstances Pairs'
-print depthToNumObj.items()
+#print '\nDepth to Num Containers/contentInstances Pairs'
+#print depthToNumObj.items()
 for depth in depthToNumObj.keys():
     depthToCount[depth] = 0
 
@@ -368,18 +333,18 @@ for depth, num in depthToNumObj.iteritems():
     if (num % 2 == 0):
         depthToY[depth] = num / 2 * 500 - 250
 
-if(rootDepth == 0):
-    tempCSE1 = attrOutputList[0]
-    attrOutputList.pop(0)
-    firstString = '{\"output\":{\"responseStatusCode\":2002,\"ResourceOutput\":['
-    lastString = ']}}'
-    for x in xrange(depthToNumObj[1]):
-        rawString = firstString + json.dumps(json.loads(tempCSE1)["output"]["ResourceOutput"][x]) + lastString
-        attrOutputList.insert(x, rawString)
-    #initial for InCSE1 node
-    pathwithid['InCSE1'] = 10000
-    cse1String = '{\"id\":10000,\"label\":\"InCSE1\",\"attributes\":{\"labels\":\"This is InCSE1\",\"resourceType\":\"cseBase\"},\"x\":0,\"y\":0,\"color\":\"rgb(240,0,0)\",\"size\":20},'
-    nodeStringList.append(cse1String)
+tempCSE1 = attrOutputList[0]
+attrOutputList.pop(0)
+
+firstString = '{\"output\":{\"responseStatusCode\":2002,\"ResourceOutput\":['
+lastString = ']}}'
+for x in xrange(depthToNumObj[1]):
+    rawString = firstString + json.dumps(json.loads(tempCSE1)["output"]["ResourceOutput"][x]) + lastString
+    attrOutputList.insert(x, rawString)
+#initial for InCSE1 node
+pathwithid['InCSE1'] = 10000
+cse1String = '{\"id\":10000,\"label\":\"InCSE1\",\"attributes\":{\"labels\":\"This is InCSE1\",\"resourceType\":\"cseBase\"},\"x\":0,\"y\":0,\"color\":\"rgb(240,0,0)\",\"size\":20},'
+nodeStringList.append(cse1String)
 #initial for JSON string attributes
 edgeId = 0
 for raw in attrOutputList:
@@ -412,8 +377,9 @@ json_string = allEdgeString + allNodeString
 #print json_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("/Users/FinleyZhu/Desktop/iot-ui-bigdata/network/data/iot.json", "w")
-text_file.write(pretty_json_string)
+text_file = open("/var/www/html/network/data/iot.json", "w")
+text_file.write(json_string)
 text_file.close()
 print "Content-Type: text/html\n"
 print 'iot.json has been successfully created'
+print 'Depth Limit = ' + str(DEPTH_LIMIT)

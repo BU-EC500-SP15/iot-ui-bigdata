@@ -21,8 +21,8 @@
 
 import json
 import requests
-import cgi
 import cgitb
+import cgi
 
 #resultContent = 1 -> Attributes Only
 Parameter1 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 'resultContent' : '1'}
@@ -38,7 +38,6 @@ Parameter10 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 're
 
 Header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 attrOutputList = list()
-root_node = 'InCSE1'
 server = 'http://54.68.184.172:8282/'
 depthToNumObj = dict()
 depthToCount = dict()
@@ -51,7 +50,7 @@ allNodeString = ''
 allEdgeString = ''
 pathwithid = dict()
 
-
+root_node = cgi.FieldStorage().getvalue('root_node')
 #Set InitialDepth
 depth = 0
 #Exception if root_node is not CSEBase
@@ -371,6 +370,7 @@ for depth, num in depthToNumObj.iteritems():
 if(rootDepth == 0):
     tempCSE1 = attrOutputList[0]
     attrOutputList.pop(0)
+
     firstString = '{\"output\":{\"responseStatusCode\":2002,\"ResourceOutput\":['
     lastString = ']}}'
     for x in xrange(depthToNumObj[1]):
