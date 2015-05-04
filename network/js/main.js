@@ -658,7 +658,7 @@ function nodeActive(a) {
     updateTrigger(b);
     backButton(b);
     getAJAX(b);
- 
+    partialTree(b);
 
     /*  
 
@@ -938,7 +938,7 @@ function createButton(b){
 
 
 function deleteButton(b){
-    $(".deletebutton").click(function(){
+    $(".deletebutton").one('click',function(){
         resource_url="http://54.68.184.172:8282/";
         resource_url = resource_url + path
 
@@ -956,10 +956,9 @@ function deleteButton(b){
                 }
             });
             document.getElementById('editform').style.display="none";
-            if(!isFetch){
-                alert("Delete is sucessfully performed");
-            }
-            isFetch=true;
+            alert("Delete is sucessfully performed");
+            nodeNormal();
+
         }            
         });
     });
@@ -1053,7 +1052,6 @@ function createTrigger(b){
         url= resource_url + headers
 
 
-        var isFetch=false;
         //data = "{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"container\",\"content\":{\"labels\": \"cookies\" ,\"resourceName\": \"cn11\"}}"
        $.ajax({
             url: url,
@@ -1069,10 +1067,8 @@ function createTrigger(b){
                     }
                 });
                 document.getElementById('editform').style.display="none";
-                if(!isFetch){
-                    alert("Create is successfully performed");
-                }
-                isFetch=true;                
+                alert("Create is successfully performed");
+                nodeNormal();               
             }
 
         });
@@ -1157,7 +1153,6 @@ function updateTrigger(b){
     url= resource_url + headers
     //console.log(url)
 
-    var isFetch=false;
     //data = "{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"container\",\"content\":{\"labels\": \"cookies\" ,\"resourceName\": \"cn11\"}}"
     $.ajax({
         url: url,
@@ -1174,10 +1169,8 @@ function updateTrigger(b){
                 }
             });
           document.getElementById('editform').style.display="none";
-          if(!isFetch){
-            alert("Update is successfully performed");
-          }
-          isFetch=true;           
+          alert("Update is successfully performed");
+          nodeNormal();         
         }
     })    
     });
@@ -1188,11 +1181,21 @@ function updateTrigger(b){
 //It mainly changes the file in function initSigma using the variable flag I set up.
 function changeJSON(){
 
-  $("#showlimited").click(function(){
-   flag=1;
-   console.log(flag);
-   $("#sigma-canvas").empty();
-   initSigma(config);
+  $("#showlimited").click(function(){ 
+   var depthInt = limitedLevel();
+   var depthString = depthInt.toString();
+   console.log(depthString);
+   $.ajax({
+    url:"/network/cgi-bin/getTreeDepthLimited.py?depthLimit="+depthString,
+    type:"GET",
+    success:function(msg){
+        flag=1;
+        console.log(flag);
+        $("#sigma-canvas").empty();
+        initSigma(config);
+    }
+   })
+
 
 });
 
@@ -1225,11 +1228,36 @@ function getAJAX(b){
               $(".latestdata").append(t);
            }
            console.log(result);
-        }
-     
+        }    
     })
         $(".latestdata").show();
    })
 }
+
+function limitedLevel(){    
+    var depth = $(".depth").val();
+    if(!isNaN(depth) && (function(x) { return (x | 0) === x; })(parseFloat(depth))){
+
+        return depth;
+    }else{
+        $(".depth").val("Enter Interger Please");
+        return;
+    }
+}
+
+function partialTree(b){
+    $('.getchild').click(function(){
+    var path = getPath(b);
+    $.ajax({
+        url:"/network/cgi-bin/getTreeDepthLimited.py?root_node="+path,
+        type:"GET",
+        success:function(msg){
+            nodeNormal();
+        }
+    });
+    console.log("partialTree")
+    });
+}
+
 
 

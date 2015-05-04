@@ -186,6 +186,20 @@ font-weight: bold;
 font-size:14px;
 
 }
+#errorbox{
+	display:none;
+	position:absolute;
+	top: 25%;
+	left:45%; 
+	width:100px;
+	height:50px;
+	padding:16px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	background-color:white;
+	z-index:2;
+	overflow:auto;
+}
 
 #editform{
 	display:none;
@@ -201,6 +215,7 @@ font-size:14px;
 	z-index:2;
 	overflow:auto;
 }
+
 #editform .headertext {
 	color: #000;
 	margin-bottom: 5px;
