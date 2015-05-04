@@ -843,7 +843,6 @@ function createButton(b){
         console.log(parentType)
         if(parentType=="cseBase"){
             $(".aebutton").show();
-            $(".containerbutton").show();
         }
         if(parentType=="AE"){
             $(".containerbutton").show();
@@ -863,7 +862,6 @@ function createButton(b){
         $(".aebutton").click(function(){
             hidebuttons();
             emptyattributes();
-            $(".backattr").show();
             $(".createtrigger").show();            
             attr=["resourceName","labels","ontologyRef","appName"];
             h ='<strong>resourceType: </strong> '
@@ -882,7 +880,6 @@ function createButton(b){
         $(".containerbutton").click(function(){
             hidebuttons();
             emptyattributes();
-            $(".backattr").show();
             $(".createtrigger").show();
             attr=["resourceName","labels","ontologyRef","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge"];
             h ='<strong>resourceType: </strong> '
@@ -901,8 +898,7 @@ function createButton(b){
 
         $(".contentbutton").click(function(){
             hidebuttons();
-            emptyattributes(); 
-            $(".backattr").show(); 
+            emptyattributes();  
             $(".createtrigger").show();          
             attr=["resourceName","labels","ontologyRef","expirationTime"];
             h ='<strong>resourceType: </strong> '
@@ -922,7 +918,6 @@ function createButton(b){
         $(".subscription").click(function(){
             hidebuttons();
             emptyattributes(); 
-            $(".backattr").show();
             $(".createtrigger").show();       
             attr=["resourceName","labels","ontologyRef","notificationURI","notificationContentType"];
             h ='<strong>resourceType: </strong> '
@@ -1197,6 +1192,7 @@ function updateTrigger(b){
 function changeJSON(){
 
   $("#showlimited").click(function(){ 
+  	$('#wait').show();
    var depthInt = limitedLevel();
    var depthString = depthInt.toString();
    console.log(depthString);
@@ -1204,10 +1200,12 @@ function changeJSON(){
     url:"/network/cgi-bin/getTreeDepthLimited.py?depthLimit="+depthString,
     type:"GET",
     success:function(msg){
+    	$('#wait').hide();
         flag=1;
         console.log(flag);
         $("#sigma-canvas").empty();
         initSigma(config);
+        location.reload(true);
     }
    })
 
@@ -1258,8 +1256,6 @@ function getAJAX(b){
    })
 }
 
-
-//This function is to return the interger that is typed for getting limited level
 function limitedLevel(){    
     var depth = $(".depth").val();
     if(!isNaN(depth) && (function(x) { return (x | 0) === x; })(parseFloat(depth))){
@@ -1274,10 +1270,13 @@ function limitedLevel(){
 function partialTree(b){
     $('.getchild').click(function(){
     getPath(b);
+    $('#wait').show();
     $.ajax({
-        url:"/network/cgi-bin/getTreeDepthLimited.py?root_node="+path,
+        url:"/network/cgi-bin/getChild.py?root_node=" + path,
         type:"GET",
         success:function(msg){
+        	$('#wait').hide();
+        	location.reload(true);
             nodeNormal();
         }
     });

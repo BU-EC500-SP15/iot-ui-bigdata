@@ -172,7 +172,6 @@ $("#open").click(function()
    url: "/network/cgi-bin/getTree.py",
    success: function (msg) {
        $('#wait').hide();
-       alert(msg)
        location.reload(true);
    }
 });
