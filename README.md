@@ -1,7 +1,11 @@
 #IoT Resource Tree Representation for Massive Data Sets
 Introduction:
 
-The goal of the project is to provide a webapp to view 1 million+ data points collected from the OpenDaylight. Visual aids must give the user a sense for extracting meaning from these mass quantities of data in an intuitive way. Our solution will also contain management functions for adding, editing or deleting nodes from the tree. Also optimize the client/server side response time to provide a fluid user experience. At the end of the project, there will be a documentation describing what we have done in detail for Cisco to make further implementation and use.
+The goal of the project is to provide a webapp to view 1 million+ data points collected from the OpenDaylight. Visual aids must give the user a sense for extracting meaning from these mass quantities of data in an intuitive way. Our solution will also contain management functions for adding, editing or deleting nodes from the tree. We also want minimize the client/server side response time to provide a fluid user experience. This documentation should serve as a means of describing our system as well as configuring it for use. 
+
+##System Overview:
+
+![UML Diagram](https://raw.github.com/nkunkel/BU-EC500-SP15/iot-ui-bigdata/master/Docs/IOT_UML.png)
 
 ##Prerequisite
 <b>1. Install Python2</b> (https://www.python.org/downloads/)
