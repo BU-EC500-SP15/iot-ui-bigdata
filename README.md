@@ -46,15 +46,20 @@ We have a Cron job on the server that generates a new JSON file every 10 minute.
 
 
 ![Visualization Example](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/Visual.png)
+This is a screen shot of our visual running in Chrome
 
+Clicking on a resource such as an AE, Container, or contentInstance will render exclusively that node along with its parent and children. It also pulls up a side-panel containing all of the attributes of that node. Among these, include the resource’s name, ID, type, size, number of children, as well as links to its parent and child nodes. 
 
-Clicking on a resource such as an AE, Container, or contentInstance pulls up a side-panel containing all of the attributes of that node. Among these, include the resource’s name, ID, type, size, number of children, as well as links to its parent and child nodes. 
+![Node Focus](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/Focus.png)
 
 
 For nodes with an extremely large number of data points (called contentInstances), it may be difficult to find the most recent collected data. To make this easier, we’ve added a button called “latest” which will conveniently grab and display this latest data.
 
 
-From this panel you can also edit the tree. You can edit or delete the existing node, or even create new ones. These CRUD calls to ODL are done via AJAX.
+From this panel you can also click the edit button to modify the tree. You can edit or delete the existing node, or even create new ones. These CRUD calls to ODL are done via AJAX.
+
+
+![Tree Management](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/Edit.png)
 
 
 You can easily filter or search the visualization if you know the name of a specific resource, resource type, or attribute.
