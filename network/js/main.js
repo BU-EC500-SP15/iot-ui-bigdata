@@ -863,6 +863,7 @@ function createButton(b){
         $(".aebutton").click(function(){
             hidebuttons();
             emptyattributes();
+             $(".backattr").show();
             $(".createtrigger").show();            
             attr=["resourceName","labels","ontologyRef","appName"];
             h ='<strong>resourceType: </strong> '
@@ -881,6 +882,7 @@ function createButton(b){
         $(".containerbutton").click(function(){
             hidebuttons();
             emptyattributes();
+             $(".backattr").show();
             $(".createtrigger").show();
             attr=["resourceName","labels","ontologyRef","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge"];
             h ='<strong>resourceType: </strong> '
@@ -899,7 +901,8 @@ function createButton(b){
 
         $(".contentbutton").click(function(){
             hidebuttons();
-            emptyattributes();  
+            emptyattributes(); 
+             $(".backattr").show();
             $(".createtrigger").show();          
             attr=["resourceName","labels","ontologyRef","expirationTime"];
             h ='<strong>resourceType: </strong> '
@@ -919,6 +922,7 @@ function createButton(b){
         $(".subscription").click(function(){
             hidebuttons();
             emptyattributes(); 
+            $(".backattr").show();
             $(".createtrigger").show();       
             attr=["resourceName","labels","ontologyRef","notificationURI","notificationContentType"];
             h ='<strong>resourceType: </strong> '
