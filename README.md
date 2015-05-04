@@ -45,10 +45,13 @@ However, walking the tree and generating the corresponding sigma.js JSON can tak
 We have a Cron job on the server that generates a new JSON file every 10 minute. This gives us near “real-time” visualization client-side without incurring a time-penalty.
 
 
+![Visualization Example](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/Visualization.png)
+
+
 Clicking on a resource such as an AE, Container, or contentInstance pulls up a side-panel containing all of the attributes of that node. Among these, include the resource’s name, ID, type, size, number of children, as well as links to its parent and child nodes. 
 
 
-For nodes with an extremely large number of data points (called contentInstances), it may be difficult to find the most recent collected data. To make this easier, we’ve added a button called “latest” which will conveniently grab and display this data.
+For nodes with an extremely large number of data points (called contentInstances), it may be difficult to find the most recent collected data. To make this easier, we’ve added a button called “latest” which will conveniently grab and display this latest data.
 
 
 From this panel you can also edit the tree. You can edit or delete the existing node, or even create new ones. These CRUD calls to ODL are done via AJAX.
