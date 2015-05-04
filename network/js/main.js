@@ -956,9 +956,12 @@ function deleteButton(b){
                 }
             });
             document.getElementById('editform').style.display="none";
-            alert("Delete is sucessfully performed");
+            //alert("Delete is sucessfully performed");
             nodeNormal();
 
+        },
+           error:function(error){            
+            alert("Failure in delete")
         }            
         });
     });
@@ -1067,9 +1070,12 @@ function createTrigger(b){
                     }
                 });
                 document.getElementById('editform').style.display="none";
-                alert("Create is successfully performed");
+                //alert("Create is successfully performed");
                 nodeNormal();               
-            }
+            },
+           error:function(error){            
+            alert("Failure in create")
+        }
 
         });
     });
@@ -1162,15 +1168,19 @@ function updateTrigger(b){
         data: data,
         success:function(data){
           $.ajax({
-           type: "POST",
+          type: "POST",
            url: "/network/cgi-bin/getTree.py",
            success: function (msg) {
                location.reload(true);
                 }
             });
           document.getElementById('editform').style.display="none";
-          alert("Update is successfully performed");
+          //alert("Update is successfully performed");
           nodeNormal();         
+        },
+        error:function(error){
+            
+            alert("Failure in update")
         }
     })    
     });
@@ -1200,10 +1210,19 @@ function changeJSON(){
 });
 
     $("#showall").click(function(){
-    flag = 0;
-    $("#sigma-canvas").empty();
-    initSigma(config);
-   });
+        $('#wait').show();
+        $.ajax({
+        type: "POST",
+        url: "/network/cgi-bin/getTree.py",
+        success: function (msg) {
+        $('#wait').hide();
+        flag = 0;
+        $("#sigma-canvas").empty();
+        initSigma(config);
+        location.reload(true);
+        }
+    });
+    });
 }
 
 function getAJAX(b){
