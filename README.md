@@ -8,6 +8,7 @@ The goal of this project is to provide a webapp to visualize 1 million+ data poi
 ![UML Diagram](https://raw.githubusercontent.com/BU-EC500-SP15/iot-ui-bigdata/master/Docs/IOT_UML.png)
 
 <b>Legend</b>
+
 Yellow = EC2 Instance
 
 Green = Server-side Execution
@@ -15,6 +16,48 @@ Green = Server-side Execution
 Red = Web Browser
 
 Blue = Client-side User Functionality in browser
+
+
+<b>Description</b>
+
+
+Open DayLight is a Software Defined Networking Controller platform used for big data collection and distribution. We are running this as a server on our EC2 instance.
+
+
+You interact with this ODL server through CRUD operations sent through HTTP. 
+
+
+We utilized the Python Library Requests to recursively walk through our tree and retrieve all of the attributes for each node. 
+
+
+Next we parsed all of the data we retrieved from each node into a cumulative JSON format
+
+
+We use the shape of the tree and the number of nodes to calculate the position for each node in the visual to minimize overlap when rendering.
+
+
+Finally we re-encode our JSON into the format required by sigma.js, our visualization library.
+
+
+However, walking the tree and generating the corresponding sigma.js JSON can take quite a long time as trees get very large. This is much too long for a user to wait when loading up the visualization in the web browser. To combat this, rather  than generating the JSON on demand, we pre-compile it, and merely serve up the static JSON file to the client’s web browser. This ensure we have super smooth and low latency render.
+
+
+We have a Cron job on the server that generates a new JSON file every 10 minute. This gives us near “real-time” visualization client-side without incurring a time-penalty.
+
+
+Clicking on a resource such as an AE, Container, or contentInstance pulls up a side-panel containing all of the attributes of that node. Among these, include the resource’s name, ID, type, size, number of children, as well as links to its parent and child nodes. 
+
+
+For nodes with an extremely large number of data points (called contentInstances), it may be difficult to find the most recent collected data. To make this easier, we’ve added a button called “latest” which will conveniently grab and display this data.
+
+
+From this panel you can also edit the tree. You can edit or delete the existing node, or even create new ones. These CRUD calls to ODL are done via AJAX.
+
+
+You can easily filter or search the visualization if you know the name of a specific resource, resource type, or attribute.
+
+
+In order to be more real-time we’ve added the option to refresh the tree. The user can choose to either refresh the whole tree, thereby incurring a potentially large time penalty, OR choose to merely update the current node along with a user-specified level depth to render. This results in a MUCH quicker render while still giving the user the real-time data they want. We feel this is a very good trade-off between functionality and usability.
 
 
 ##Prerequisite
