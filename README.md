@@ -67,8 +67,9 @@ From this panel you can also click the edit button to modify the tree. You can e
 
 In order to be more real-time we’ve added the option to refresh the tree. The user can choose to either refresh the whole tree, thereby incurring a potentially large time penalty, OR choose to merely update the current node along with a user-specified level depth to render. This results in a MUCH quicker render while still giving the user the real-time data they want. We feel this is a very good trade-off between functionality and usability.
 
+##Installation and Configuration
 
-##Prerequisite
+##Prerequisites
 <b>1. Install Python2</b> (https://www.python.org/downloads/)
 
 <b>2. Install Apache2</b> (http://apache.org/dyn/closer.cgi)
@@ -109,12 +110,32 @@ After done this, restart apache server:
 <b>3. Put everything into apache web server folder</b>
 
     cp -r iot-ui-bigdata/network /var/www/html/
+    
+##Configuring Cron Job
+
+<b>Compiling JSON on interval</b>
+
+This will make the server compile a new static JSON image of the tree every 10 minutes.
+This will be the data the user will see in their web browser visual. For smaller amounts of data you may want to lower this interval in order to behave more "real-time." For extremely large sets of data you may need to increase this interval for the server to be able to process the entire tree. 
+
+Open cronjob:
+
+    crontab -e
+
+Write and save:
+
+    */10 * * * *  /usr/bin/python /PATH/TO/SCRIPT/getTree.py >/dev/null 2>&1
+
+Change the interval by modifying the 10 value. (the / acts as a mod, with the first * signifying minutes and the second * signifying hours). For example an interval every 45 minutes would look like:
+
+    */45 * * * *  /usr/bin/python /PATH/TO/SCRIPT/getTree.py >/dev/null 2>&1
+
 
 ##Using visualization tool
 
 <b>Access tool</b>
 
- After successfully configure Apache, using this address to access
+ After successfully configure Apache, use this URL to access
 
     http://localhost/network/index.html?config=config_ukgov.json
 
