@@ -158,7 +158,7 @@ And you are ready to go!
 
 There is another replica of this tool on our EC2 instance, feel free to try it out.
 
-    http://54.68.184.172/network/iotdefault.html?config=config_ukgov.json
+    http://54.68.184.172/network/index.html?config=config_ukgov.json
 
 ##Special Thanks
 
