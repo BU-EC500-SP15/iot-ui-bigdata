@@ -93,7 +93,7 @@ In Ubuntu system, Apache conf file location is:
 
 Then add into it:
 
-<b>Notice</b>: The directory path below is telling apache which folder can execute python, if you put /network folder to another place, <b>you must change the directory down below to let it point to location of /cgi-bin and /network</b>. 
+<b>Notice</b>: The directory path below is telling apache which folder can execute python, if you put /network folder to another place, <b>you must change the directory path down below to let it point to location of /cgi-bin and /network</b>. 
 
     <Directory /var/www/html/network/cgi-bin>
         Options ExecCGI
