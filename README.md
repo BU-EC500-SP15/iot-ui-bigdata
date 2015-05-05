@@ -111,7 +111,7 @@ After done this, restart apache server:
 
 <b>3. Put everything into apache web server folder</b>
 
-<b>Notice</b>: The folder /var/www/html can be changed as long as it's in Apache server
+<b>Notice</b>: The directory of /network folder can be changed as long as it can be hosted by Apache
 
     cp -r iot-ui-bigdata/network /var/www/html/
 
