@@ -67,16 +67,14 @@ def getTree(attrOutputList,root_node,depth):
     errorFlag = 0
 
     #Info we need
-    numChild = 0
-    numContainer = 0
-    numContentInstance = 0
+    numChildren = {'numChild' : '0', 'numContainer' : '0', 'numContentInstance' : '0'}
 
     #Current depth in tree
     depth += 1
 
     #Construct URI for root_node
     URI = server + str(root_node)
-    #print URI
+    print URI
 
     #Do GET request for attributes of object (p10)
     r = requests.get(URI, params = Parameter10, headers = Header)
@@ -106,32 +104,25 @@ def getTree(attrOutputList,root_node,depth):
     
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
-        for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
-            if(attr['attributeName'] == 'child-resource number'):
-                numChild = attr['attributeValue']
-                #Get number of children
-                if(numChild  == "0"):
-                    #Found no children
-                    continue
-            if(attr['attributeName'] == 'Total Child Resource Number'):
-                #Get number of children
-                numChild = attr['attributeValue']
-                if(numChild == "0"):
-                    #Found no children
-                    continue
-            if(attr['attributeName'] == 'Child-ResourceContainer Number'):
-                #Get number of containers
-                numContainer = attr['attributeValue']
-            if(attr['attributeName'] == 'Child-ResourceContentInstance Number'):
-                #Get number of contentInstances
-                numContentInstance = attr['attributeValue']
-        
+        print "numChildren before = "
+        print numChildren['numChild']
+        print numChildren['numContainer']
+        print numChildren['numContentInstance']
+        checkNumChildren(resourceOutput,x, numChildren)
+        print "numChildren after = "
+        print numChildren['numChild']
+        print numChildren['numContainer']
+        print numChildren['numContentInstance']
+
+        if(numChildren['numChild'] == '0'):
+            continue
+
         #Do 2nd GET request for list of children
         #This get will be redone x # of times (only need once)
         #consider adding if condition to only do it if x = 0
         r = requests.get(URI, params = Parameter6, headers = Header)
         resourceOutputCListRaw = r.text
-        #print resourceOutputCListRaw
+        print resourceOutputCListRaw
         resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
         
         #Check that we got valid response
@@ -142,14 +133,14 @@ def getTree(attrOutputList,root_node,depth):
         #Child-container List is string and therefore needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-container List'):
-                #print attr['attributeValue']
+                print attr['attributeValue']
                 #Parse Child-Container List
                 containerList = attr['attributeValue'].split(', ')
                 count = 0
-                #print 'numChild = ' + str(numChild) #TEST
-                #print 'numContainer = ' + str(numContainer) #TEST
-                #print 'numContentInstance = ' + str(numContentInstance) #TEST
-                #print 'X =' + str(x)
+                print 'numChild = ' + str(numChildren['numChild']) #TEST
+                print 'numContainer = ' + str(numChildren['numContainer']) #TEST
+                print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
+                print 'X =' + str(x)
 
                 #Iterate and Recurse on every container
                 for container in containerList:
@@ -157,35 +148,35 @@ def getTree(attrOutputList,root_node,depth):
                         return
                     count += 1
                     #If 1 container -> remove [ and ]
-                    if(numContainer == '1'):
-                        #print container[1:-1]
+                    if(numChildren['numContainer'] == '1'):
+                        print container[1:-1]
                         getTree(attrOutputList,container[1:-1], depth)
                         continue
                     #First container -> remove [
                     if(count == 1):
-                        #print container[1:] #TEST
+                        print container[1:] #TEST
                         getTree(attrOutputList,container[1:], depth)
                         continue
                     #Last container -> remove ]
-                    if(str(count) == numContainer):
-                        #print container[:-1] #TEST
+                    if(str(count) == numChildren['numContainer']):
+                        print container[:-1] #TEST
                         getTree(attrOutputList,container[:-1], depth)
                         continue
                     #Other container -> remove nothing
-                    #print container #TEST
+                    print container #TEST
                     getTree(attrOutputList,container, depth)
         #Get attributes of every content Instance in Child-contentInstance List
         #Child-contentInstance List is string and needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-contentInstance List'):
-                ##print attr['attributeValue']
+                print attr['attributeValue']
                 #Parse child-contentInstance List
                 contentInstanceList = attr['attributeValue'].split(', ')
                 count = 0
-                #print 'numChild = ' + str(numChild) #TEST
-                #print 'numContainer = ' + str(numContainer) #TEST
-                #print 'numContentInstance = ' + str(numContentInstance) #TEST
-                #print 'X =' + str(x)
+                print 'numChild = ' + str(numChildren['numChild']) #TEST
+                print 'numContainer = ' + str(numChildren['numContainer']) #TEST
+                print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
+                print 'X =' + str(x)
 
                 #Iterate through contentInstances
                 for contentInstance in contentInstanceList:
@@ -193,22 +184,22 @@ def getTree(attrOutputList,root_node,depth):
                         return
                     count += 1
                     #If 1 contentInstance -> remove [ and ]
-                    if(numContentInstance == '1'):
-                        #print contentInstance[1:-1] #TEST
+                    if(numChildren['numContentInstance'] == '1'):
+                        print contentInstance[1:-1] #TEST
                         getContentInstance(attrOutputList,contentInstance[1:-1], depth+1, count)
                         return
                     #First contentInstance -> remove [
                     if(count == 1):
-                        #print contentInstance[1:] #TEST
+                        print contentInstance[1:] #TEST
                         getContentInstance(attrOutputList,contentInstance[1:],depth+1, count)
                         continue
                     #Last contentInstance -> remove ]
-                    if(str(count) == numContentInstance):
-                        #print contentInstance[:-1]
+                    if(str(count) == numChildren['numContentInstance']):
+                        print contentInstance[:-1]
                         getContentInstance(attrOutputList,contentInstance[:-1],depth+1, count)
                         return
                     #Other contentInstance -> remove nothing
-                    #print contentInstance
+                    print contentInstance
                     getContentInstance(attrOutputList,contentInstance,depth+1, count)
     
     #Print Final JSON Output
@@ -216,6 +207,28 @@ def getTree(attrOutputList,root_node,depth):
         #print attrOutputList
     if(errorFlag == 1):
         print 'ERROR: invalid response from server check log'
+    return
+
+def checkNumChildren(resourceOutput,x,numChildren):
+    for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
+        if(attr['attributeName'] == 'child-resource number'):
+            numChildren['numChild'] = attr['attributeValue']
+            #Get number of children
+            if(numChildren['numChild']  == "0"):
+                #Found no children
+                return
+        if(attr['attributeName'] == 'Total Child Resource Number'):
+            #Get number of children
+            numChildren['numChild'] = attr['attributeValue']
+            if(numChildren['numChild'] == "0"):
+                #Found no children
+                return
+        if(attr['attributeName'] == 'Child-ResourceContainer Number'):
+            #Get number of containers
+            numChildren['numContainer'] = attr['attributeValue']
+        if(attr['attributeName'] == 'Child-ResourceContentInstance Number'):
+            #Get number of contentInstances
+            numChildren['numContentInstance'] = attr['attributeValue']
     return
 
 def getContainer(containerOutputClist):
