@@ -130,6 +130,7 @@ def getTree(attrOutputList,root_node,depth):
         #This get will be redone x # of times (only need once)
         #consider adding if condition to only do it if x = 0
         r = requests.get(URI, params = Parameter6, headers = Header)
+        print URI
         resourceOutputCListRaw = r.text
         #print resourceOutputCListRaw
         resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
@@ -412,7 +413,7 @@ json_string = allEdgeString + allNodeString
 #print json_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("/Users/FinleyZhu/Desktop/iot-ui-bigdata/network/data/iot.json", "w")
+text_file = open("../data/iot.json", "w")
 text_file.write(pretty_json_string)
 text_file.close()
 print "Content-Type: text/html\n"

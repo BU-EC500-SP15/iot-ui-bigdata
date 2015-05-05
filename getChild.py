@@ -412,7 +412,7 @@ json_string = allEdgeString + allNodeString
 #print json_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("/Users/FinleyZhu/Desktop/iot-ui-bigdata/network/data/iot.json", "w")
+text_file = open("../data/iot.json", "w")
 text_file.write(pretty_json_string)
 text_file.close()
 print "Content-Type: text/html\n"

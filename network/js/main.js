@@ -1,5 +1,7 @@
 var sigInst, canvas, $GP,flag = 0;
-
+var serverurl="http://54.68.184.172:8282/";
+var headers = "?from=http:localhost:10000&requestIdentifier=12345";
+var dataHeader = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",'
 //Load configuration file
 var config={};
 
@@ -944,13 +946,13 @@ function createButton(b){
 
 function deleteButton(b){
     $(".deletebutton").one('click',function(){
-        resource_url="http://54.68.184.172:8282/";
+        resource_url=serverurl;
         resource_url = resource_url + path
 
         console.log(resource_url)
         var isFetch=false;
         $.ajax({
-            url:resource_url+'?from=http:localhost:10000&requestIdentifier=12345',
+            url:resource_url+headers,
             type:'DELETE',
             success:function(data){
                 $.ajax({
@@ -1042,7 +1044,7 @@ function createTrigger(b){
             $(".createlabel").append(label);
             return;
         }
-        data = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"' + type +'\",\"content\":{ \"resourceName\":'
+        data = dataHeader + "\"resourceType\": \"" + type +'\",\"content\":{ \"resourceName\":'
         data = data + '\"' + name +'\"';
         var attrarray={"labels":labels,"ontologyRef":ontologyRef,"appName":appName,"expirationTime":expirationTime,"maxNrOfInstances":maxNrOfInstances,"maxByteSize":maxByteSize,"maxInstanceAge":maxInstanceAge,"notificationURI":notificationURI,"notificationContentType":notificationContentType};
         for(item in attrarray){
@@ -1053,10 +1055,10 @@ function createTrigger(b){
         data = data + '}}';
         //console.log(data);
 
-        resource_url = "http://54.68.184.172:8282/" + path;
+        resource_url = serverurl + path;
         //console.log(path)
 
-        headers = "?from=http:localhost:10000&requestIdentifier=12345"
+        //headers = "?from=http:localhost:10000&requestIdentifier=12345"
         url= resource_url + headers
 
 
@@ -1101,7 +1103,7 @@ function updateTrigger(b){
         maxInstanceAge = $("#maxInstanceAge").val();
         notificationURI = $("#notificationURI").val();
         notificationContentType = $("#notificationContentType").val();
-        data = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"' + type +'\",\"content\":{ '
+        data = dataHeader + "\"resourceType\": \"" + type +'\",\"content\":{ ';
 
         if(type =="AE"){
             var attrarray={"labels":labels,"ontologyRef":ontologyRef,"appName":appName};
@@ -1157,10 +1159,10 @@ function updateTrigger(b){
 
 //console.log(data)
 
-   resource_url = "http://54.68.184.172:8282/" + path;
+   resource_url = serverurl + path;
    console.log(path)
 
-    headers = "?from=http:localhost:10000&requestIdentifier=12345"
+    //headers = "?from=http:localhost:10000&requestIdentifier=12345"
     url= resource_url + headers
     //console.log(url)
 
@@ -1239,9 +1241,9 @@ function getAJAX(b){
     $(".latestdata").empty();
     document.getElementById('latestform').style.display="block";
     getPath(b);
-    var resource_url = "http://54.68.184.172:8282/" + path+ "/latest";
-    var headers = "?from=http:localhost:10000&requestIdentifier=12345&resultContent=2"
-    url = resource_url + headers;
+    var resource_url = serverurl + path+ "/latest";
+    var header2= headers+ "&resultContent=2"
+    url = resource_url + header2;
     result="";
     $.ajax({
         url:url,
