@@ -92,7 +92,8 @@ In Ubuntu system, Apache conf file location is:
     /etc/apache2/apache.conf
 
 Then add into it:
-<b>Notice</b>: The directory path below is telling apache which folder can execute python, if you will put /network folder to another place, <b>you must change the directory down below to let it point to location of /cgi-bin and /network</b>. 
+
+<b>Notice</b>: The directory path below is telling apache which folder can execute python, if you put /network folder to another place, <b>you must change the directory down below to let it point to location of /cgi-bin and /network</b>. 
 
     <Directory /var/www/html/network/cgi-bin>
         Options ExecCGI
@@ -109,6 +110,7 @@ After done this, restart apache server:
     sudo service apache2 restart
 
 <b>3. Put everything into apache web server folder</b>
+
 <b>Notice</b>: The folder /var/www/html can be changed as long as it's in Apache server
 
     cp -r iot-ui-bigdata/network /var/www/html/
