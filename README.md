@@ -76,7 +76,7 @@ In order to be more real-time we’ve added the option to refresh the tree. The 
 
 <b>3. Clone iot-ui-bigdata repo:</b>
 
-    git clone https://github.com/CCI-MOC/haas
+    git clone https://github.com/BU-EC500-SP15/iot-ui-bigdata.git
 
 ##Apache Configuration
 <b>1. Enable cgid</b>
