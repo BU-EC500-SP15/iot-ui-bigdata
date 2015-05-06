@@ -74,12 +74,12 @@ def getTree(attrOutputList,root_node,depth):
 
     #Construct URI for root_node
     URI = server + str(root_node)
-    print URI
+    #print URI
 
     #Do GET request for attributes of object (p10)
     r = requests.get(URI, params = Parameter10, headers = Header)
     resourceOutputRaw = r.text
-    #print resourceOutputRaw
+    ##print resourceOutputRaw
     resourceOutput = json.loads(resourceOutputRaw)['output']
     
     #Check that we got valid response
@@ -104,15 +104,15 @@ def getTree(attrOutputList,root_node,depth):
     
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
-        print "numChildren before = "
-        print numChildren['numChild']
-        print numChildren['numContainer']
-        print numChildren['numContentInstance']
+        #print "numChildren before = "
+        #print numChildren['numChild']
+        #print numChildren['numContainer']
+        #print numChildren['numContentInstance']
         checkNumChildren(resourceOutput,x, numChildren)
-        print "numChildren after = "
-        print numChildren['numChild']
-        print numChildren['numContainer']
-        print numChildren['numContentInstance']
+        #print "numChildren after = "
+        #print numChildren['numChild']
+        #print numChildren['numContainer']
+        #print numChildren['numContentInstance']
 
         if(numChildren['numChild'] == '0'):
             continue
@@ -122,7 +122,7 @@ def getTree(attrOutputList,root_node,depth):
         #consider adding if condition to only do it if x = 0
         r = requests.get(URI, params = Parameter6, headers = Header)
         resourceOutputCListRaw = r.text
-        print resourceOutputCListRaw
+        #print resourceOutputCListRaw
         resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
         
         #Check that we got valid response
@@ -133,14 +133,14 @@ def getTree(attrOutputList,root_node,depth):
         #Child-container List is string and therefore needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-container List'):
-                print attr['attributeValue']
+                #print attr['attributeValue']
                 #Parse Child-Container List
                 containerList = attr['attributeValue'].split(', ')
                 count = 0
-                print 'numChild = ' + str(numChildren['numChild']) #TEST
-                print 'numContainer = ' + str(numChildren['numContainer']) #TEST
-                print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
-                print 'X =' + str(x)
+                #print 'numChild = ' + str(numChildren['numChild']) #TEST
+                #print 'numContainer = ' + str(numChildren['numContainer']) #TEST
+                #print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
+                #print 'X =' + str(x)
 
                 #Iterate and Recurse on every container
                 for container in containerList:
@@ -149,34 +149,34 @@ def getTree(attrOutputList,root_node,depth):
                     count += 1
                     #If 1 container -> remove [ and ]
                     if(numChildren['numContainer'] == '1'):
-                        print container[1:-1]
+                        #print container[1:-1]
                         getTree(attrOutputList,container[1:-1], depth)
                         continue
                     #First container -> remove [
                     if(count == 1):
-                        print container[1:] #TEST
+                        #print container[1:] #TEST
                         getTree(attrOutputList,container[1:], depth)
                         continue
                     #Last container -> remove ]
                     if(str(count) == numChildren['numContainer']):
-                        print container[:-1] #TEST
+                        #print container[:-1] #TEST
                         getTree(attrOutputList,container[:-1], depth)
                         continue
                     #Other container -> remove nothing
-                    print container #TEST
+                    #print container #TEST
                     getTree(attrOutputList,container, depth)
         #Get attributes of every content Instance in Child-contentInstance List
         #Child-contentInstance List is string and needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-contentInstance List'):
-                print attr['attributeValue']
+                #print attr['attributeValue']
                 #Parse child-contentInstance List
                 contentInstanceList = attr['attributeValue'].split(', ')
                 count = 0
-                print 'numChild = ' + str(numChildren['numChild']) #TEST
-                print 'numContainer = ' + str(numChildren['numContainer']) #TEST
-                print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
-                print 'X =' + str(x)
+                #print 'numChild = ' + str(numChildren['numChild']) #TEST
+                #print 'numContainer = ' + str(numChildren['numContainer']) #TEST
+                #print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
+                #print 'X =' + str(x)
 
                 #Iterate through contentInstances
                 for contentInstance in contentInstanceList:
@@ -185,26 +185,26 @@ def getTree(attrOutputList,root_node,depth):
                     count += 1
                     #If 1 contentInstance -> remove [ and ]
                     if(numChildren['numContentInstance'] == '1'):
-                        print contentInstance[1:-1] #TEST
+                        #print contentInstance[1:-1] #TEST
                         getContentInstance(attrOutputList,contentInstance[1:-1], depth+1, count)
                         return
                     #First contentInstance -> remove [
                     if(count == 1):
-                        print contentInstance[1:] #TEST
+                        #print contentInstance[1:] #TEST
                         getContentInstance(attrOutputList,contentInstance[1:],depth+1, count)
                         continue
                     #Last contentInstance -> remove ]
                     if(str(count) == numChildren['numContentInstance']):
-                        print contentInstance[:-1]
+                        #print contentInstance[:-1]
                         getContentInstance(attrOutputList,contentInstance[:-1],depth+1, count)
                         return
                     #Other contentInstance -> remove nothing
-                    print contentInstance
+                    #print contentInstance
                     getContentInstance(attrOutputList,contentInstance,depth+1, count)
     
-    #Print Final JSON Output
+    ##Print Final JSON Output
     #if(depth == 1):
-        #print attrOutputList
+        ##print attrOutputList
     if(errorFlag == 1):
         print 'ERROR: invalid response from server check log'
     return
@@ -368,8 +368,8 @@ def generateJsonString(rawInput):
 
 getTree(attrOutputList,root_node,depth)
 
-print '\nDepth to Num Containers/contentInstances Pairs'
-print depthToNumObj.items()
+#print '\nDepth to Num Containers/contentInstances Pairs'
+#print depthToNumObj.items()
 for depth in depthToNumObj.keys():
     depthToCount[depth] = 0
 
