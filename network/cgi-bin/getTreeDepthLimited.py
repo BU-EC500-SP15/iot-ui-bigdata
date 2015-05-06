@@ -60,7 +60,7 @@ depthToNumObj[0] = 1
 
 #Get Depth_Limit passed by AJAX call
 DEPTH_LIMIT = int(cgi.FieldStorage().getvalue('depthLimit'))
-#DEPTH_LIMIT = 2
+#DEPTH_LIMIT = 4
 
 
 def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
@@ -69,9 +69,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     errorFlag = 0
 
     #Info we need
-    numChild = 0
-    numContainer = 0
-    numContentInstance = 0
+    numChildren = {'numChild' : '0', 'numContainer' : '0', 'numContentInstance' : '0'}
 
     #Current depth in tree
     depth += 1
@@ -111,26 +109,9 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
-        for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
-            if(attr['attributeName'] == 'child-resource number'):
-                numChild = attr['attributeValue']
-                #Get number of children
-                if(numChild  == "0"):
-                    #Found no children
-                    continue
-            if(attr['attributeName'] == 'Total Child Resource Number'):
-                #Get number of children
-                numChild = attr['attributeValue']
-                if(numChild == "0"):
-                    #Found no children
-                    continue
-            if(attr['attributeName'] == 'Child-ResourceContainer Number'):
-                #Get number of containers
-                numContainer = attr['attributeValue']
-            if(attr['attributeName'] == 'Child-ResourceContentInstance Number'):
-                #Get number of contentInstances
-                numContentInstance = attr['attributeValue']
-        
+        checkNumChildren(resourceOutput,x, numChildren)
+        if(numChildren['numChild'] == '0'):
+            continue
         #Do 2nd GET request for list of children
         #This get will be redone x # of times (only need once)
         #consider adding if condition to only do it if x = 0
@@ -162,7 +143,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
                         return
                     count += 1
                     #If 1 container -> remove [ and ]
-                    if(numContainer == '1'):
+                    if(numChildren['numContainer'] == '1'):
                         #print container[1:-1]
                         getTreeDepthLimited(attrOutputList,container[1:-1], depth,DEPTH_LIMIT)
                         continue
@@ -172,7 +153,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
                         getTreeDepthLimited(attrOutputList,container[1:], depth,DEPTH_LIMIT)
                         continue
                     #Last container -> remove ]
-                    if(str(count) == numContainer):
+                    if(str(count) == numChildren['numContainer']):
                         #print container[:-1] #TEST
                         getTreeDepthLimited(attrOutputList,container[:-1], depth,DEPTH_LIMIT)
                         continue
@@ -198,7 +179,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
                         return
                     count += 1
                     #If 1 contentInstance -> remove [ and ]
-                    if(numContentInstance == '1'):
+                    if(numChildren['numContentInstance'] == '1'):
                         #print contentInstance[1:-1] #TEST
                         getContentInstance(attrOutputList,contentInstance[1:-1], depth+1, count)
                         return
@@ -208,7 +189,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
                         getContentInstance(attrOutputList,contentInstance[1:],depth+1, count)
                         continue
                     #Last contentInstance -> remove ]
-                    if(str(count) == numContentInstance):
+                    if(str(count) == numChildren['numContentInstance']):
                         #print contentInstance[:-1]
                         getContentInstance(attrOutputList,contentInstance[:-1],depth+1, count)
                         return
@@ -219,6 +200,28 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     #Print Final JSON Output
     if(errorFlag == 1):
         print 'ERROR: invalid response from server check log'
+    return
+
+def checkNumChildren(resourceOutput,x,numChildren):
+    for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
+        if(attr['attributeName'] == 'child-resource number'):
+            numChildren['numChild'] = attr['attributeValue']
+            #Get number of children
+            if(numChildren['numChild']  == "0"):
+                #Found no children
+                return
+        if(attr['attributeName'] == 'Total Child Resource Number'):
+            #Get number of children
+            numChildren['numChild'] = attr['attributeValue']
+            if(numChildren['numChild'] == "0"):
+                #Found no children
+                return
+        if(attr['attributeName'] == 'Child-ResourceContainer Number'):
+            #Get number of containers
+            numChildren['numContainer'] = attr['attributeValue']
+        if(attr['attributeName'] == 'Child-ResourceContentInstance Number'):
+            #Get number of contentInstances
+            numChildren['numContentInstance'] = attr['attributeValue']
     return
 
 def getContentInstance(attrOutputList,contentInstancePath, depth,count):
@@ -377,7 +380,7 @@ json_string = allEdgeString + allNodeString
 #print json_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("../data/iot.json", "w")
+text_file = open("network/data/iot.json", "w")
 text_file.write(json_string)
 text_file.close()
 print "Content-Type: text/html\n"
