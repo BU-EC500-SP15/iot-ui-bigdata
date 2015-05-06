@@ -50,8 +50,7 @@ allNodeString = ''
 allEdgeString = ''
 pathwithid = dict()
 
-#root_node = cgi.FieldStorage().getvalue('root_node')
-root_node = 'InCSE1/ae3'
+root_node = cgi.FieldStorage().getvalue('root_node')
 #Set InitialDepth
 depth = 0
 #Exception if root_node is not CSEBase
