@@ -109,8 +109,8 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
-        checkNumChildren(resourceOutput,x, numChildren)
-        if(numChildren['numChild'] == '0'):
+        success = checkNumChildren(resourceOutput,x, numChildren)
+        if(numChildren['numChild'] == '0' or (success == 0)):
             continue
         #Do 2nd GET request for list of children
         #This get will be redone x # of times (only need once)
@@ -203,26 +203,30 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     return
 
 def checkNumChildren(resourceOutput,x,numChildren):
-    for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
-        if(attr['attributeName'] == 'child-resource number'):
-            numChildren['numChild'] = attr['attributeValue']
-            #Get number of children
-            if(numChildren['numChild']  == "0"):
-                #Found no children
-                return
-        if(attr['attributeName'] == 'Total Child Resource Number'):
-            #Get number of children
-            numChildren['numChild'] = attr['attributeValue']
-            if(numChildren['numChild'] == "0"):
-                #Found no children
-                return
-        if(attr['attributeName'] == 'Child-ResourceContainer Number'):
-            #Get number of containers
-            numChildren['numContainer'] = attr['attributeValue']
-        if(attr['attributeName'] == 'Child-ResourceContentInstance Number'):
-            #Get number of contentInstances
-            numChildren['numContentInstance'] = attr['attributeValue']
-    return
+    try:
+        for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
+            if(attr['attributeName'] == 'child-resource number'):
+                numChildren['numChild'] = attr['attributeValue']
+                #Get number of children
+                if(numChildren['numChild']  == "0"):
+                    #Found no children
+                    return
+            if(attr['attributeName'] == 'Total Child Resource Number'):
+                #Get number of children
+                numChildren['numChild'] = attr['attributeValue']
+                if(numChildren['numChild'] == "0"):
+                    #Found no children
+                    return
+            if(attr['attributeName'] == 'Child-ResourceContainer Number'):
+                #Get number of containers
+                numChildren['numContainer'] = attr['attributeValue']
+            if(attr['attributeName'] == 'Child-ResourceContentInstance Number'):
+                #Get number of contentInstances
+                numChildren['numContentInstance'] = attr['attributeValue']
+    except KeyError:
+        print: "Error: No Attributes Field in Resource"
+        return 0
+    return 1
 
 def getContentInstance(attrOutputList,contentInstancePath, depth,count):
     try:    
