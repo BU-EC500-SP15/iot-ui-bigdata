@@ -102,18 +102,14 @@ def getTree(attrOutputList,root_node,depth):
     if(depth != 0):
         depthToNumObj[depth] = (temp + len(resourceOutput['ResourceOutput']))
     
+    #Iterate through every resource (usually one, except for AE which has multiple)
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
-        print "numChildren before = "
-        print numChildren['numChild']
-        print numChildren['numContainer']
-        print numChildren['numContentInstance']
         success = checkNumChildren(resourceOutput,x, numChildren)
-        print "numChildren after = "
-        print numChildren['numChild']
-        print numChildren['numContainer']
-        print numChildren['numContentInstance']
-
+        print 'NumChild = ' + numChildren['numChild']
+        print 'NumContainer = ' + numChildren['numContainer']
+        print 'NumContentInstance = ' + numChildren['numContentInstance']
+        print 'Depth = ' + str(depth)
         if(numChildren['numChild'] == '0' or (success == 0)):
             continue
 
@@ -141,6 +137,7 @@ def getTree(attrOutputList,root_node,depth):
                 print 'numChild = ' + str(numChildren['numChild']) #TEST
                 print 'numContainer = ' + str(numChildren['numContainer']) #TEST
                 print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
+                print 'Depth = ' + str(depth)
                 for container in containerList:
                     if(errorFlag == 1):
                         return
@@ -156,12 +153,16 @@ def getTree(attrOutputList,root_node,depth):
                 contentInstanceListRaw = attr['attributeValue'][1:-1]
                 print contentInstanceListRaw
                 contentInstanceList = contentInstanceListRaw.split(', ')
+                print 'numChild = ' + str(numChildren['numChild']) #TEST
+                print 'numContainer = ' + str(numChildren['numContainer']) #TEST
+                print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
+                print 'Depth = ' + str(depth)
                 print contentInstanceList
                 for contentInstance in contentInstanceList:
                     if(errorFlag == 1):
                         return
                     print contentInstance
-                    getContentInstance(attrOutputList,contentInstance,depth)
+                    getContentInstance(attrOutputList,contentInstance,depth+1)
     
     #Print Final JSON Output
     #if(depth == 1):
