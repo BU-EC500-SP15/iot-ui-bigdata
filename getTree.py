@@ -87,9 +87,6 @@ def getTree(attrOutputList,root_node,depth):
         return
 
     #Append Raw JSON Attributes to List
-    #Potential Problem - before this was just raw output with output and resourceOutput wrapper
-    #Now that we have multiple things in resourceOutput list, the output and resourceOutput wrapper
-    #will only be around the first object (will need modification on Ying Chao's generate json code)
     attrOutputList.append(resourceOutputRaw)
 
     temp = 0
@@ -106,20 +103,17 @@ def getTree(attrOutputList,root_node,depth):
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
         success = checkNumChildren(resourceOutput,x, numChildren)
-        print 'NumChild = ' + numChildren['numChild']
-        print 'NumContainer = ' + numChildren['numContainer']
-        print 'NumContentInstance = ' + numChildren['numContentInstance']
-        print 'Depth = ' + str(depth)
+        printDebugInfo(numChildren,depth) #DEBUG
         if(numChildren['numChild'] == '0' or (success == 0)):
             continue
 
         #Do 2nd GET request for list of children
         #This get will be redone x # of times (only need once)
-        #consider adding if condition to only do it if x = 0
-        r = requests.get(URI, params = Parameter6, headers = Header)
-        resourceOutputCListRaw = r.text
+        if(x == 0):
+            r = requests.get(URI, params = Parameter6, headers = Header)
+            resourceOutputCListRaw = r.text
+            resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
         print resourceOutputCListRaw
-        resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
         
         #Check that we got valid response
         if(checkValidResponse(resourceOutputCList)== 0):
@@ -134,10 +128,7 @@ def getTree(attrOutputList,root_node,depth):
                 containerListRaw = attr['attributeValue'][1:-1]
                 print containerListRaw
                 containerList = containerListRaw.split(', ')
-                print 'numChild = ' + str(numChildren['numChild']) #TEST
-                print 'numContainer = ' + str(numChildren['numContainer']) #TEST
-                print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
-                print 'Depth = ' + str(depth)
+                printDebugInfo(numChildren,depth) #DEBUG
                 for container in containerList:
                     if(errorFlag == 1):
                         return
@@ -153,10 +144,7 @@ def getTree(attrOutputList,root_node,depth):
                 contentInstanceListRaw = attr['attributeValue'][1:-1]
                 print contentInstanceListRaw
                 contentInstanceList = contentInstanceListRaw.split(', ')
-                print 'numChild = ' + str(numChildren['numChild']) #TEST
-                print 'numContainer = ' + str(numChildren['numContainer']) #TEST
-                print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
-                print 'Depth = ' + str(depth)
+                printDebugInfo(numChildren,depth) #DEBUG
                 print contentInstanceList
                 for contentInstance in contentInstanceList:
                     if(errorFlag == 1):
@@ -236,6 +224,12 @@ def checkValidResponse(containerOutput):
         print 'ERROR - invalid response from server'
         errorFlag = 1
         return 0
+
+def printDebugInfo(numChildren,depth):
+    print 'numChild = ' + str(numChildren['numChild']) #TEST
+    print 'numContainer = ' + str(numChildren['numContainer']) #TEST
+    print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
+    print 'Depth = ' + str(depth)
 
 def generateJsonString(rawInput):
     attrDict = dict()
