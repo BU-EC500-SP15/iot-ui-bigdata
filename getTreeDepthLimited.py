@@ -157,7 +157,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
                     if(errorFlag == 1):
                         return
                     print contentInstance
-                    getContentInstance(attrOutputList,contentInstance,depth+1, count)
+                    getContentInstance(attrOutputList,contentInstance,depth+1)
     
     #Print Final JSON Output
     if(errorFlag == 1):
@@ -190,7 +190,7 @@ def checkNumChildren(resourceOutput,x,numChildren):
         return 0
     return 1
 
-def getContentInstance(attrOutputList,contentInstancePath, depth,count):
+def getContentInstance(attrOutputList,contentInstancePath, depth):
     try:    
         ##print contentInstancePath
         URI = server + str(contentInstancePath)
@@ -199,7 +199,7 @@ def getContentInstance(attrOutputList,contentInstancePath, depth,count):
         #GET request for Attributes of contentInstance
         r = requests.get(URI, params = Parameter10, headers = Header)
         contentInstanceOutputRaw = r.text
-        ##print contentInstanceOutputRaw  #TEST
+        #print contentInstanceOutputRaw  #TEST
         contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
         
         #Check that we got valid response                                                  

@@ -197,44 +197,6 @@ def checkNumChildren(resourceOutput,x,numChildren):
         return 0
     return 1
 
-def getContainer(containerOutputClist):
-    #Recurse getTree on every container in Child-Container List
-    #Child-container List is string and therefore needs to be parsed
-    for attr in containerOutputCList['ResourceOutput'][0]['Attributes']:
-        if(attr['attributeName'] == 'child-container List'):
-            #print attr['attributeValue']
-            
-            #Parse Child-Container List
-            containerList = attr['attributeValue'].split(', ')
-            count = 0
-            #print 'numChild = ' + str(numChild) #TEST
-            #print 'numContainer = ' + str(numContainer) #TEST
-            #print 'numContentInstance = ' + str(numContentInstance) #TEST
-            
-            #Iterate and Recurse on every container
-            for container in containerList:
-                if(errorFlag == 1):
-                    return
-                count += 1
-                #If 1 container -> remove [ and ]
-                if(numContainer == '1'):
-                    ##print container[1:-1]
-                    getTree(attrOutputList,container[1:-1], depth)
-                    continue
-                #First container -> remove [
-                if(count == 1):
-                    ##print container[1:] #TEST
-                    getTree(attrOutputList,container[1:], depth)
-                    continue
-                #Last container -> remove ]
-                if(str(count) == numContainer):
-                    ##print container[:-1] #TEST
-                    getTree(attrOutputList,container[:-1], depth)
-                    continue
-                #Other container -> remove nothing
-                ##print container #TEST
-                getTree(attrOutputList,container, depth)
-
 def getContentInstance(attrOutputList,contentInstancePath, depth):
     try:    
         ##print contentInstancePath
@@ -271,7 +233,7 @@ def checkValidResponse(containerOutput):
     if(containerOutput["responseStatusCode"]==2002):
         return 1
     else:
-        #print 'ERROR - invalid response from server'
+        print 'ERROR - invalid response from server'
         errorFlag = 1
         return 0
 
@@ -358,6 +320,7 @@ if(rootDepth == 0):
     pathwithid['InCSE1'] = 10000
     cse1String = '{\"id\":10000,\"label\":\"InCSE1\",\"attributes\":{\"labels\":\"This is InCSE1\",\"resourceType\":\"cseBase\"},\"x\":0,\"y\":0,\"color\":\"rgb(240,0,0)\",\"size\":20},'
     nodeStringList.append(cse1String)
+
 #initial for JSON string attributes
 edgeId = 0
 for raw in attrOutputList:
