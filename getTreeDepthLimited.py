@@ -68,7 +68,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     global errorFlag
     errorFlag = 0
 
-    #Info we need
+    #Child information about resource
     numChildren = {'numChild' : '0', 'numContainer' : '0', 'numContentInstance' : '0'}
 
     #Current depth in tree
@@ -76,7 +76,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
 
     #Construct URI for root_node
     URI = server + str(root_node)
-    #print URI
+    print 'URI = ' + URI
 
     #Do GET request for attributes of object (p10)
     r = requests.get(URI, params = Parameter10, headers = Header)
@@ -111,6 +111,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
         #Check if container/AE has children
         success = checkNumChildren(resourceOutput,x, numChildren)
         if(numChildren['numChild'] == '0' or (success == 0)):
+            print 'No Children - skipping to next node'
             continue
         #Do 2nd GET request for list of children
         #This get will be redone x # of times (only need once)
@@ -128,73 +129,34 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
         #Child-container List is string and therefore needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-container List'):
-                #print attr['attributeValue']
+                print attr['attributeValue']
                 #Parse Child-Container List
-                containerList = attr['attributeValue'].split(', ')
-                count = 0
-                #print 'numChild = ' + str(numChild) #TEST
-                #print 'numContainer = ' + str(numContainer) #TEST
-                #print 'numContentInstance = ' + str(numContentInstance) #TEST
-                #print 'X =' + str(x)
+                containerListRaw = attr['attributeValue'][1:-1]
+                print containerListRaw
+                containerList = containerListRaw.split(', ')
 
                 #Iterate and Recurse on every container
                 for container in containerList:
                     if(errorFlag == 1):
                         return
-                    count += 1
-                    #If 1 container -> remove [ and ]
-                    if(numChildren['numContainer'] == '1'):
-                        #print container[1:-1]
-                        getTreeDepthLimited(attrOutputList,container[1:-1], depth,DEPTH_LIMIT)
-                        continue
-                    #First container -> remove [
-                    if(count == 1):
-                        #print container[1:] #TEST
-                        getTreeDepthLimited(attrOutputList,container[1:], depth,DEPTH_LIMIT)
-                        continue
-                    #Last container -> remove ]
-                    if(str(count) == numChildren['numContainer']):
-                        #print container[:-1] #TEST
-                        getTreeDepthLimited(attrOutputList,container[:-1], depth,DEPTH_LIMIT)
-                        continue
-                    #Other container -> remove nothing
-                    #print container #TEST
+                    print container
                     getTreeDepthLimited(attrOutputList,container, depth,DEPTH_LIMIT)
+                    
         #Get attributes of every content Instance in Child-contentInstance List
         #Child-contentInstance List is string and needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-contentInstance List'):
-                ##print attr['attributeValue']
+                print attr['attributeValue']
                 #Parse child-contentInstance List
-                contentInstanceList = attr['attributeValue'].split(', ')
-                count = 0
-                #print 'numChild = ' + str(numChild) #TEST
-                #print 'numContainer = ' + str(numContainer) #TEST
-                #print 'numContentInstance = ' + str(numContentInstance) #TEST
-                #print 'X =' + str(x)
+                contentInstanceListRaw = attr['attributeValue'][1:-1]
+                print contentInstanceListRaw
+                contentInstanceList = contentInstanceListRaw.split(', ')
 
                 #Iterate through contentInstances
                 for contentInstance in contentInstanceList:
                     if(errorFlag == 1):
                         return
-                    count += 1
-                    #If 1 contentInstance -> remove [ and ]
-                    if(numChildren['numContentInstance'] == '1'):
-                        #print contentInstance[1:-1] #TEST
-                        getContentInstance(attrOutputList,contentInstance[1:-1], depth+1, count)
-                        return
-                    #First contentInstance -> remove [
-                    if(count == 1):
-                        #print contentInstance[1:] #TEST
-                        getContentInstance(attrOutputList,contentInstance[1:],depth+1, count)
-                        continue
-                    #Last contentInstance -> remove ]
-                    if(str(count) == numChildren['numContentInstance']):
-                        #print contentInstance[:-1]
-                        getContentInstance(attrOutputList,contentInstance[:-1],depth+1, count)
-                        return
-                    #Other contentInstance -> remove nothing
-                    #print contentInstance
+                    print contentInstance
                     getContentInstance(attrOutputList,contentInstance,depth+1, count)
     
     #Print Final JSON Output
