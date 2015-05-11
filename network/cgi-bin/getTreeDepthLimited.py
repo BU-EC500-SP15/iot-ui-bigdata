@@ -76,12 +76,12 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
 
     #Construct URI for root_node
     URI = server + str(root_node)
-    print 'URI = ' + URI
+    ##print 'URI = ' + URI
 
     #Do GET request for attributes of object (p10)
     r = requests.get(URI, params = Parameter10, headers = Header)
     resourceOutputRaw = r.text
-    #print resourceOutputRaw
+    ##print resourceOutputRaw
     resourceOutput = json.loads(resourceOutputRaw)['output']
     
     #Check that we got valid response
@@ -107,9 +107,9 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
         success = checkNumChildren(resourceOutput,x, numChildren)
-        printDebugInfo(numChildren,depth) #DEBUG
+        #printDebugInfo(numChildren,depth) #DEBUG
         if(numChildren['numChild'] == '0' or (success == 0)):
-            print 'No Children - skipping to next node'
+            #print 'No Children - skipping to next node'
             continue
         #Do 2nd GET request for list of children
         #This get will be redone x # of times (only need once)
@@ -117,7 +117,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
             r = requests.get(URI, params = Parameter6, headers = Header)
             resourceOutputCListRaw = r.text
             resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
-        print resourceOutputCListRaw
+        #print resourceOutputCListRaw
         
         #Check that we got valid response
         if(checkValidResponse(resourceOutputCList)== 0):
@@ -127,37 +127,37 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
         #Child-container List is string and therefore needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-container List'):
-                print attr['attributeValue']
+                #print attr['attributeValue']
                 #Parse Child-Container List
                 containerListRaw = attr['attributeValue'][1:-1]
-                print containerListRaw
+                #print containerListRaw
                 containerList = containerListRaw.split(', ')
-                printDebugInfo(numChildren,depth) #DEBUG
+                #printDebugInfo(numChildren,depth) #DEBUG
                 #Iterate and Recurse on every container
                 for container in containerList:
                     if(errorFlag == 1):
                         return
-                    print container
+                    #print container
                     getTreeDepthLimited(attrOutputList,container, depth,DEPTH_LIMIT)
                     
         #Get attributes of every content Instance in Child-contentInstance List
         #Child-contentInstance List is string and needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-contentInstance List'):
-                print attr['attributeValue']
+                #print attr['attributeValue']
                 #Parse child-contentInstance List
                 contentInstanceListRaw = attr['attributeValue'][1:-1]
-                print contentInstanceListRaw
+                #print contentInstanceListRaw
                 contentInstanceList = contentInstanceListRaw.split(', ')
-                printDebugInfo(numChildren,depth) #DEBUG
+                #printDebugInfo(numChildren,depth) #DEBUG
                 #Iterate through contentInstances
                 for contentInstance in contentInstanceList:
                     if(errorFlag == 1):
                         return
-                    print contentInstance
+                    #print contentInstance
                     getContentInstance(attrOutputList,contentInstance,depth+1)
     
-    #Print Final JSON Output
+    ##Print Final JSON Output
     if(errorFlag == 1):
         print 'ERROR: invalid response from server check log'
     return
