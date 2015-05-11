@@ -1,5 +1,5 @@
 var sigInst, canvas, $GP,flag = 0;
-var serverurl="http://54.68.184.172:8282/";
+var serverurl="http://localhost:8282/";
 var headers = "?from=http:localhost:10000&requestIdentifier=12345";
 var dataHeader = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",'
 //Load configuration file

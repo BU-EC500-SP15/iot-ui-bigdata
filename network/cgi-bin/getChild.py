@@ -35,7 +35,7 @@ Parameter10 = {'from': 'http:localhost:10000', 'requestIdentifier': '12345', 're
 
 Header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 attrOutputList = list()
-server = 'http://54.68.184.172:8282/'
+server = 'http://localhost:8282/'
 depthToNumObj = dict()
 depthToCount = dict()
 depthToY = dict()
