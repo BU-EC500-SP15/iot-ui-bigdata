@@ -184,7 +184,7 @@ def checkNumChildren(resourceOutput,x,numChildren):
                 #Get number of contentInstances
                 numChildren['numContentInstance'] = attr['attributeValue']
     except KeyError:
-        print: "Error: No Attributes Field in Resource"
+        print "Error: No Attributes Field in Resource"
         return 0
     return 1
 

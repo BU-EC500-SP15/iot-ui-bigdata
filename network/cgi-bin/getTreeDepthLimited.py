@@ -68,7 +68,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     global errorFlag
     errorFlag = 0
 
-    #Info we need
+    #Child information about resource
     numChildren = {'numChild' : '0', 'numContainer' : '0', 'numContentInstance' : '0'}
 
     #Current depth in tree
@@ -76,7 +76,7 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
 
     #Construct URI for root_node
     URI = server + str(root_node)
-    #print URI
+    print 'URI = ' + URI
 
     #Do GET request for attributes of object (p10)
     r = requests.get(URI, params = Parameter10, headers = Header)
@@ -89,9 +89,6 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
         return
 
     #Append Raw JSON Attributes to List
-    #Potential Problem - before this was just raw output with output and resourceOutput wrapper
-    #Now that we have multiple things in resourceOutput list, the output and resourceOutput wrapper
-    #will only be around the first object (will need modification on Ying Chao's generate json code)
     attrOutputList.append(resourceOutputRaw)
 
     temp = 0
@@ -109,93 +106,56 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
-        checkNumChildren(resourceOutput,x, numChildren)
-        if(numChildren['numChild'] == '0'):
+        success = checkNumChildren(resourceOutput,x, numChildren)
+        printDebugInfo(numChildren,depth) #DEBUG
+        if(numChildren['numChild'] == '0' or (success == 0)):
+            print 'No Children - skipping to next node'
             continue
         #Do 2nd GET request for list of children
         #This get will be redone x # of times (only need once)
-        #consider adding if condition to only do it if x = 0
-        r = requests.get(URI, params = Parameter6, headers = Header)
-        resourceOutputCListRaw = r.text
-        #print resourceOutputCListRaw
-        resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
+        if(x == 0):
+            r = requests.get(URI, params = Parameter6, headers = Header)
+            resourceOutputCListRaw = r.text
+            resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
+        print resourceOutputCListRaw
         
         #Check that we got valid response
         if(checkValidResponse(resourceOutputCList)== 0):
             return
-        
+            
         #Recurse getTree on every container in Child-Container List
         #Child-container List is string and therefore needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-container List'):
-                #print attr['attributeValue']
+                print attr['attributeValue']
                 #Parse Child-Container List
-                containerList = attr['attributeValue'].split(', ')
-                count = 0
-                #print 'numChild = ' + str(numChild) #TEST
-                #print 'numContainer = ' + str(numContainer) #TEST
-                #print 'numContentInstance = ' + str(numContentInstance) #TEST
-                #print 'X =' + str(x)
-
+                containerListRaw = attr['attributeValue'][1:-1]
+                print containerListRaw
+                containerList = containerListRaw.split(', ')
+                printDebugInfo(numChildren,depth) #DEBUG
                 #Iterate and Recurse on every container
                 for container in containerList:
                     if(errorFlag == 1):
                         return
-                    count += 1
-                    #If 1 container -> remove [ and ]
-                    if(numChildren['numContainer'] == '1'):
-                        #print container[1:-1]
-                        getTreeDepthLimited(attrOutputList,container[1:-1], depth,DEPTH_LIMIT)
-                        continue
-                    #First container -> remove [
-                    if(count == 1):
-                        #print container[1:] #TEST
-                        getTreeDepthLimited(attrOutputList,container[1:], depth,DEPTH_LIMIT)
-                        continue
-                    #Last container -> remove ]
-                    if(str(count) == numChildren['numContainer']):
-                        #print container[:-1] #TEST
-                        getTreeDepthLimited(attrOutputList,container[:-1], depth,DEPTH_LIMIT)
-                        continue
-                    #Other container -> remove nothing
-                    #print container #TEST
+                    print container
                     getTreeDepthLimited(attrOutputList,container, depth,DEPTH_LIMIT)
+                    
         #Get attributes of every content Instance in Child-contentInstance List
         #Child-contentInstance List is string and needs to be parsed
         for attr in resourceOutputCList['ResourceOutput'][x]['Attributes']:
             if(attr['attributeName'] == 'child-contentInstance List'):
-                ##print attr['attributeValue']
+                print attr['attributeValue']
                 #Parse child-contentInstance List
-                contentInstanceList = attr['attributeValue'].split(', ')
-                count = 0
-                #print 'numChild = ' + str(numChild) #TEST
-                #print 'numContainer = ' + str(numContainer) #TEST
-                #print 'numContentInstance = ' + str(numContentInstance) #TEST
-                #print 'X =' + str(x)
-
+                contentInstanceListRaw = attr['attributeValue'][1:-1]
+                print contentInstanceListRaw
+                contentInstanceList = contentInstanceListRaw.split(', ')
+                printDebugInfo(numChildren,depth) #DEBUG
                 #Iterate through contentInstances
                 for contentInstance in contentInstanceList:
                     if(errorFlag == 1):
                         return
-                    count += 1
-                    #If 1 contentInstance -> remove [ and ]
-                    if(numChildren['numContentInstance'] == '1'):
-                        #print contentInstance[1:-1] #TEST
-                        getContentInstance(attrOutputList,contentInstance[1:-1], depth+1, count)
-                        return
-                    #First contentInstance -> remove [
-                    if(count == 1):
-                        #print contentInstance[1:] #TEST
-                        getContentInstance(attrOutputList,contentInstance[1:],depth+1, count)
-                        continue
-                    #Last contentInstance -> remove ]
-                    if(str(count) == numChildren['numContentInstance']):
-                        #print contentInstance[:-1]
-                        getContentInstance(attrOutputList,contentInstance[:-1],depth+1, count)
-                        return
-                    #Other contentInstance -> remove nothing
-                    #print contentInstance
-                    getContentInstance(attrOutputList,contentInstance,depth+1, count)
+                    print contentInstance
+                    getContentInstance(attrOutputList,contentInstance,depth+1)
     
     #Print Final JSON Output
     if(errorFlag == 1):
@@ -203,28 +163,32 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
     return
 
 def checkNumChildren(resourceOutput,x,numChildren):
-    for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
-        if(attr['attributeName'] == 'child-resource number'):
-            numChildren['numChild'] = attr['attributeValue']
-            #Get number of children
-            if(numChildren['numChild']  == "0"):
-                #Found no children
-                return
-        if(attr['attributeName'] == 'Total Child Resource Number'):
-            #Get number of children
-            numChildren['numChild'] = attr['attributeValue']
-            if(numChildren['numChild'] == "0"):
-                #Found no children
-                return
-        if(attr['attributeName'] == 'Child-ResourceContainer Number'):
-            #Get number of containers
-            numChildren['numContainer'] = attr['attributeValue']
-        if(attr['attributeName'] == 'Child-ResourceContentInstance Number'):
-            #Get number of contentInstances
-            numChildren['numContentInstance'] = attr['attributeValue']
-    return
+    try:
+        for attr in resourceOutput['ResourceOutput'][x]['Attributes']:
+            if(attr['attributeName'] == 'child-resource number'):
+                numChildren['numChild'] = attr['attributeValue']
+                #Get number of children
+                if(numChildren['numChild']  == "0"):
+                    #Found no children
+                    return
+            if(attr['attributeName'] == 'Total Child Resource Number'):
+                #Get number of children
+                numChildren['numChild'] = attr['attributeValue']
+                if(numChildren['numChild'] == "0"):
+                    #Found no children
+                    return
+            if(attr['attributeName'] == 'Child-ResourceContainer Number'):
+                #Get number of containers
+                numChildren['numContainer'] = attr['attributeValue']
+            if(attr['attributeName'] == 'Child-ResourceContentInstance Number'):
+                #Get number of contentInstances
+                numChildren['numContentInstance'] = attr['attributeValue']
+    except KeyError:
+        print "Error: No Attributes Field in Resource"
+        return 0
+    return 1
 
-def getContentInstance(attrOutputList,contentInstancePath, depth,count):
+def getContentInstance(attrOutputList,contentInstancePath, depth):
     try:    
         ##print contentInstancePath
         URI = server + str(contentInstancePath)
@@ -233,7 +197,7 @@ def getContentInstance(attrOutputList,contentInstancePath, depth,count):
         #GET request for Attributes of contentInstance
         r = requests.get(URI, params = Parameter10, headers = Header)
         contentInstanceOutputRaw = r.text
-        ##print contentInstanceOutputRaw  #TEST
+        #print contentInstanceOutputRaw  #TEST
         contentInstanceOutput = json.loads(contentInstanceOutputRaw)['output']
         
         #Check that we got valid response                                                  
@@ -264,6 +228,12 @@ def checkValidResponse(containerOutput):
         #print 'ERROR - invalid response from server'
         errorFlag = 1
         return 0
+
+def printDebugInfo(numChildren,depth):
+    print 'numChild = ' + str(numChildren['numChild']) #TEST
+    print 'numContainer = ' + str(numChildren['numContainer']) #TEST
+    print 'numContentInstance = ' + str(numChildren['numContentInstance']) #TEST
+    print 'Depth = ' + str(depth)
 
 def generateJsonString(rawInput):
     attrDict = dict()
@@ -380,7 +350,7 @@ json_string = allEdgeString + allNodeString
 #print json_string
 parsed = json.loads(json_string)
 pretty_json_string = json.dumps(parsed, indent=4, sort_keys=True)
-text_file = open("../data/iot.json", "w")
+text_file = open("network/data/iot.json", "w")
 text_file.write(json_string)
 text_file.close()
 print "Content-Type: text/html\n"
