@@ -4,6 +4,7 @@ var headers = "?from=http:localhost:10000&requestIdentifier=12345";
 var dataHeader = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",'
 //Load configuration file
 var config={};
+var myRe = /contentInstance/i;
 
 //For debug allow a config=file.json parameter to specify the config
 function GetQueryStringParams(sParam,defaultVal) {
@@ -304,7 +305,7 @@ function configSigmaElements(config) {
     var a = [],
         b,x=1;
 		for (b in sigInst.clusters) {
-            console.log(b)
+            //console.log(b)
             //console.log(sigInst.clusters)
             //console.log(sigInst.clusters[b][0].attr)
             if(b=="rgb(240,0,0)"){
@@ -727,12 +728,13 @@ function initForm(b){
         $(".updatebutton").show();
         //$(".createbutton").show();
         $(".deletebutton").show();
-        if(b.attr.attributes.resourceType=="contentInstance"){
+        if(myRe.test(b.attr.attributes.resourceType)){//use regular expression to test if resourceType is "contentInstance"
             $(".createbutton").hide();
-        }else{
+	}else{
             $(".createbutton").show();
         }
-        if(b.attr.attributes.resourceType=="contentInstance"){
+//	console.log (myRe.test(b.attr.attributes.resourceType));
+        if(myRe.test(b.attr.attributes.resourceType)){
             $(".updatebutton").hide();
         }else{
             $(".updatebutton").show();
@@ -946,11 +948,9 @@ function createButton(b){
 
 function deleteButton(b){
     $(".deletebutton").one('click',function(){
-        resource_url=serverurl;
-        resource_url = resource_url + path
+        resource_url = serverurl + path;
 
-        console.log(resource_url)
-        var isFetch=false;
+        console.log(resource_url);
         $.ajax({
             url:resource_url+headers,
             type:'DELETE',
@@ -994,8 +994,30 @@ function getPath(b){
 function addButton(b){
     $(".addattr").click(function(){
         $('.updateadd').empty();
-        attr=["resourceName","labels","ontologyRef","appName","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge","notificationURI","notificationContentType"];
+	if(b.attr.attributes.resourceType=="AE"){
         attrtype = '<strong></strong>'+
+        '<select id=selectattr><option value="labels">labels</option>'+
+        '<option value="11">ontologyRef</option>'+
+        '<option value="22">appName</option></select>'
+	}
+	if(b.attr.attributes.resourceType=="container"){
+        attrtype = '<strong></strong>'+
+        '<select id=selectattr><option value="labels">labels</option>'+
+        '<option value="11">ontologyRef</option>'+
+        '<option value="33">expirationTime</option>'+
+        '<option value="44">maxNrOfInstances</option>'+
+        '<option value="55">maxByteSize</option>'+
+        '<option value="66">maxInstanceAge</option></select>'
+	}
+	if(b.attr.attributes.resourceType=="subscription"){
+        attrtype = '<strong></strong>'+
+        '<select id=selectattr><option value="labels">labels</option>'+
+        '<option value="11">ontologyRef</option>'+
+        '<option value="77">notificationURI</option>'+
+        '<option value="88">notificationContentType</option></select>'
+	}
+        attr=["resourceName","labels","ontologyRef","appName","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge","notificationURI","notificationContentType"];
+/*        attrtype = '<strong></strong>'+
         '<select id=selectattr><option value="labels">labels</option>'+
         '<option value="11">ontologyRef</option>'+
         '<option value="22">appName</option>'+
@@ -1005,7 +1027,7 @@ function addButton(b){
         '<option value="66">maxInstanceAge</option>'+
         '<option value="77">notificationURI</option>'+
         '<option value="88">notificationContentType</option></select>'
-
+*/
         $(".updateadd").append(attrtype);      
         type=$("#selectattr option:selected").val();
 
