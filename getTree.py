@@ -98,7 +98,7 @@ def getTree(attrOutputList,root_node,depth):
 
     if(depth != 0):
         depthToNumObj[depth] = (temp + len(resourceOutput['ResourceOutput']))
-    
+
     #Iterate through every resource (usually one, except for AE which has multiple)
     for x in range(0, len(resourceOutput['ResourceOutput'])):
         #Check if container/AE has children
@@ -109,10 +109,10 @@ def getTree(attrOutputList,root_node,depth):
 
         #Do 2nd GET request for list of children
         #This get will be redone x # of times (only need once)
-        if(x == 0):
-            r = requests.get(URI, params = Parameter6, headers = Header)
-            resourceOutputCListRaw = r.text
-            resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
+        r = requests.get(URI, params = Parameter6, headers = Header)
+        resourceOutputCListRaw = r.text
+        resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
+        print resourceOutputCList
         print resourceOutputCListRaw
         
         #Check that we got valid response
