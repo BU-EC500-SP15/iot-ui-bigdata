@@ -111,12 +111,11 @@ def getTreeDepthLimited(attrOutputList,root_node,depth, DEPTH_LIMIT):
         if(numChildren['numChild'] == '0' or (success == 0)):
             print 'No Children - skipping to next node'
             continue
+            
         #Do 2nd GET request for list of children
-        #This get will be redone x # of times (only need once)
-        if(x == 0):
-            r = requests.get(URI, params = Parameter6, headers = Header)
-            resourceOutputCListRaw = r.text
-            resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
+        r = requests.get(URI, params = Parameter6, headers = Header)
+        resourceOutputCListRaw = r.text
+        resourceOutputCList = json.loads(resourceOutputCListRaw)['output']
         print resourceOutputCListRaw
         
         #Check that we got valid response
