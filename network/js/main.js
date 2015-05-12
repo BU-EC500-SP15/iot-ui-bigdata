@@ -1,10 +1,11 @@
 var sigInst, canvas, $GP,flag = 0;
-var serverurl="http://localhost:8282/";
+var serverurl="http://54.68.184.172:8282/";
 var headers = "?from=http:localhost:10000&requestIdentifier=12345";
 var dataHeader = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",'
 //Load configuration file
 var config={};
 var myRe = /contentInstance/i;
+var isCreate=false,isUpdate=false,isDelete=false;
 
 //For debug allow a config=file.json parameter to specify the config
 function GetQueryStringParams(sParam,defaultVal) {
@@ -948,12 +949,17 @@ function createButton(b){
 
 function deleteButton(b){
     $(".deletebutton").one('click',function(){
+	if(isDelete){
+		return;
+	}
+	isDelete = true;
         resource_url = serverurl + path;
 
         console.log(resource_url);
         $.ajax({
             url:resource_url+headers,
             type:'DELETE',
+	    async:false,
             success:function(data){
                 $.ajax({
                type: "POST",
@@ -969,7 +975,10 @@ function deleteButton(b){
         },
            error:function(error){            
             alert("Failure in delete")
-        }            
+        },
+	  complete:function(){
+		isDelete = false;
+	}            
         });
     });
 }
@@ -1048,6 +1057,10 @@ function backButton(b){
 
 function createTrigger(b){
     $(".createtrigger").click(function(){
+	if(isCreate){
+	    return;
+	}
+	isCreate = true;
         $(".createlabel").empty();
         type = $('#resourceType').val();
         name = $("#resourceName").val();
@@ -1090,10 +1103,12 @@ function createTrigger(b){
             type:'POST',
             dataType:'json',
             data: data,
+	    async:false,
             success:function(data){
                 $.ajax({
                 type: "POST",
                 url: "/network/cgi-bin/getTree.py",
+		async:false,
                 success: function (msg) {
                    location.reload(true);
                     }
@@ -1104,9 +1119,12 @@ function createTrigger(b){
             },
            error:function(error){            
             alert("Failure in create")
-        }
-
+        },
+	  complete:function()
+	{	isCreate =false;
+	}
         });
+	console.log(isCreate);
     });
 }
 
@@ -1114,6 +1132,10 @@ function createTrigger(b){
 
 function updateTrigger(b){
     $(".updatetrigger").click(function(){
+	if(isUpdate){
+		return;
+	}
+	isUpdate = true;
         $(".createlabel").empty();
         type = b.attr.attributes.resourceType;
         labels = $("#labels").val();
@@ -1195,6 +1217,7 @@ function updateTrigger(b){
         dataType:'json',
         contentType:'application/json',
         data: data,
+	async:false,
         success:function(data){
           $.ajax({
           type: "POST",
@@ -1210,7 +1233,10 @@ function updateTrigger(b){
         error:function(error){
             
             alert("Failure in update")
-        }
+        },
+	complete:function(){
+		isUpdate = false;
+	}
     })    
     });
 
