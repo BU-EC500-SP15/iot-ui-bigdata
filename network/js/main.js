@@ -5,6 +5,8 @@ var dataHeader = '{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"
 //Load configuration file
 var config={};
 var myRe = /contentInstance/i;
+var mySub = /subscription/i;
+var myContainer = /container/i;
 var isCreate=false,isUpdate=false,isDelete=false;
 
 //For debug allow a config=file.json parameter to specify the config
@@ -854,12 +856,12 @@ function createButton(b){
             $(".containerbutton").show();
            // $(".subscription").show();
         }
-        if(parentType=="container"){
+        if(myContainer.test(parentType)){
             $(".containerbutton").show();
             $(".contentbutton").show();
             //$(".subscription").show();
         }
-        if(parentType=="subscription"||parentType=="contentInstance"){
+        if(mySub.test(parentType)||parentType=="contentInstance"){
             label = "You can't create children under this"
             $(".createlabel").append(label);
             return;
@@ -909,7 +911,7 @@ function createButton(b){
             emptyattributes(); 
              $(".backattr").show();
             $(".createtrigger").show();          
-            attr=["resourceName","labels","ontologyRef","expirationTime"];
+            attr=["content","resourceName","labels","ontologyRef","expirationTime"];
             h ='<strong>resourceType: </strong> '
             t = '<input type="text" id="resourceType" name="resourceType" value="contentInstance" readOnly="true"/><br/>'
             $(".createdata").append(h);
@@ -1018,7 +1020,7 @@ function addButton(b){
         '<option value="55">maxByteSize</option>'+
         '<option value="66">maxInstanceAge</option></select>'
 	}
-	if(b.attr.attributes.resourceType=="subscription"){
+	if(mySub.test(b.attr.attributes.resourceType)){
         attrtype = '<strong></strong>'+
         '<select id=selectattr><option value="labels">labels</option>'+
         '<option value="11">ontologyRef</option>'+
@@ -1074,22 +1076,23 @@ function createTrigger(b){
         notificationURI = $("#notificationURI").val();
         notificationContentType = $("#notificationContentType").val();
 
-        if(name==""){
+ /*       if(name==""){
             var label = "You must have a resourceName"
             $(".createlabel").append(label);
             return;
-        }
-        data = dataHeader + "\"resourceType\": \"" + type +'\",\"content\":{ \"resourceName\":'
-        data = data + '\"' + name +'\"';
-        var attrarray={"labels":labels,"ontologyRef":ontologyRef,"appName":appName,"expirationTime":expirationTime,"maxNrOfInstances":maxNrOfInstances,"maxByteSize":maxByteSize,"maxInstanceAge":maxInstanceAge,"notificationURI":notificationURI,"notificationContentType":notificationContentType};
+        }*/
+        tempData = dataHeader + "\"resourceType\": \"" + type +"\",\"content\":{ "
+       
+        var attrarray={"resourceName":name,"labels":labels,"ontologyRef":ontologyRef,"appName":appName,"expirationTime":expirationTime,"maxNrOfInstances":maxNrOfInstances,"maxByteSize":maxByteSize,"maxInstanceAge":maxInstanceAge,"notificationURI":notificationURI,"notificationContentType":notificationContentType};
         for(item in attrarray){
             if(attrarray[item]!="" && attrarray[item]!=undefined && attrarray[item]!="undefined"){
-                data = data + ',\"' + item + '\":\"'+ attrarray[item] +'\"';
+                tempData = tempData + '\"' + item + '\":\"'+ attrarray[item] +'\",';
             }
         }
-        data = data + '}}';
+        n = tempData.length;
+        data = tempData.substring(0,n-1) + '}}';
         //console.log(data);
-
+        console.log(data)
         resource_url = serverurl + path;
         //console.log(path)
 
@@ -1164,7 +1167,8 @@ function updateTrigger(b){
                 data = data +'\"' + attrtype +'\":\"' + attrvalue+'\",';}
             }
             data = data + '\"resourceName\":\"' + b.label + '\"}}';
-        }else if(type =="container"){
+        }else if(myContainer.test(type)){
+            console.log(myContainer.test(type));
             var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime,"maxNrOfInstances":maxNrOfInstances,"maxByteSize":maxByteSize,"maxInstanceAge":maxInstanceAge};
             for(item in attrarray){
                 if(attrarray[item]!=""&&attrarray[item]!=undefined&&attrarray[item]!="undefined"){
@@ -1180,7 +1184,7 @@ function updateTrigger(b){
                 }
             }
              data = data + '\"resourceName\":\"' + b.label + '\"}}';
-        }else if (type =="subscription"){
+        }else if (mySub.test(type)){
             var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime,"notificationURI":notificationURI,"notificationContentType":notificationContentType}; 
             for(item in attrarray){
                 if(attrarray[item]!=""&&attrarray[item]!=undefined&&attrarray[item]!="undefined"){
@@ -1195,7 +1199,7 @@ function updateTrigger(b){
                     data = data +'\"' + attrtype +'\":\"' + attrvalue+'\",';}
             }
              data = data + '\"resourceName\":\"' + b.label + '\"}}';
-        }else if(type=="contentInstance"){
+        }else if(myRe(type)){
             label = "You cannot update a contentInstance";
             $(".createlabel").append(label);
             return;
@@ -1250,14 +1254,14 @@ function changeJSON(){
   	$('#wait').show();
    var depthInt = limitedLevel();
    var depthString = depthInt.toString();
-   console.log(depthString);
+   //console.log(depthString);
    $.ajax({
     url:"/network/cgi-bin/getTreeDepthLimited.py?depthLimit="+depthString,
     type:"GET",
     success:function(msg){
     	$('#wait').hide();
         flag=1;
-        console.log(flag);
+        //console.log(flag);
         $("#sigma-canvas").empty();
         initSigma(config);
         location.reload(true);
