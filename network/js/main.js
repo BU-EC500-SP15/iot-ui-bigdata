@@ -717,6 +717,14 @@ function showCluster(a) {
     return !1
 }
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
 function initForm(b){
         $(".createlabel").empty();
@@ -988,8 +996,8 @@ function deleteButton(b){
 		isDelete = false;
 	}            
         });
-            sleep(500) 
-    });
+            sleep(500)   
+             });
 }
 
 function getPath(b){
