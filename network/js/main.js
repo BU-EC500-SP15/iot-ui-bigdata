@@ -801,9 +801,13 @@ function updateButton(b){
         temp_array = [];
         g = 0;
         l= '<strong>' + b.label+ ':</strong><br/><br/>'
-        //console.log(l)
+        console.log(b)
         $(".updatedata").append(l);
-        var attrarray=["labels","ontologyRef","appName","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge","notificationURI","notificationContentType"]
+        h = '<strong> resourceName:</strong> ' 
+        t = '<input type="text" id="resourceName"  name="resourceName" value=\"'+ b.label+'\" /><br/>'
+        $(".updatedata").append(h);
+        $(".updatedata").append(t);        
+        var attrarray=["labels","App-ID","AE-ID","pointOfAccess","nodeLink","resourceName","accessControlPolicyIDs","ontologyRef","expirationTime","creationTime","lastModifiedTime","announceTo","announcedAttribute","creator","maxInstanceAge","locationID","ontologyRef","appName","expirationTime","maxNrOfInstances","maxByteSize","expirationTime","creationTime","lastModifiedTime","accessControlPolicyIDs","accessControlPolicyIDs","eventNotificationCriteria","expirationCounter","groupID","notificationURI","notificationForwardingURI","batchNotify","rateLimit","preSubscriptionNotify","pendingNotification","notificationStoragePriority","latestNotify","notificationEventCat","creator","subscriberURI","notificationContentType"]
         for (var attr in b.attr.attributes) {
             var d = b.attr.attributes[attr],
                 h = "";
@@ -854,12 +858,12 @@ function createButton(b){
         }
         if(parentType=="AE"){
             $(".containerbutton").show();
-           // $(".subscription").show();
+            $(".subscription").show();
         }
         if(myContainer.test(parentType)){
             $(".containerbutton").show();
             $(".contentbutton").show();
-            //$(".subscription").show();
+            $(".subscription").show();
         }
         if(mySub.test(parentType)||parentType=="contentInstance"){
             label = "You can't create children under this"
@@ -872,7 +876,7 @@ function createButton(b){
             emptyattributes();
              $(".backattr").show();
             $(".createtrigger").show();            
-            attr=["resourceName","labels","ontologyRef","appName"];
+            attr=["resourceName","expirationTime","accessControlPolicyIDs","creationTime","lastModifiedTime","announceTo","announcedAttribute","labels","appName","App-ID","AE-ID","pointOfAccess","ontologyRef","nodeLink"];
             h ='<strong>resourceType: </strong> '
             t = '<input type="text" id="resourceType" name="resourceType" value="AE" readOnly="true"/><br/>'
             $(".createdata").append(h);
@@ -891,7 +895,7 @@ function createButton(b){
             emptyattributes();
              $(".backattr").show();
             $(".createtrigger").show();
-            attr=["resourceName","labels","ontologyRef","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge"];
+            attr=["resourceName","accessControlPolicyIDs","labels","ontologyRef","expirationTime","creationTime","lastModifiedTime","announceTo","announcedAttribute","creator","maxNrOfInstances","maxByteSize","maxInstanceAge","locationID"];
             h ='<strong>resourceType: </strong> '
             t = '<input type="text" id="resourceType" name="resourceType" value="container" readOnly="true"/><br/>'
             $(".createdata").append(h);
@@ -911,7 +915,7 @@ function createButton(b){
             emptyattributes(); 
              $(".backattr").show();
             $(".createtrigger").show();          
-            attr=["content","resourceName","labels","ontologyRef","expirationTime"];
+            attr=["content","resourceName","creator","labels","ontologyRef","expirationTime","creationTime","announceTo","announcedAttribute","contentInfo"];
             h ='<strong>resourceType: </strong> '
             t = '<input type="text" id="resourceType" name="resourceType" value="contentInstance" readOnly="true"/><br/>'
             $(".createdata").append(h);
@@ -931,7 +935,7 @@ function createButton(b){
             emptyattributes(); 
             $(".backattr").show();
             $(".createtrigger").show();       
-            attr=["resourceName","labels","ontologyRef","notificationURI","notificationContentType"];
+            attr=["resourceName","parentID","expirationTime","creationTime","lastModifiedTime","labels","accessControlPolicyIDs","accessControlPolicyIDs","eventNotificationCriteria","expirationCounter","groupID","notificationURI","notificationForwardingURI","batchNotify","rateLimit","preSubscriptionNotify","pendingNotification","notificationStoragePriority","latestNotify","notificationEventCat","creator","subscriberURI","notificationContentType"];
             h ='<strong>resourceType: </strong> '
             t = '<input type="text" id="resourceType" name="resourceType" value="subscription" readOnly="true"/><br/>'
             $(".createdata").append(h);
@@ -1008,29 +1012,65 @@ function addButton(b){
 	if(b.attr.attributes.resourceType=="AE"){
         attrtype = '<strong></strong>'+
         '<select id=selectattr><option value="labels">labels</option>'+
-        '<option value="11">ontologyRef</option>'+
-        '<option value="22">appName</option></select>'
+        '<option >resourceName</option>'+
+        '<option >expirationTime</option>'+
+        '<option >creationTime</option>'+
+        '<option >lastModifiedTime</option>'+
+        '<option >accessControlPolicyIDs</option>'+
+        '<option >announceTo</option>'+
+        '<option >announcedAttribute</option>'+
+        '<option >appName</option>'+
+        '<option >App-ID</option>'+
+        '<option>AE-ID</option>'+
+        '<option>ontologyRef</option>'+
+        '<option>nodeLink</option>'+
+        '<option>pointOfAccess</option></select>'
 	}
 	if(b.attr.attributes.resourceType=="container"){
         attrtype = '<strong></strong>'+
-        '<select id=selectattr><option value="labels">labels</option>'+
-        '<option value="11">ontologyRef</option>'+
-        '<option value="33">expirationTime</option>'+
-        '<option value="44">maxNrOfInstances</option>'+
-        '<option value="55">maxByteSize</option>'+
-        '<option value="66">maxInstanceAge</option></select>'
+        '<select id=selectattr><option >resourceName</option>'+
+        '<option >labels</option>'+
+        '<option >expirationTime</option>'+
+        '<option >creationTime</option>'+
+        '<option >lastModifiedTime</option>'+
+        '<option >accessControlPolicyIDs</option>'+
+        '<option >announceTo</option>'+
+        '<option >announcedAttribute</option>'+
+        '<option >creator</option>'+
+        '<option >locationID</option>'+
+        '<option >ontologyRef</option>'+
+        '<option >maxNrOfInstances</option>'+
+        '<option >maxByteSize</option>'+
+        '<option >maxInstanceAge</option></select>'
 	}
 	if(mySub.test(b.attr.attributes.resourceType)){
         attrtype = '<strong></strong>'+
-        '<select id=selectattr><option value="labels">labels</option>'+
-        '<option value="11">ontologyRef</option>'+
-        '<option value="77">notificationURI</option>'+
-        '<option value="88">notificationContentType</option></select>'
+        '<select id=selectattr><option >resourceName</option>'+
+        '<option >labels</option>'+
+        '<option >expirationTime</option>'+
+        '<option >creationTime</option>'+
+        '<option >lastModifiedTime</option>'+
+        '<option >accessControlPolicyIDs</option>'+
+        '<option >eventNotificationCriteria</option>'+
+        '<option >expirationCounter</option>'+
+        '<option >notificationURI</option>'+
+        '<option >groupID</option>'+
+        '<option >notificationForwardingURI</option>'+
+        '<option >batchNotify</option>'+
+        '<option >rateLimit</option>'+
+        '<option >latestNotify</option>'+
+        '<option >notificationEventCat</option>'+
+        '<option >creator</option>'+
+        '<option >subscriberURI</option>'+
+        '<option >preSubscriptionNotify</option>'+
+        '<option >pendingNotification</option>'+
+        '<option >notificationContentType</option></select>'
+        '<option >notificationStoragePriority</option></select>'
 	}
         attr=["resourceName","labels","ontologyRef","appName","expirationTime","maxNrOfInstances","maxByteSize","maxInstanceAge","notificationURI","notificationContentType"];
 /*        attrtype = '<strong></strong>'+
         '<select id=selectattr><option value="labels">labels</option>'+
-        '<option value="11">ontologyRef</option>'+
+        '<option >ontologyRef</option>'+
         '<option value="22">appName</option>'+
         '<option value="33">expirationTime</option>'+
         '<option value="44">maxNrOfInstances</option>'+
