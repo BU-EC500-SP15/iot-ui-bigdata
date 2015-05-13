@@ -955,6 +955,7 @@ function createButton(b){
 
 function deleteButton(b){
     $(".deletebutton").one('click',function(){
+    event.stopImmediatePropagation();
 	if(isDelete){
 		return;
 	}
@@ -987,6 +988,7 @@ function deleteButton(b){
 		isDelete = false;
 	}            
         });
+            sleep(500) 
     });
 }
 
@@ -1100,6 +1102,7 @@ function backButton(b){
 
 function createTrigger(b){
     $(".createtrigger").click(function(){
+    event.stopImmediatePropagation();
 	if(isCreate){
 	    return;
 	}
@@ -1169,6 +1172,7 @@ function createTrigger(b){
 	{	isCreate =false;
 	}
         });
+           sleep(500) 
 	console.log(isCreate);
     });
 }
@@ -1177,6 +1181,7 @@ function createTrigger(b){
 
 function updateTrigger(b){
     $(".updatetrigger").click(function(){
+        event.stopImmediatePropagation();
 	if(isUpdate){
 		return;
 	}
@@ -1284,7 +1289,8 @@ function updateTrigger(b){
 	complete:function(){
 		isUpdate = false;
 	}
-    })    
+    })  
+    sleep(500)  
     });
 
 }
