@@ -979,8 +979,9 @@ function deleteButton(b){
             nodeNormal();
 
         },
-           error:function(error){            
-            alert("Failure in delete")
+        error:function(request, status, error){
+            
+            alert(request.responseText)
         },
 	  complete:function(){
 		isDelete = false;
@@ -1160,8 +1161,9 @@ function createTrigger(b){
                 //alert("Create is successfully performed");
                 nodeNormal();               
             },
-           error:function(error){            
-            alert("Failure in create")
+        error:function(request, status, error){
+            
+            alert(request.responseText)
         },
 	  complete:function()
 	{	isCreate =false;
@@ -1261,11 +1263,12 @@ function updateTrigger(b){
         dataType:'json',
         contentType:'application/json',
         data: data,
-	async:false,
+    	async:false,
         success:function(data){
           $.ajax({
           type: "POST",
            url: "/network/cgi-bin/getTree.py",
+           async:false,
            success: function (msg) {
                location.reload(true);
                 }
@@ -1274,9 +1277,9 @@ function updateTrigger(b){
           //alert("Update is successfully performed");
           nodeNormal();         
         },
-        error:function(error){
+        error:function(request, status, error){
             
-            alert("Failure in update")
+            alert(request.responseText)
         },
 	complete:function(){
 		isUpdate = false;
