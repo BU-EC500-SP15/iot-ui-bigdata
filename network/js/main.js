@@ -661,7 +661,8 @@ function nodeActive(a) {
     addButton(b);
 
     createTrigger(b);
-    updateTrigger(b);
+    updateTrigger(b)
+   
     backButton(b);
     getAJAX(b);
     partialTree(b);
@@ -852,6 +853,7 @@ function emptyattributes(){
     $(".updateadd").empty();
     $(".createdata").empty();
     $(".createlabel").empty();
+    $(".errormessage").empty();
 }
 function createButton(b){
     $(".createbutton").click(function(){
@@ -964,39 +966,32 @@ function createButton(b){
 function deleteButton(b){
     $(".deletebutton").one('click',function(){
     event.stopImmediatePropagation();
-	if(isDelete){
-		return;
-	}
-	isDelete = true;
         resource_url = serverurl + path;
-
         console.log(resource_url);
         $.ajax({
             url:resource_url+headers,
             type:'DELETE',
-	    async:false,
+	        async:false,
             success:function(data){
-                $.ajax({
-               type: "POST",
-               url: "/network/cgi-bin/getTree.py",
-               success: function (msg) {
-                   location.reload(true);
-                }
-            });
-            document.getElementById('editform').style.display="none";
-            //alert("Delete is sucessfully performed");
-            nodeNormal();
-
         },
         error:function(request, status, error){
             
             alert(request.responseText)
         },
-	  complete:function(){
-		isDelete = false;
-	}            
+	    complete:function(){
+            $.ajax({
+                type: "GET",
+                url: "/network/cgi-bin/getTree.py",
+                success: function (msg) {
+                    location.reload(true);
+                }
+            });
+            document.getElementById('editform').style.display="none";
+            //alert("Delete is sucessfully performed");
+            nodeNormal();
+	    }            
         });
-            sleep(500)   
+        //    sleep(500)   
              });
 }
 
@@ -1176,12 +1171,21 @@ function createTrigger(b){
             
             alert(request.responseText)
         },
-	  complete:function()
-	{	isCreate =false;
+	   complete:function(){	
+            $.ajax({
+                type: "GET",
+                url: "/network/cgi-bin/getTree.py",
+                async:false,
+                success: function (msg) {
+                    location.reload(true);
+                    }
+                });
+            document.getElementById('editform').style.display="none";
+            //alert("Create is successfully performed");
+            nodeNormal();               
 	}
         });
-           sleep(500) 
-	console.log(isCreate);
+           //sleep(500) 
     });
 }
 
@@ -1190,10 +1194,10 @@ function createTrigger(b){
 function updateTrigger(b){
     $(".updatetrigger").click(function(){
         event.stopImmediatePropagation();
-	if(isUpdate){
-		return;
-	}
-	isUpdate = true;
+	//if(isUpdate){
+	//	return;
+	//}
+	//isUpdate = true;
         $(".createlabel").empty();
         type = b.attr.attributes.resourceType;
         labels = $("#labels").val();
@@ -1223,7 +1227,7 @@ function updateTrigger(b){
             }
             data = data + '\"resourceName\":\"' + b.label + '\"}}';
         }else if(myContainer.test(type)){
-            console.log(myContainer.test(type));
+            //console.log(myContainer.test(type));
             var attrarray={"labels":labels,"ontologyRef":ontologyRef,"expirationTime":expirationTime,"maxNrOfInstances":maxNrOfInstances,"maxByteSize":maxByteSize,"maxInstanceAge":maxInstanceAge};
             for(item in attrarray){
                 if(attrarray[item]!=""&&attrarray[item]!=undefined&&attrarray[item]!="undefined"){
@@ -1233,7 +1237,7 @@ function updateTrigger(b){
             var array=[labels,ontologyRef,expirationTime,maxNrOfInstances,maxByteSize,maxInstanceAge];
             attrtype=$("#selectattr option:selected").text();
             attrvalue=$("#attributeValue").val();
-            if($.inArray(attrtype,array)){
+          if($.inArray(attrtype,array)){
                 if(attrvalue!=""&&attrvalue!="undefined"&&attrvalue!=undefined){
                                   data = data +'\"' + attrtype +'\":\"' + attrvalue+'\",';  
                 }
@@ -1269,6 +1273,7 @@ function updateTrigger(b){
     url= resource_url + headers
     //console.log(url)
 
+
     //data = "{\"from\": \"http:localhost: 10000\",\"requestIdentifier\": \"12345\",\"resourceType\": \"container\",\"content\":{\"labels\": \"cookies\" ,\"resourceName\": \"cn11\"}}"
     $.ajax({
         url: url,
@@ -1278,27 +1283,26 @@ function updateTrigger(b){
         data: data,
     	async:false,
         success:function(data){
-          $.ajax({
-          type: "POST",
-           url: "/network/cgi-bin/getTree.py",
-           async:false,
-           success: function (msg) {
-               location.reload(true);
-                }
-            });
-          document.getElementById('editform').style.display="none";
-          //alert("Update is successfully performed");
-          nodeNormal();         
         },
         error:function(request, status, error){
-            
-            alert(request.responseText)
-        },
-	complete:function(){
-		isUpdate = false;
+            alert(request.responseText);
+            },
+	    complete:function(){
+            $.ajax({
+                type: "GET",
+                url: "/network/cgi-bin/getTree.py",
+                async:false,
+                success: function (msg) {
+                location.reload(true);
+                }
+            });
+            document.getElementById('editform').style.display="none";
+            //alert("Update is successfully performed");
+            nodeNormal();
 	}
     })  
-    sleep(500)  
+//    sleep(500) 
+
     });
 
 }
@@ -1399,6 +1403,7 @@ function partialTree(b){
    
     });
 }
+
 
 
 
